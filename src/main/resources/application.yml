@@ -6,3 +6,6 @@ spring:
     password: booking
     url: jdbc:postgresql://localhost:5436/booking_management
     driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate

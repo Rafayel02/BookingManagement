@@ -37,4 +37,4 @@ create table if not exists restaurants_categories
     type_id       bigint not null,
     foreign key (restaurant_id) references restaurants (id),
     foreign key (type_id) references categories (id)
-    );
+);
