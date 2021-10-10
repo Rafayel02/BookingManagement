@@ -9,5 +9,5 @@ docker run -d \
   -e POSTGRES_USER=booking \
   -e POSTGRES_DB=booking_management \
   -e POSTGRES_PASSWORD=booking \
-  --name bookimg-management \
+  --name booking-management \
   postgres
