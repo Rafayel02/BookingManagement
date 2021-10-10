@@ -1,0 +1,8 @@
+server:
+  port: 5689
+spring:
+  datasource:
+    username: booking
+    password: booking
+    url: jdbc:postgresql://localhost:5436/booking_management
+    driver-class-name: org.postgresql.Driver
