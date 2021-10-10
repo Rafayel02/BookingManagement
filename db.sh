@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set +e
 
-docekr stop booking-management
+docker stop booking-management
 docker rm booking-management
 
 docker run -d \
