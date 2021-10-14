@@ -1,37 +1,36 @@
 package am.aca.bookingmanagement.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name ="reviews", uniqueConstraints = {
-        @UniqueConstraint(name = "user_restaurant_review", columnNames = {"user_id", "restaurant_id"})
+@Table(name = "reviews", uniqueConstraints = {
+        @UniqueConstraint(name = "reviews_user_id_restaurant_id_un", columnNames = {"user_id", "restaurant_id"}),
+        @UniqueConstraint(name = "reviews_rating_or_comment_nn", columnNames = {"rating", "comment"})
 })
-@Setter
 @Getter
-public class Reviews implements Serializable {
+@Setter
+@NoArgsConstructor
+public class Reviews {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 
-    @Column(name = "rating", nullable = true)
-    int rating;
+    @Column(name = "rating")
+    private Integer rating;
 
-    @Column(name = "comment", nullable = true)
-    String comment;
+    @Column(name = "comment")
+    private String comment;
 
-    @ManyToMany(mappedBy = "reviewSet")
-    private Set<Category> categories = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "restaurant_id", referencedColumnName = "id", nullable = false)
+    private Restaurant restaurant;
 
-    public void setRating(int rating) {
-        if(rating >= 0 && rating <= 6) {
-            this.rating = rating;
-        } else throw new IllegalArgumentException();
-    }
 }
