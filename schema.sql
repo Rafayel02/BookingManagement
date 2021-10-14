@@ -14,7 +14,7 @@ create table if not exists restaurants
     email     text             not null unique,
     longitude double precision not null,
     latitude  double precision not null,
-    image     text             default '0',
+    image     text             default 'default',
     address   text             not null
 );
 
