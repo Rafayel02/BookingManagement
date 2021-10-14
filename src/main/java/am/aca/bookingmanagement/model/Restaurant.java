@@ -20,9 +20,9 @@ public class Restaurant {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "location")
-    @Type(type = "jsonb")
-    private Map<String, Double> location;
+//    @Column(name = "location")
+//    @Type(type = "jsonb")
+//    private Map<String, Double> location;
 
     @Column(name = "address")
     private String address;
