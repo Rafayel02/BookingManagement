@@ -1,28 +1,31 @@
 package am.aca.bookingmanagement.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "restaurants")
 @Getter
 @Setter
-public class Restaurant implements Serializable {
+@NoArgsConstructor
+public class Restaurant {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "password", nullable = false)
+    private String password;
 
     @Column(name = "longitude", nullable = false)
     private double longitude;
@@ -33,12 +36,13 @@ public class Restaurant implements Serializable {
     @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "image", nullable = true)
-    private String image;
+    @Column(name = "image_url")
+    private String imageUrl;
+
+    @OneToMany(mappedBy = "restaurant")
+    private Set<Reviews> reviews;
 
     @ManyToMany(mappedBy = "restaurants")
-    private List<Category> categories;
+    private Set<Category> categories;
 
-    @OneToMany(mappedBy = "restaurants")
-    private List<Reviews> reviews;
 }

@@ -1,30 +1,30 @@
 package am.aca.bookingmanagement.model;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "categories")
 @Getter
 @Setter
-public class Category implements Serializable {
+@NoArgsConstructor
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "type", nullable = false)
+    private String type;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JoinTable(
             name = "restaurants_categories",
             joinColumns = {@JoinColumn(name = "type_id")},
             inverseJoinColumns = {@JoinColumn(name = "restaurant_id")})
-    private List<Restaurant> restaurants;
-
+    private Set<Restaurant> restaurants;
 }
