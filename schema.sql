@@ -47,32 +47,3 @@ create table if not exists restaurants_categories
     foreign key (type_id) references categories (id)
 );
 
-
-insert into users(first_name, last_name, email, password)
-values ('ficsxrst', 'lacsst', 'csa', 'pascszs');
-insert into users(first_name, last_name, email, password)
-values ('first1', 'last1', 'email1', 'pass1');
-insert into restaurants(name, email, password, longitude, latitude, address)
-values ('name', 'email', 'pass', 45.02, 44.03, 'add');
-insert into restaurants(name, email, password, longitude, latitude, address)
-values ('name1', 'email1', 'pass1', 43.02, 18.03, 'add');
-insert into categories(type)
-values ('china');
-insert into categories(type)
-values ('mex');
-insert into reviews(user_id, restaurant_id, rating, comment)
-values (1, 2, 5, 'ok');
-insert into reviews(user_id, restaurant_id, rating, comment)
-values (2, 1, 4, 'good');
-insert into restaurants_categories (restaurant_id, type_id)
-values (1, 1);
-insert into restaurants_categories (restaurant_id, type_id)
-values (2, 2);
-
-
-select *
-from users;
-
-
-
-
