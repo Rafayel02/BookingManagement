@@ -12,6 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+//@JsonIgnoreProperties(value = "reviews", allowSetters = true)
 public class User {
 
     @Id
