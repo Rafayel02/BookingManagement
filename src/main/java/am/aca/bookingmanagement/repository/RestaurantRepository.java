@@ -10,10 +10,10 @@ import java.util.Optional;
 @Repository
 public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
-    public Optional<Restaurant> getByName(final String name);
+    public Optional<Restaurant> findByName(final String name);
 
-    public Optional<Restaurant> getByEmail(final String email);
+    public Optional<Restaurant> findByEmail(final String email);
 
-    public Optional<Restaurant>  getByAddress(final String address);
+    public Optional<Restaurant>  findByAddress(final String address);
 
 }
