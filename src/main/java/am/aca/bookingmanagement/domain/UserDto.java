@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.model;
+package am.aca.bookingmanagement.domain;
 
 import lombok.Getter;
 import lombok.Setter;

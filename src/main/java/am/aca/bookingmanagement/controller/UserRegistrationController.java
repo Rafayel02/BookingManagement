@@ -1,6 +1,6 @@
 package am.aca.bookingmanagement.controller;
 
-import am.aca.bookingmanagement.model.User;
+import am.aca.bookingmanagement.domain.User;
 import am.aca.bookingmanagement.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

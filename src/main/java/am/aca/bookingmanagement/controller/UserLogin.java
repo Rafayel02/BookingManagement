@@ -1,14 +1,10 @@
 package am.aca.bookingmanagement.controller;
 
-import am.aca.bookingmanagement.model.Reviews;
-import am.aca.bookingmanagement.model.User;
-import am.aca.bookingmanagement.model.UserDto;
+import am.aca.bookingmanagement.domain.User;
+import am.aca.bookingmanagement.domain.UserDto;
 import am.aca.bookingmanagement.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/login")
