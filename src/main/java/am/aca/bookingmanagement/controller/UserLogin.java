@@ -21,11 +21,11 @@ public class UserLogin {
 
     @PostMapping("/user")
     public ResponseEntity<?> loginUser(@RequestBody final UserDto userDto){
-        System.out.println("******************************");
-        User userByEmail = userRepository.getUserByEmail(userDto.getEmail());
+      /*  System.out.println("******************************");
+        User userByEmail = userRepository.getByEmail(userDto.getEmail());
         System.out.println(userByEmail.getEmail());
-        return ResponseEntity.ok(userByEmail);
-
+        return ResponseEntity.ok(userByEmail);*/
+            return  null;
 //        return  userDto.getEmail();
         }
 
