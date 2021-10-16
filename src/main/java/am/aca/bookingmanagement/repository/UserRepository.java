@@ -1,6 +1,6 @@
 package am.aca.bookingmanagement.repository;
 
-import am.aca.bookingmanagement.domain.User;
+import am.aca.bookingmanagement.domain.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
