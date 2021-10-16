@@ -16,17 +16,18 @@ public class UserLogin {
     private final UserRepository userRepository;
 
     public UserLogin(final UserRepository userRepository) {
+
         this.userRepository = userRepository;
     }
 
-    @PostMapping("/user")
-    public ResponseEntity<?> loginUser(@RequestBody final UserDto userDto){
-        System.out.println("******************************");
-        User userByEmail = userRepository.getUserByEmail(userDto.getEmail());
-        System.out.println(userByEmail.getEmail());
-        return ResponseEntity.ok(userByEmail);
-
-//        return  userDto.getEmail();
-        }
+//    @PostMapping("/user")
+//    public ResponseEntity<?> loginUser(@RequestBody final UserDto userDto){
+//        System.out.println("******************************");
+//        User userByEmail = userRepository.findUserByEmail(userDto.getEmail());
+//        System.out.println(userByEmail.getEmail());
+//        return ResponseEntity.ok(userByEmail);
+//
+////        return  userDto.getEmail();
+//        }
 
 }
