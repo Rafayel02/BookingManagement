@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository<User, Long> {
     @Query(value = "select * from users where email = ?1", nativeQuery = true)
-     public User getUserByEmail(final String email);
+    public User getUserByEmail(final String email);
 
 }
