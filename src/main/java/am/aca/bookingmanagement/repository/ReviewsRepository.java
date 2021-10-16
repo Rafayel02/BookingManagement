@@ -1,7 +1,9 @@
 package am.aca.bookingmanagement.repository;
 
 import am.aca.bookingmanagement.domain.model.Reviews;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ReviewsRepository extends CrudRepository<Reviews, Long> {
+@Repository
+public interface ReviewsRepository extends JpaRepository<Reviews,Long> {
 }
