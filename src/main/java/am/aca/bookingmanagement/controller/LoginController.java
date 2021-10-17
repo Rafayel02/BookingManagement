@@ -2,8 +2,9 @@ package am.aca.bookingmanagement.controller;
 
 import am.aca.bookingmanagement.facade.partnerfacade.partnerloginfacade.PartnerLoginFacade;
 import am.aca.bookingmanagement.facade.partnerfacade.partnerloginfacade.model.PartnerLoginRequestDetails;
-import am.aca.bookingmanagement.facade.userfacade.userloginfacade.UserLoginFacade;
-import am.aca.bookingmanagement.facade.userfacade.userloginfacade.model.UserLoginRequestDetails;
+import am.aca.bookingmanagement.facade.userfacade.userlogindto.UserLoginRequestDetails;
+import am.aca.bookingmanagement.facade.userfacade.userlogindto.UserLoginResponseDetails;
+import am.aca.bookingmanagement.facade.userfacade.UserFacade;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,17 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class LoginController {
 
-    private final UserLoginFacade userLoginFacade;
     private final PartnerLoginFacade partnerLoginFacade;
+    private final UserFacade userFacade;
 
-    public LoginController(UserLoginFacade userLoginFacade, PartnerLoginFacade partnerLoginFacade) {
-        this.userLoginFacade = userLoginFacade;
+    public LoginController(PartnerLoginFacade partnerLoginFacade, final UserFacade userFacade) {
+        this.userFacade = userFacade;
         this.partnerLoginFacade = partnerLoginFacade;
     }
 
     @PostMapping
     public ResponseEntity<?> loginUser(@RequestBody final UserLoginRequestDetails userLoginRequestDetails) {
-        return userLoginFacade.login(userLoginRequestDetails);
+        try {
+            final UserLoginResponseDetails response = userFacade.login(userLoginRequestDetails);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/partner")
