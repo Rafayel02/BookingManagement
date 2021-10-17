@@ -1,6 +1,6 @@
 package am.aca.bookingmanagement.repository;
 
-import am.aca.bookingmanagement.domain.model.Reviews;
+import am.aca.bookingmanagement.entity.Reviews;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

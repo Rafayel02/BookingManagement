@@ -1,6 +1,6 @@
 package am.aca.bookingmanagement.service;
 
-import am.aca.bookingmanagement.domain.model.User;
+import am.aca.bookingmanagement.entity.User;
 import am.aca.bookingmanagement.exception.UserNotFoundException;
 import am.aca.bookingmanagement.repository.UserRepository;
 import org.springframework.stereotype.Service;

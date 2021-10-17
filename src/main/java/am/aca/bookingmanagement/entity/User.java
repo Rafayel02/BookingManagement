@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.domain.model;
+package am.aca.bookingmanagement.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
