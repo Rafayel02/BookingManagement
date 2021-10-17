@@ -23,8 +23,8 @@ public class Category {
 
     @ManyToMany
     @JoinTable(
-            name = "restaurants_categories",
+            name = "partners_categories",
             joinColumns = {@JoinColumn(name = "type_id")},
-            inverseJoinColumns = {@JoinColumn(name = "restaurant_id")})
-    private Set<Restaurant> restaurants;
+            inverseJoinColumns = {@JoinColumn(name = "partner_id")})
+    private Set<Partner> partners;
 }

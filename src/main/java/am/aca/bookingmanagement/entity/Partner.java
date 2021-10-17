@@ -8,11 +8,11 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "restaurants")
+@Table(name = "partners")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Restaurant {
+public class Partner {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,10 +39,10 @@ public class Restaurant {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @OneToMany(mappedBy = "restaurant")
-    private Set<Reviews> reviews;
+    @OneToMany(mappedBy = "partner")
+    private Set<Review> reviews;
 
-    @ManyToMany(mappedBy = "restaurants")
+    @ManyToMany(mappedBy = "partners")
     private Set<Category> categories;
 
 }

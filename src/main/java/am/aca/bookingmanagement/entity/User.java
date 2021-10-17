@@ -12,7 +12,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-//@JsonIgnoreProperties(value = "reviews", allowSetters = true)
 public class User {
 
     @Id
@@ -32,5 +31,5 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    private Set<Reviews> reviews;
+    private Set<Review> reviews;
 }

@@ -8,13 +8,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "reviews", uniqueConstraints = {
-        @UniqueConstraint(name = "reviews_user_id_restaurant_id_un", columnNames = {"user_id", "restaurant_id"}),
-        @UniqueConstraint(name = "reviews_rating_or_comment_nn", columnNames = {"rating", "comment"})
+        @UniqueConstraint(name = "reviews_user_id_partner_id_un", columnNames = {"user_id", "partner_id"}),
 })
 @Getter
 @Setter
 @NoArgsConstructor
-public class Reviews {
+public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,7 +29,7 @@ public class Reviews {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "restaurant_id", referencedColumnName = "id", nullable = false)
-    private Restaurant restaurant;
+    @JoinColumn(name = "partner_id", referencedColumnName = "id", nullable = false)
+    private Partner partner;
 
 }

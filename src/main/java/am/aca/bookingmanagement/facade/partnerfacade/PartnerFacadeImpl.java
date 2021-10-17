@@ -1,6 +1,6 @@
 package am.aca.bookingmanagement.facade.partnerfacade;
 
-import am.aca.bookingmanagement.entity.Restaurant;
+import am.aca.bookingmanagement.entity.Partner;
 import am.aca.bookingmanagement.facade.partnerfacade.partnerlogindto.PartnerLoginRequestDetails;
 import am.aca.bookingmanagement.facade.partnerfacade.partnerlogindto.PartnerLoginResponseDetails;
 import am.aca.bookingmanagement.facade.partnerfacade.partnerregisterdto.PartnerRegisterRequestDetails;
@@ -23,8 +23,8 @@ public class PartnerFacadeImpl implements PartnerFacade {
 
     @Override
     public PartnerRegisterResponseDetails register(final PartnerRegisterRequestDetails request) {
-        final Restaurant restaurant = partnerService.create(partnerMapper.mapRequestToDetails(request));
-        return partnerMapper.mapEntityToResponse(restaurant);
+        final Partner partner = partnerService.create(partnerMapper.mapRequestToDetails(request));
+        return partnerMapper.mapEntityToResponse(partner);
     }
 
     @Override

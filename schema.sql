@@ -7,7 +7,7 @@ create table if not exists users
     password   text not null
 );
 
-create table if not exists restaurants
+create table if not exists partners
 (
     id        bigserial primary key,
     name      text             not null,
@@ -29,21 +29,21 @@ create table if not exists reviews
 (
     id            bigserial not null,
     user_id       bigint    not null,
-    restaurant_id bigint    not null,
+    partner_id bigint    not null,
     rating        int check (rating > 0 and rating < 6),
     comment       text,
     foreign key (user_id) references users (id),
-    foreign key (restaurant_id) references restaurants (id),
-    constraint reviews_user_id_restaurant_id_un unique (user_id, restaurant_id),
+    foreign key (partner_id) references partners (id),
+    constraint reviews_user_id_partner_id_un unique (user_id, partner_id),
     constraint reviews_rating_or_comment_nn check (rating is not null or comment is not null)
 );
 
 
-create table if not exists restaurants_categories
+create table if not exists partners_categories
 (
-    restaurant_id bigint not null,
+    partner_id bigint not null,
     type_id       int not null,
-    foreign key (restaurant_id) references restaurants (id),
+    foreign key (partner_id) references partners (id),
     foreign key (type_id) references categories (id)
 );
 
