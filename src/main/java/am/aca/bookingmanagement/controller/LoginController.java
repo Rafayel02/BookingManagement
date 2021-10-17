@@ -1,9 +1,11 @@
 package am.aca.bookingmanagement.controller;
 
-import am.aca.bookingmanagement.facade.partnerfacade.partnerloginfacade.PartnerLoginFacade;
-import am.aca.bookingmanagement.facade.partnerfacade.partnerloginfacade.model.PartnerLoginRequestDetails;
-import am.aca.bookingmanagement.facade.userfacade.userloginfacade.UserLoginFacade;
-import am.aca.bookingmanagement.facade.userfacade.userloginfacade.model.UserLoginRequestDetails;
+import am.aca.bookingmanagement.facade.partnerfacade.PartnerFacade;
+import am.aca.bookingmanagement.facade.partnerfacade.partnerlogindto.PartnerLoginRequestDetails;
+import am.aca.bookingmanagement.facade.partnerfacade.partnerlogindto.PartnerLoginResponseDetails;
+import am.aca.bookingmanagement.facade.userfacade.UserFacade;
+import am.aca.bookingmanagement.facade.userfacade.userlogindto.UserLoginRequestDetails;
+import am.aca.bookingmanagement.facade.userfacade.userlogindto.UserLoginResponseDetails;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,22 +16,32 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/login")
 public class LoginController {
 
-    private final UserLoginFacade userLoginFacade;
-    private final PartnerLoginFacade partnerLoginFacade;
+    private final UserFacade userFacade;
+    private final PartnerFacade partnerFacade;
 
-    public LoginController(UserLoginFacade userLoginFacade, PartnerLoginFacade partnerLoginFacade) {
-        this.userLoginFacade = userLoginFacade;
-        this.partnerLoginFacade = partnerLoginFacade;
+    public LoginController(final UserFacade userFacade, final PartnerFacade partnerFacade) {
+        this.userFacade = userFacade;
+        this.partnerFacade = partnerFacade;
     }
 
     @PostMapping
     public ResponseEntity<?> loginUser(@RequestBody final UserLoginRequestDetails userLoginRequestDetails) {
-        return userLoginFacade.login(userLoginRequestDetails);
+        try {
+            final UserLoginResponseDetails response = userFacade.login(userLoginRequestDetails);
+            return ResponseEntity.ok(response);
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/partner")
-    public ResponseEntity<?> loginPartner(@RequestBody final PartnerLoginRequestDetails partnerLoginRequestDetails) {
-        return partnerLoginFacade.login(partnerLoginRequestDetails);
+    public ResponseEntity<?> loginPartner(@RequestBody final PartnerLoginRequestDetails request) {
+        try {
+            final PartnerLoginResponseDetails response = partnerFacade.login(request);
+            return ResponseEntity.ok(response);
+        } catch (final Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }
