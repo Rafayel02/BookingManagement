@@ -1,24 +1,34 @@
 package am.aca.bookingmanagement.service.partnerservice;
 
 import am.aca.bookingmanagement.entity.Partner;
-import am.aca.bookingmanagement.mapper.partnerMapper.PartnerMapper;
+import am.aca.bookingmanagement.exception.UserNotFoundException;
 import am.aca.bookingmanagement.repository.PartnerRepository;
-import am.aca.bookingmanagement.service.partnerservice.dto.PartnerCreateDetails;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class PartnerServiceImpl implements PartnerService {
 
     private final PartnerRepository partnerRepository;
-    private final PartnerMapper partnerMapper;
 
-    public PartnerServiceImpl(final PartnerRepository partnerRepository, final PartnerMapper partnerMapper) {
+    public PartnerServiceImpl(final PartnerRepository partnerRepository) {
         this.partnerRepository = partnerRepository;
-        this.partnerMapper = partnerMapper;
     }
 
     @Override
-    public Partner create(final PartnerCreateDetails createDetails) {
-        return partnerRepository.save(partnerMapper.mapCreateDetailsToEntity(createDetails));
+    public Partner create(final Partner partner) {
+        return partnerRepository.save(partner);
     }
+
+    @Override
+    public Partner findByEmail(final String email) {
+        final Optional<Partner> byEmail = partnerRepository.findByEmail(email);
+
+        if (byEmail.isEmpty()) {
+            throw new UserNotFoundException("User not found");
+        }
+        return byEmail.get();
+    }
+
 }
