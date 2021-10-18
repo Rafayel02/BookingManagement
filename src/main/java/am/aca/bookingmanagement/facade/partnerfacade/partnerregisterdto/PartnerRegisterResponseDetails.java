@@ -21,4 +21,7 @@ public class PartnerRegisterResponseDetails {
 
     private String address;
 
+    //TODO add token field, to return token in response after registration
+
+
 }

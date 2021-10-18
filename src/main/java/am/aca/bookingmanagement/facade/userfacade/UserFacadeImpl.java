@@ -24,11 +24,15 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public UserRegisterResponseDetails register(final UserRegisterRequestDetails request) {
         final User user = userService.create(userMapper.mapRequestToDetails(request));
+        /*TODO switching to token facade, to generate token and save in db
+            (rather to do with transactions of saving user and token)*/
         return userMapper.mapEntityToResponse(user);
     }
 
     @Override
     public UserLoginResponseDetails login(final UserLoginRequestDetails request) {
+        /*TODO getting token from request body, switching into
+           token facade (to check token in db after some logic with token and restart it if needed)*/
         return null;
     }
 

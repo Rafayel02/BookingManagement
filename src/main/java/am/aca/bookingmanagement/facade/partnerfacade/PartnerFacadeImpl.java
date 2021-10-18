@@ -24,11 +24,15 @@ public class PartnerFacadeImpl implements PartnerFacade {
     @Override
     public PartnerRegisterResponseDetails register(final PartnerRegisterRequestDetails request) {
         final Partner partner = partnerService.create(partnerMapper.mapRequestToDetails(request));
+        /*TODO switching to token facade, to generate token and save in db
+            (rather to do with transactions of saving user and token)*/
         return partnerMapper.mapEntityToResponse(partner);
     }
 
     @Override
     public PartnerLoginResponseDetails login(final PartnerLoginRequestDetails partnerLoginRequestDetails) {
+        /*TODO getting token from request body, switching into
+           token facade (to check token in db after some logic with token and restart it if needed)*/
         return null;
     }
 
