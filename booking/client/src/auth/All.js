@@ -3,14 +3,17 @@ import PartnerLogin from "./PartnerLogin";
 import UserLogin from "./UserLogin";
 import PartnerRegister from "./PartnerRegister";
 import UserRegister from "./UserRegister";
+import Main from "../Main/Main";
 
 import {
     Switch,
     Route,
 } from "react-router-dom";
+import NavigationItems from "../Navigation/NavigationItem";
 
 const All = () => {
     return <div>
+        <NavigationItems />
         <Switch>
             <Route path="/login/partner">
                 <PartnerLogin/>
@@ -25,7 +28,7 @@ const All = () => {
                 <UserRegister/>
             </Route>
             <Route path="/">
-                a
+                <Main/>
             </Route>
         </Switch>
     </div>
