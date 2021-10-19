@@ -4,10 +4,18 @@ import am.aca.bookingmanagement.dto.userdto.login.UserLoginResponseDetails;
 import am.aca.bookingmanagement.dto.userdto.register.UserRegisterRequestDetails;
 import am.aca.bookingmanagement.dto.userdto.register.UserRegisterResponseDetails;
 import am.aca.bookingmanagement.entity.User;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapperImpl implements UserMapper {
+
+    private final PasswordEncoder passwordEncoder;
+
+    public UserMapperImpl(final PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public UserRegisterResponseDetails mapEntityToRegisterResponse(final am.aca.bookingmanagement.entity.User user) {
@@ -24,7 +32,7 @@ public class UserMapperImpl implements UserMapper {
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         return user;
     }
 

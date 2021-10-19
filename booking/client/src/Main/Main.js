@@ -8,12 +8,15 @@ import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import classes from './Main.module.css';
 import NavigationItems from '../Navigation/NavigationItem';
 import Search from '../Search/Search';
+import UserRegister from "../auth/UserRegister";
 
 class Main extends Component {
   render() {
     return(
       <div>  
         <Search/>
+          <NavLink to="/register/partner"> Register as partner </NavLink><br/>
+          <NavLink to="/login/partner"> Login as partner </NavLink>
         {/*<Search />*/}
         {/*<Switch>*/}
         {/*  <Route path="/" exact component={Login} />*/}
