@@ -32,6 +32,7 @@ public class PartnerFacadeImpl implements PartnerFacade {
         final Partner partner = partnerService.create(partnerMapper.mapRegisterRequestToEntity(request));
         /*TODO switching to token facade, to generate token and save in db
             (rather to do with transactions of saving user and token)*/
+        //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
         return partnerMapper.mapEntityToRegisterResponse(partner);
     }
 
@@ -39,6 +40,7 @@ public class PartnerFacadeImpl implements PartnerFacade {
     public PartnerLoginResponseDetails login(final PartnerLoginRequestDetails request) {
         /*TODO getting token from request body, switching into
            token facade (to check token in db after some logic with token and restart it if needed)*/
+        //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
         final Partner byEmail = partnerService.findByEmail(request.getEmail());
         final boolean passwordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.getPassword());
 
