@@ -1,13 +1,19 @@
 import logo from './logo.svg';
 import './App.css';
-import Register from './auth/Register';
+import All from "./auth/All";
+import React from "react";
+import {
+    BrowserRouter as Router,
+} from "react-router-dom";
 
 function App() {
-  return (
-    <div className="App">
-    <Register />
-    </div>
-  );
+    return (
+        <div className="App">
+            <Router>
+                <All/>
+            </Router>
+        </div>
+    );
 }
 
 export default App;
