@@ -8,13 +8,12 @@ import am.aca.bookingmanagement.exception.UserNotFoundException;
 import am.aca.bookingmanagement.exception.WrongPasswordException;
 import am.aca.bookingmanagement.facade.partnerfacade.PartnerFacade;
 import am.aca.bookingmanagement.facade.userfacade.UserFacade;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.annotation.security.PermitAll;
 
 @RestController
 @RequestMapping("/login")
@@ -33,12 +32,10 @@ public class LoginController {
         try {
             final UserLoginResponseDetails response = userFacade.login(userLoginRequestDetails);
             return ResponseEntity.ok(response);
-        } catch (final UserNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        } catch (final WrongPasswordException e) {
-            return null;
+        } catch (final UserNotFoundException | WrongPasswordException e) {
+            return new ResponseEntity<>("WRONG_EMAIL_OR_PASSWORD", HttpStatus.UNAUTHORIZED);
         } catch (final Exception e) {
-            return null;
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -47,6 +44,8 @@ public class LoginController {
         try {
             final PartnerLoginResponseDetails response = partnerFacade.login(request);
             return ResponseEntity.ok(response);
+        } catch (final UserNotFoundException | WrongPasswordException e) {
+            return new ResponseEntity<>("WRONG_EMAIL_OR_PASSWORD", HttpStatus.UNAUTHORIZED);
         } catch (final Exception e) {
             return ResponseEntity.notFound().build();
         }

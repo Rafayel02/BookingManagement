@@ -1,6 +1,7 @@
 package am.aca.bookingmanagement.service.userservice;
 
 import am.aca.bookingmanagement.entity.User;
+import am.aca.bookingmanagement.exception.UserAlreadyExistsException;
 import am.aca.bookingmanagement.exception.UserNotFoundException;
 import am.aca.bookingmanagement.repository.UserRepository;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(final User user) {
+        final User byEmail = findByEmail(user.getEmail());
+        if (byEmail != null) {
+            throw new UserAlreadyExistsException("USER WITH EMAIL: " + user.getEmail() + " ALREADY EXISTS");
+        }
         return userRepository.save(user);
     }
 
