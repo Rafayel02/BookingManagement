@@ -4,6 +4,7 @@ import am.aca.bookingmanagement.dto.partnerdto.login.PartnerLoginRequestDetails;
 import am.aca.bookingmanagement.dto.partnerdto.login.PartnerLoginResponseDetails;
 import am.aca.bookingmanagement.dto.userdto.login.UserLoginRequestDetails;
 import am.aca.bookingmanagement.dto.userdto.login.UserLoginResponseDetails;
+import am.aca.bookingmanagement.exception.SomethingWentWrongException;
 import am.aca.bookingmanagement.exception.UserNotFoundException;
 import am.aca.bookingmanagement.exception.WrongPasswordException;
 import am.aca.bookingmanagement.facade.partnerfacade.PartnerFacade;
@@ -32,7 +33,7 @@ public class LoginController {
         try {
             final UserLoginResponseDetails response = userFacade.login(userLoginRequestDetails);
             return ResponseEntity.ok(response);
-        } catch (final UserNotFoundException | WrongPasswordException e) {
+        } catch (final SomethingWentWrongException | UserNotFoundException | WrongPasswordException e) {
             return new ResponseEntity<>("WRONG_EMAIL_OR_PASSWORD", HttpStatus.UNAUTHORIZED);
         } catch (final Exception e) {
             return ResponseEntity.notFound().build();
@@ -44,7 +45,7 @@ public class LoginController {
         try {
             final PartnerLoginResponseDetails response = partnerFacade.login(request);
             return ResponseEntity.ok(response);
-        } catch (final UserNotFoundException | WrongPasswordException e) {
+        } catch (final SomethingWentWrongException | UserNotFoundException | WrongPasswordException e) {
             return new ResponseEntity<>("WRONG_EMAIL_OR_PASSWORD", HttpStatus.UNAUTHORIZED);
         } catch (final Exception e) {
             return ResponseEntity.notFound().build();

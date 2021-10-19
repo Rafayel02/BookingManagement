@@ -1,10 +1,12 @@
 package am.aca.bookingmanagement.facade.userfacade;
 
+import am.aca.bookingmanagement.checker.ValidationChecker;
 import am.aca.bookingmanagement.dto.userdto.login.UserLoginRequestDetails;
 import am.aca.bookingmanagement.dto.userdto.login.UserLoginResponseDetails;
 import am.aca.bookingmanagement.dto.userdto.register.UserRegisterRequestDetails;
 import am.aca.bookingmanagement.dto.userdto.register.UserRegisterResponseDetails;
 import am.aca.bookingmanagement.entity.User;
+import am.aca.bookingmanagement.exception.SomethingWentWrongException;
 import am.aca.bookingmanagement.exception.WrongPasswordException;
 import am.aca.bookingmanagement.mapper.usermapper.UserMapper;
 import am.aca.bookingmanagement.service.userservice.UserService;
@@ -18,29 +20,43 @@ public class UserFacadeImpl implements UserFacade {
     private final UserService userService;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final ValidationChecker validationChecker;
 
     public UserFacadeImpl(final UserServiceImpl userServiceImpl,
                           final UserMapper userMapper,
-                          final PasswordEncoder passwordEncoder) {
+                          final PasswordEncoder passwordEncoder, ValidationChecker validationChecker) {
         this.userService = userServiceImpl;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
+        this.validationChecker = validationChecker;
     }
 
     @Override
     public UserRegisterResponseDetails register(final UserRegisterRequestDetails request) {
+        if(!validationChecker.isEmailValid(request.getEmail())){
+            throw new SomethingWentWrongException("Invalid email address");
+        }
+        if(!validationChecker.isPasswordValid(request.getPassword())){
+            throw new SomethingWentWrongException("Invalid password format");
+        } //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
+
         final User user = userService.create(userMapper.mapRegisterRequestToEntity(request));
         /*TODO switching to token facade, to generate token and save in db
             (rather to do with transactions of saving user and token)*/
-        //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
         return userMapper.mapEntityToRegisterResponse(user);
     }
 
     @Override
     public UserLoginResponseDetails login(final UserLoginRequestDetails request) {
+        if(!validationChecker.isEmailValid(request.getEmail())){
+            throw new SomethingWentWrongException("Invalid email address");
+        }
+        if(!validationChecker.isPasswordValid(request.getPassword())){
+            throw new SomethingWentWrongException("Invalid password format");
+        } //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
+
         /*TODO getting token from request body, switching into
            token facade (to check token in db after some logic with token and restart it if needed)*/
-        //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
         final User byEmail = userService.findByEmail(request.getEmail());
         boolean passwordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.getPassword());
         if (!passwordsMatch) {
