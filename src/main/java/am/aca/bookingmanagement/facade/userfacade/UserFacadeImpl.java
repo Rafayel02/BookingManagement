@@ -32,6 +32,7 @@ public class UserFacadeImpl implements UserFacade {
         final User user = userService.create(userMapper.mapRegisterRequestToEntity(request));
         /*TODO switching to token facade, to generate token and save in db
             (rather to do with transactions of saving user and token)*/
+        //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
         return userMapper.mapEntityToRegisterResponse(user);
     }
 
@@ -39,6 +40,7 @@ public class UserFacadeImpl implements UserFacade {
     public UserLoginResponseDetails login(final UserLoginRequestDetails request) {
         /*TODO getting token from request body, switching into
            token facade (to check token in db after some logic with token and restart it if needed)*/
+        //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
         final User byEmail = userService.findByEmail(request.getEmail());
         boolean passwordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.getPassword());
         if (!passwordsMatch) {
