@@ -4,17 +4,24 @@ import am.aca.bookingmanagement.dto.partnerdto.login.PartnerLoginResponseDetails
 import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterRequestDetails;
 import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterResponseDetails;
 import am.aca.bookingmanagement.entity.Partner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PartnerMapperImpl implements PartnerMapper {
+
+    private final PasswordEncoder passwordEncoder;
+
+    public PartnerMapperImpl(final PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @Override
     public Partner mapRegisterRequestToEntity(final PartnerRegisterRequestDetails request) {
         final am.aca.bookingmanagement.entity.Partner partner = new am.aca.bookingmanagement.entity.Partner();
         partner.setName(request.getName());
         partner.setEmail(request.getEmail());
-        partner.setPassword(request.getPassword());
+        partner.setPassword(passwordEncoder.encode(request.getPassword()));
         partner.setLongitude(request.getLongitude());
         partner.setLatitude(request.getLatitude());
         partner.setImageUrl(request.getImageUrl());

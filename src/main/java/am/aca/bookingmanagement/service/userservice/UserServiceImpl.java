@@ -21,21 +21,20 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
-    public am.aca.bookingmanagement.entity.User findById(final Long id) {
-        Optional<am.aca.bookingmanagement.entity.User> byId = userRepository.findById(id);
-        if (byId.isPresent()) {
-            return byId.get();
+    public User findById(final Long id) {
+        final Optional<User> byId = userRepository.findById(id);
+        if (byId.isEmpty()) {
+            throw new UserNotFoundException("USER NOT FOUND");
         }
-        throw new UserNotFoundException("USER NOT FOUND");
+        return byId.get();
     }
 
     public User findByEmail(final String email) {
-        final Optional<am.aca.bookingmanagement.entity.User> byEmail = userRepository.findByEmail(email);
-        if (byEmail.isPresent()) {
-            return byEmail.get();
+        final Optional<User> byEmail = userRepository.findByEmail(email);
+        if (byEmail.isEmpty()) {
+            throw new UserNotFoundException("USER_NOT_FOUND");
         }
-        throw new UserNotFoundException("USER_NOT_FOUND");
-
+        return byEmail.get();
     }
 
 }
