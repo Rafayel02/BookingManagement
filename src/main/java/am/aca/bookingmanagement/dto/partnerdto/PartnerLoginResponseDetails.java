@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.facade.partnerfacade.partnerregisterdto;
+package am.aca.bookingmanagement.dto.partnerdto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PartnerRegisterResponseDetails {
+public class PartnerLoginResponseDetails {
+    //TODO add field and token field also for login response
 
     private String name;
 
@@ -20,8 +21,4 @@ public class PartnerRegisterResponseDetails {
     private String imageUrl;
 
     private String address;
-
-    //TODO add token field, to return token in response after registration
-
-
 }

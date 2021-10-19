@@ -1,11 +1,11 @@
 package am.aca.bookingmanagement.controller;
 
+import am.aca.bookingmanagement.dto.partnerdto.PartnerLoginRequestDetails;
+import am.aca.bookingmanagement.dto.partnerdto.PartnerLoginResponseDetails;
+import am.aca.bookingmanagement.dto.userdto.UserLoginRequestDetails;
+import am.aca.bookingmanagement.dto.userdto.UserLoginResponseDetails;
 import am.aca.bookingmanagement.facade.partnerfacade.PartnerFacade;
-import am.aca.bookingmanagement.facade.partnerfacade.partnerlogindto.PartnerLoginRequestDetails;
-import am.aca.bookingmanagement.facade.partnerfacade.partnerlogindto.PartnerLoginResponseDetails;
 import am.aca.bookingmanagement.facade.userfacade.UserFacade;
-import am.aca.bookingmanagement.facade.userfacade.userlogindto.UserLoginRequestDetails;
-import am.aca.bookingmanagement.facade.userfacade.userlogindto.UserLoginResponseDetails;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +29,7 @@ public class LoginController {
         try {
             final UserLoginResponseDetails response = userFacade.login(userLoginRequestDetails);
             return ResponseEntity.ok(response);
-        } catch (Exception e) {
+        } catch (final Exception e) {
             return ResponseEntity.notFound().build();
         }
     }

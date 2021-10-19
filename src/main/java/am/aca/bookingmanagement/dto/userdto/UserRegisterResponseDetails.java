@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.facade.userfacade.userregisterdto;
+package am.aca.bookingmanagement.dto.userdto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

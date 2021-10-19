@@ -1,16 +1,15 @@
 package am.aca.bookingmanagement.mapper.usermapper;
 
+import am.aca.bookingmanagement.dto.userdto.UserLoginResponseDetails;
+import am.aca.bookingmanagement.dto.userdto.UserRegisterRequestDetails;
+import am.aca.bookingmanagement.dto.userdto.UserRegisterResponseDetails;
 import am.aca.bookingmanagement.entity.User;
-import am.aca.bookingmanagement.facade.userfacade.userregisterdto.UserRegisterRequestDetails;
-import am.aca.bookingmanagement.facade.userfacade.userregisterdto.UserRegisterResponseDetails;
-import am.aca.bookingmanagement.service.userservice.dto.UserCreateDetails;
 
 public interface UserMapper {
 
-    UserCreateDetails mapRequestToDetails(UserRegisterRequestDetails registerRequestDetails);
+    UserRegisterResponseDetails mapEntityToRegisterResponse(am.aca.bookingmanagement.entity.User user);
 
-    UserRegisterResponseDetails mapEntityToResponse(User user);
+    User mapRegisterRequestToEntity(UserRegisterRequestDetails request);
 
-    User mapCreteDetailsToEntity(UserCreateDetails userCreateDetails);
-
+    UserLoginResponseDetails mapEntityToLoginResponse(User user);
 }

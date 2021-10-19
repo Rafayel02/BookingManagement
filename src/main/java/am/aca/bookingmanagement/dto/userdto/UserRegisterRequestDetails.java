@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.service.userservice.dto;
+package am.aca.bookingmanagement.dto.userdto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserCreateDetails {
+public class UserRegisterRequestDetails {
 
     private String firstName;
 
@@ -16,7 +16,5 @@ public class UserCreateDetails {
     private String email;
 
     private String password;
-
-    //TODO more fields (e.g. joinAt)
 
 }

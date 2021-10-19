@@ -1,12 +1,12 @@
 package am.aca.bookingmanagement.facade.partnerfacade;
 
+import am.aca.bookingmanagement.dto.partnerdto.PartnerLoginRequestDetails;
+import am.aca.bookingmanagement.dto.partnerdto.PartnerLoginResponseDetails;
+import am.aca.bookingmanagement.dto.partnerdto.PartnerRegisterRequestDetails;
+import am.aca.bookingmanagement.dto.partnerdto.PartnerRegisterResponseDetails;
 import am.aca.bookingmanagement.entity.Partner;
-import am.aca.bookingmanagement.facade.partnerfacade.partnerlogindto.PartnerLoginRequestDetails;
-import am.aca.bookingmanagement.facade.partnerfacade.partnerlogindto.PartnerLoginResponseDetails;
-import am.aca.bookingmanagement.facade.partnerfacade.partnerregisterdto.PartnerRegisterRequestDetails;
-import am.aca.bookingmanagement.facade.partnerfacade.partnerregisterdto.PartnerRegisterResponseDetails;
-import am.aca.bookingmanagement.mapper.partnerMapper.PartnerMapper;
-import am.aca.bookingmanagement.mapper.partnerMapper.PartnerMapperImpl;
+import am.aca.bookingmanagement.mapper.partnermapper.PartnerMapper;
+import am.aca.bookingmanagement.mapper.partnermapper.PartnerMapperImpl;
 import am.aca.bookingmanagement.service.partnerservice.PartnerService;
 import org.springframework.stereotype.Component;
 
@@ -23,17 +23,18 @@ public class PartnerFacadeImpl implements PartnerFacade {
 
     @Override
     public PartnerRegisterResponseDetails register(final PartnerRegisterRequestDetails request) {
-        final Partner partner = partnerService.create(partnerMapper.mapRequestToDetails(request));
+        final Partner partner = partnerService.create(partnerMapper.mapRegisterRequestToEntity(request));
         /*TODO switching to token facade, to generate token and save in db
             (rather to do with transactions of saving user and token)*/
-        return partnerMapper.mapEntityToResponse(partner);
+        return partnerMapper.mapEntityToRegisterResponse(partner);
     }
 
     @Override
-    public PartnerLoginResponseDetails login(final PartnerLoginRequestDetails partnerLoginRequestDetails) {
+    public PartnerLoginResponseDetails login(final PartnerLoginRequestDetails request) {
         /*TODO getting token from request body, switching into
            token facade (to check token in db after some logic with token and restart it if needed)*/
-        return null;
+
+        return partnerMapper.mapEntityToLoginResponse(partnerService.findByEmail(request.getEmail()));
     }
 
 }
