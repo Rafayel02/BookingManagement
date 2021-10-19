@@ -4,8 +4,10 @@ import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterRequestDe
 import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterResponseDetails;
 import am.aca.bookingmanagement.dto.userdto.register.UserRegisterRequestDetails;
 import am.aca.bookingmanagement.dto.userdto.register.UserRegisterResponseDetails;
+import am.aca.bookingmanagement.exception.UserAlreadyExistsException;
 import am.aca.bookingmanagement.facade.partnerfacade.PartnerFacade;
 import am.aca.bookingmanagement.facade.userfacade.UserFacade;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +31,8 @@ public class RegisterController {
         try {
             final UserRegisterResponseDetails response = userFacade.register(request);
             return ResponseEntity.ok(response);
+        } catch (final UserAlreadyExistsException e) {
+            return new ResponseEntity<>("PROVIDED_EMAIL_IS_ALREADY_REGISTERED", HttpStatus.FORBIDDEN);
         } catch (final Exception e) {
             return ResponseEntity.notFound().build();
         }
@@ -39,6 +43,8 @@ public class RegisterController {
         try {
             final PartnerRegisterResponseDetails response = partnerFacade.register(request);
             return ResponseEntity.ok(response);
+        } catch (final UserAlreadyExistsException e) {
+            return new ResponseEntity<>("PROVIDED_EMAIL_IS_ALREADY_REGISTERED", HttpStatus.FORBIDDEN);
         } catch (final Exception e) {
             return ResponseEntity.notFound().build();
         }

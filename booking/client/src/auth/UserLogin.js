@@ -51,8 +51,9 @@ function UserLogin() {
             console.log(response.data);
             //  updateToken(response.data.token);
             //S  history.push("/main");
-        } catch (e) {
-            console.log(e);
+        } catch (ex) {
+            alert(ex)
+            console.log(ex);
             setErrorMessage(e.response?.data?.message || "Something went wrong");
         }
     };
