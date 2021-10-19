@@ -1,9 +1,9 @@
 package am.aca.bookingmanagement.controller;
 
-import am.aca.bookingmanagement.dto.partnerdto.PartnerLoginRequestDetails;
-import am.aca.bookingmanagement.dto.partnerdto.PartnerLoginResponseDetails;
-import am.aca.bookingmanagement.dto.userdto.UserLoginRequestDetails;
-import am.aca.bookingmanagement.dto.userdto.UserLoginResponseDetails;
+import am.aca.bookingmanagement.dto.partnerdto.login.PartnerLoginRequestDetails;
+import am.aca.bookingmanagement.dto.partnerdto.login.PartnerLoginResponseDetails;
+import am.aca.bookingmanagement.dto.userdto.login.UserLoginRequestDetails;
+import am.aca.bookingmanagement.dto.userdto.login.UserLoginResponseDetails;
 import am.aca.bookingmanagement.facade.partnerfacade.PartnerFacade;
 import am.aca.bookingmanagement.facade.userfacade.UserFacade;
 import org.springframework.http.ResponseEntity;

@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.dto.userdto;
+package am.aca.bookingmanagement.dto.userdto.register;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.dto.partnerdto;
+package am.aca.bookingmanagement.dto.partnerdto.login;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,8 +1,8 @@
 package am.aca.bookingmanagement.mapper.usermapper;
 
-import am.aca.bookingmanagement.dto.userdto.UserLoginResponseDetails;
-import am.aca.bookingmanagement.dto.userdto.UserRegisterRequestDetails;
-import am.aca.bookingmanagement.dto.userdto.UserRegisterResponseDetails;
+import am.aca.bookingmanagement.dto.userdto.login.UserLoginResponseDetails;
+import am.aca.bookingmanagement.dto.userdto.register.UserRegisterRequestDetails;
+import am.aca.bookingmanagement.dto.userdto.register.UserRegisterResponseDetails;
 import am.aca.bookingmanagement.entity.User;
 import org.springframework.stereotype.Component;
 

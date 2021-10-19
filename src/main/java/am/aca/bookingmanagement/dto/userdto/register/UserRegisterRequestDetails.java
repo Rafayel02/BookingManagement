@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.dto.partnerdto;
+package am.aca.bookingmanagement.dto.userdto.register;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,10 +7,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PartnerLoginRequestDetails {
-    //TODO add all login request fields, including token
+public class UserRegisterRequestDetails {
+
+    private String firstName;
+
+    private String lastName;
 
     private String email;
 
     private String password;
+
 }

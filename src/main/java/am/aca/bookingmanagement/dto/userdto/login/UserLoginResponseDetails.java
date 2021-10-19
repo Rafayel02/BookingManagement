@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.dto.userdto;
+package am.aca.bookingmanagement.dto.userdto.login;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,14 +7,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class UserRegisterRequestDetails {
+public class UserLoginResponseDetails {
+    //TODO add field and token field also for login response
 
     private String firstName;
 
     private String lastName;
 
     private String email;
-
-    private String password;
-
 }
