@@ -6,6 +6,8 @@ import am.aca.bookingmanagement.dto.partnerdto.login.PartnerLoginResponseDetails
 import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterRequestDetails;
 import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterResponseDetails;
 import am.aca.bookingmanagement.entity.Partner;
+import am.aca.bookingmanagement.exception.PartnerNotFoundException;
+import am.aca.bookingmanagement.exception.UserNotFoundException;
 import am.aca.bookingmanagement.exception.SomethingWentWrongException;
 import am.aca.bookingmanagement.exception.WrongPasswordException;
 import am.aca.bookingmanagement.mapper.partnermapper.PartnerMapper;
@@ -13,6 +15,8 @@ import am.aca.bookingmanagement.mapper.partnermapper.PartnerMapperImpl;
 import am.aca.bookingmanagement.service.partnerservice.PartnerService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.Optional;
 
 @Component
 public class PartnerFacadeImpl implements PartnerFacade {
@@ -53,18 +57,19 @@ public class PartnerFacadeImpl implements PartnerFacade {
         }
         if(!validationChecker.isPasswordValid(request.getPassword())){
             throw new SomethingWentWrongException("Invalid password format");
-        } //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
-
+        }
         /*TODO getting token from request body, switching into
            token facade (to check token in db after some logic with token and restart it if needed)*/
-        final Partner byEmail = partnerService.findByEmail(request.getEmail());
-        final boolean passwordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.getPassword());
-
+        //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
+        final Optional<Partner> byEmail = partnerService.findByEmail(request.getEmail());
+        if(byEmail.isEmpty()) {
+            throw new PartnerNotFoundException("PARTNER_DOES_NOT_EXIST");
+        }
+        final boolean passwordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.get().getPassword());
         if (!passwordsMatch){
             throw new WrongPasswordException("PASSWORDS_MISMATCH");
         }
-
-        return partnerMapper.mapEntityToLoginResponse(byEmail);
+        return partnerMapper.mapEntityToLoginResponse(byEmail.get());
     }
 
 }

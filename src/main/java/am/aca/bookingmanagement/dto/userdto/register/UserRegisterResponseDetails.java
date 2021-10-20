@@ -15,6 +15,6 @@ public class UserRegisterResponseDetails {
 
     private String email;
 
-    //TODO add token field, to return token in response after registration
+    private String token;
 
 }

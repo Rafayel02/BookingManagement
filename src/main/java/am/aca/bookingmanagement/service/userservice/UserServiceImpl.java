@@ -19,27 +19,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(final User user) {
-        final User byEmail = findByEmail(user.getEmail());
-        if (byEmail != null) {
+        final Optional<User> byEmail = findByEmail(user.getEmail());
+        if (byEmail.isPresent()) {
             throw new UserAlreadyExistsException("USER WITH EMAIL: " + user.getEmail() + " ALREADY EXISTS");
         }
         return userRepository.save(user);
     }
 
-    public User findById(final Long id) {
-        final Optional<User> byId = userRepository.findById(id);
-        if (byId.isEmpty()) {
-            throw new UserNotFoundException("USER NOT FOUND");
-        }
-        return byId.get();
-    }
-
-    public User findByEmail(final String email) {
-        final Optional<User> byEmail = userRepository.findByEmail(email);
-        if (byEmail.isEmpty()) {
-            throw new UserNotFoundException("USER_NOT_FOUND");
-        }
-        return byEmail.get();
+    public Optional<User> findByEmail(final String email) {
+        return userRepository.findByEmail(email);
     }
 
 }
