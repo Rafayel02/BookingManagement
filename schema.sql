@@ -17,7 +17,8 @@ create table if not exists partners
     longitude double precision not null,
     latitude  double precision not null,
     image_url text default 'default',
-    address   text             not null
+    address   text             not null,
+    uuid      text             not null unique
 );
 
 create table if not exists categories

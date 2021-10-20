@@ -15,4 +15,6 @@ public interface PartnerRepository extends JpaRepository<Partner, Long> {
 
     Optional<Partner> findByAddress(String address);
 
+    Optional<Partner> findByUuid(String uuid);
+
 }

@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PartnerLoginRequestDetails {
-    //TODO add all login request fields, including token
+
 
     private String email;
 

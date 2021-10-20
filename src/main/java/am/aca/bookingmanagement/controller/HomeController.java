@@ -24,6 +24,7 @@ public class HomeController {
         final Jws<Claims> claims = jwtTokenParser.parse(token);
         final Claims body = claims.getBody();
         final String uuid = (String) body.get("id");
+        //TODO check if {uuid} id present in users or partners table and response accordingly
         return ResponseEntity.ok(uuid);
     }
 

@@ -2,7 +2,6 @@ package am.aca.bookingmanagement.service.userservice;
 
 import am.aca.bookingmanagement.entity.User;
 import am.aca.bookingmanagement.exception.UserAlreadyExistsException;
-import am.aca.bookingmanagement.exception.UserNotFoundException;
 import am.aca.bookingmanagement.repository.UserRepository;
 import org.springframework.stereotype.Service;
 

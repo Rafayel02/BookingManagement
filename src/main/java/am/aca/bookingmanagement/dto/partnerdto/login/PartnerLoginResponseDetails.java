@@ -8,17 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PartnerLoginResponseDetails {
-    //TODO add field and token field also for login response
-
-    private String name;
-
-    private String email;
-
-    private double longitude;
-
-    private double latitude;
-
-    private String imageUrl;
-
-    private String address;
+    private String token;
 }

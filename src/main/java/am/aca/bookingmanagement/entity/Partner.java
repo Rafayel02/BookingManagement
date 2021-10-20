@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "partners")
@@ -39,10 +39,13 @@ public class Partner {
     @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(name = "uuid")
+    private String uuid;
+
     @OneToMany(mappedBy = "partner")
-    private Set<Review> reviews;
+    private List<Review> reviews;
 
     @ManyToMany(mappedBy = "partners")
-    private Set<Category> categories;
+    private List<Category> categories;
 
 }
