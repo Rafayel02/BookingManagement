@@ -33,13 +33,10 @@ public class PartnerFacadeImpl implements PartnerFacade {
 
     @Override
     public PartnerRegisterResponseDetails register(final PartnerRegisterRequestDetails request) {
-        if(!validationChecker.isEmailValid(request.getEmail())){
-            throw new SomethingWentWrongException("Invalid email address");
+        if (!validationChecker.isPartnerRegistrationValid(request.getName(), request.getEmail(),
+                request.getPassword(), request.getAddress(), request.getImageUrl())) {
+            throw new SomethingWentWrongException("Invalid information");
         }
-        if(!validationChecker.isPasswordValid(request.getPassword())){
-            throw new SomethingWentWrongException("Invalid password format");
-        } //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
-
         final Partner partner = partnerService.create(partnerMapper.mapRegisterRequestToEntity(request));
         /*TODO switching to token facade, to generate token and save in db
             (rather to do with transactions of saving user and token)*/
@@ -48,23 +45,18 @@ public class PartnerFacadeImpl implements PartnerFacade {
 
     @Override
     public PartnerLoginResponseDetails login(final PartnerLoginRequestDetails request) {
-        if(!validationChecker.isEmailValid(request.getEmail())){
-            throw new SomethingWentWrongException("Invalid email address");
+        if (!validationChecker.isLoginValid(request.getEmail(), request.getPassword())) {
+            throw new SomethingWentWrongException("Invalid password/email format");
         }
-        if(!validationChecker.isPasswordValid(request.getPassword())){
-            throw new SomethingWentWrongException("Invalid password format");
-        } //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
-
-        /*TODO getting token from request body, switching into
+          /*TODO getting token from request body, switching into
            token facade (to check token in db after some logic with token and restart it if needed)*/
         final Partner byEmail = partnerService.findByEmail(request.getEmail());
         final boolean passwordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.getPassword());
 
-        if (!passwordsMatch){
+        if (!passwordsMatch) {
             throw new WrongPasswordException("PASSWORDS_MISMATCH");
         }
 
         return partnerMapper.mapEntityToLoginResponse(byEmail);
     }
-
 }

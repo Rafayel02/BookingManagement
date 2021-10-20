@@ -46,3 +46,6 @@ create table if not exists partners_categories
     foreign key (partner_id) references partners (id),
     foreign key (type_id) references categories (id)
 );
+
+
+select * from users;

@@ -33,13 +33,10 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public UserRegisterResponseDetails register(final UserRegisterRequestDetails request) {
-        if(!validationChecker.isEmailValid(request.getEmail())){
-            throw new SomethingWentWrongException("Invalid email address");
+        if (!validationChecker.isUserRegistrationValid(request.getFirstName(), request.getLastName(),
+                request.getEmail(), request.getPassword())) {
+            throw new SomethingWentWrongException("Invalid information");
         }
-        if(!validationChecker.isPasswordValid(request.getPassword())){
-            throw new SomethingWentWrongException("Invalid password format");
-        } //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
-
         final User user = userService.create(userMapper.mapRegisterRequestToEntity(request));
         /*TODO switching to token facade, to generate token and save in db
             (rather to do with transactions of saving user and token)*/
@@ -48,13 +45,9 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public UserLoginResponseDetails login(final UserLoginRequestDetails request) {
-        if(!validationChecker.isEmailValid(request.getEmail())){
-            throw new SomethingWentWrongException("Invalid email address");
+        if (!validationChecker.isLoginValid(request.getEmail(), request.getPassword())) {
+            throw new SomethingWentWrongException("Invalid password/email format");
         }
-        if(!validationChecker.isPasswordValid(request.getPassword())){
-            throw new SomethingWentWrongException("Invalid password format");
-        } //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
-
         /*TODO getting token from request body, switching into
            token facade (to check token in db after some logic with token and restart it if needed)*/
         final User byEmail = userService.findByEmail(request.getEmail());
