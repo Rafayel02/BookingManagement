@@ -8,11 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserLoginResponseDetails {
-    //TODO add field and token field also for login response
-
-    private String firstName;
-
-    private String lastName;
-
-    private String email;
+    private String token;
 }

@@ -8,13 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserRegisterResponseDetails {
-
-    private String firstName;
-
-    private String lastName;
-
-    private String email;
-
     private String token;
-
 }

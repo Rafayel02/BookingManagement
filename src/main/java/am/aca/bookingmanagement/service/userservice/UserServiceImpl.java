@@ -30,6 +30,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
+    public Optional<User> findByUuid(final String uuid) {
+        return userRepository.findByUuid(uuid);
+    }
+
 }
 
 

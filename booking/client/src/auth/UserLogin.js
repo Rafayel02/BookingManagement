@@ -46,8 +46,8 @@ function UserLogin() {
         e.preventDefault();
         try {
             const response = await loginUser(values);
-            localStorage.setItem("token", response.data);
-            alert(response.data.email)
+            localStorage.setItem("token", response.data.token);
+            alert(response.data.token)
             console.log(response.data);
             //  updateToken(response.data.token);
             //S  history.push("/main");

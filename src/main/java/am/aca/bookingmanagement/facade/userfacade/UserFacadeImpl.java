@@ -9,6 +9,7 @@ import am.aca.bookingmanagement.entity.User;
 import am.aca.bookingmanagement.exception.UserNotFoundException;
 import am.aca.bookingmanagement.exception.SomethingWentWrongException;
 import am.aca.bookingmanagement.exception.WrongPasswordException;
+import am.aca.bookingmanagement.jwt.JwtTokenGenerator;
 import am.aca.bookingmanagement.mapper.usermapper.UserMapper;
 import am.aca.bookingmanagement.service.userservice.UserService;
 import am.aca.bookingmanagement.service.userservice.UserServiceImpl;
@@ -24,15 +25,18 @@ public class UserFacadeImpl implements UserFacade {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final ValidationChecker validationChecker;
+    private final JwtTokenGenerator jwtTokenGenerator;
 
     public UserFacadeImpl(final UserServiceImpl userServiceImpl,
                           final UserMapper userMapper,
                           final PasswordEncoder passwordEncoder,
-                          final ValidationChecker validationChecker) {
+                          final ValidationChecker validationChecker,
+                          final JwtTokenGenerator jwtTokenGenerator) {
         this.userService = userServiceImpl;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
         this.validationChecker = validationChecker;
+        this.jwtTokenGenerator = jwtTokenGenerator;
     }
 
     @Override

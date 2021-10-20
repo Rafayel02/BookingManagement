@@ -9,7 +9,7 @@ public class JwtTokenGenerator {
 
     public String generate(final User user) {
         return Jwts.builder()
-                .claim("firstName", user.getFirstName())
+                .claim("id", user.getUuid())
                 .signWith(JwtKey.KEY).compact();
     }
 

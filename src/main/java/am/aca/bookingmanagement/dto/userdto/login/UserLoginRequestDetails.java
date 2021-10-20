@@ -8,8 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class UserLoginRequestDetails {
-    //TODO add all login request fields, including token
-
     private String email;
 
     private String password;
