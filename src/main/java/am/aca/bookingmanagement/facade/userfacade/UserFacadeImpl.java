@@ -7,6 +7,7 @@ import am.aca.bookingmanagement.dto.userdto.register.UserRegisterResponseDetails
 import am.aca.bookingmanagement.entity.User;
 import am.aca.bookingmanagement.exception.WrongPasswordException;
 import am.aca.bookingmanagement.mapper.usermapper.UserMapper;
+import am.aca.bookingmanagement.service.tokenservice.TokenService;
 import am.aca.bookingmanagement.service.userservice.UserService;
 import am.aca.bookingmanagement.service.userservice.UserServiceImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,22 +19,25 @@ public class UserFacadeImpl implements UserFacade {
     private final UserService userService;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final TokenService tokenService;
 
     public UserFacadeImpl(final UserServiceImpl userServiceImpl,
                           final UserMapper userMapper,
-                          final PasswordEncoder passwordEncoder) {
+                          final PasswordEncoder passwordEncoder, final TokenService tokenService) {
         this.userService = userServiceImpl;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
+        this.tokenService = tokenService;
     }
 
     @Override
     public UserRegisterResponseDetails register(final UserRegisterRequestDetails request) {
-        final User user = userService.create(userMapper.mapRegisterRequestToEntity(request));
-        /*TODO switching to token facade, to generate token and save in db
-            (rather to do with transactions of saving user and token)*/
         //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
-        return userMapper.mapEntityToRegisterResponse(user);
+        final User user = userService.create(userMapper.mapRegisterRequestToEntity(request));
+        final String token = tokenService.generateJWTToken(user);
+        final UserRegisterResponseDetails response = userMapper.mapEntityToRegisterResponse(user);
+        response.setToken(token);
+        return response;
     }
 
     @Override
