@@ -34,6 +34,7 @@ public class LoginController {
             final UserLoginResponseDetails response = userFacade.login(userLoginRequestDetails);
             return ResponseEntity.ok(response);
         } catch (final SomethingWentWrongException | UserNotFoundException | WrongPasswordException e) {
+            e.printStackTrace();
             return new ResponseEntity<>("WRONG_EMAIL_OR_PASSWORD", HttpStatus.UNAUTHORIZED);
         } catch (final Exception e) {
             return ResponseEntity.notFound().build();

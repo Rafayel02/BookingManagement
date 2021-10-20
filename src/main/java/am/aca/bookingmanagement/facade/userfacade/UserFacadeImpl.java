@@ -41,11 +41,9 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public UserRegisterResponseDetails register(final UserRegisterRequestDetails request) {
-        if (!validationChecker.isEmailValid(request.getEmail())) {
-            throw new SomethingWentWrongException("Invalid email address");
-        }
-        if (!validationChecker.isPasswordValid(request.getPassword())) {
-            throw new SomethingWentWrongException("Invalid password format");
+        if (!validationChecker.isUserRegistrationValid(request.getFirstName(), request.getLastName(),
+                request.getEmail(), request.getPassword())) {
+            throw new SomethingWentWrongException("INVALID_INPUT");
         }
         final User user = userService.create(userMapper.mapRegisterRequestToEntity(request));
         return userMapper.mapEntityToRegisterResponse(user);
@@ -53,11 +51,8 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public UserLoginResponseDetails login(final UserLoginRequestDetails request) {
-        if (!validationChecker.isEmailValid(request.getEmail())) {
-            throw new SomethingWentWrongException("Invalid email address");
-        }
-        if (!validationChecker.isPasswordValid(request.getPassword())) {
-            throw new SomethingWentWrongException("Invalid password format");
+        if (!validationChecker.isLoginValid(request.getEmail(), request.getPassword())) {
+            throw new SomethingWentWrongException("INVALID_EMAIL_OR_PASSWORD");
         }
         final Optional<User> byEmail = userService.findByEmail(request.getEmail());
         if (byEmail.isEmpty()) {
