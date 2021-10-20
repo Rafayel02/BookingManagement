@@ -37,11 +37,9 @@ public class PartnerFacadeImpl implements PartnerFacade {
 
     @Override
     public PartnerRegisterResponseDetails register(final PartnerRegisterRequestDetails request) {
-        if (!validationChecker.isEmailValid(request.getEmail())) {
-            throw new SomethingWentWrongException("Invalid email address");
-        }
-        if (!validationChecker.isPasswordValid(request.getPassword())) {
-            throw new SomethingWentWrongException("Invalid password format");
+        if (!validationChecker.isPartnerRegistrationValid(request.getName(), request.getEmail(),
+                request.getPassword(), request.getAddress(), request.getImageUrl())) {
+            throw new SomethingWentWrongException("INVALID_INPUT");
         }
         final Partner partner = partnerService.create(partnerMapper.mapRegisterRequestToEntity(request));
         return partnerMapper.mapEntityToRegisterResponse(partner);
@@ -49,11 +47,8 @@ public class PartnerFacadeImpl implements PartnerFacade {
 
     @Override
     public PartnerLoginResponseDetails login(final PartnerLoginRequestDetails request) {
-        if (!validationChecker.isEmailValid(request.getEmail())) {
-            throw new SomethingWentWrongException("Invalid email address");
-        }
-        if (!validationChecker.isPasswordValid(request.getPassword())) {
-            throw new SomethingWentWrongException("Invalid password format");
+        if (!validationChecker.isLoginValid(request.getEmail(), request.getPassword())) {
+            throw new SomethingWentWrongException("INVALID_EMAIL_OR_PASSWORD");
         }
         final Optional<Partner> byEmail = partnerService.findByEmail(request.getEmail());
         if (byEmail.isEmpty()) {
@@ -65,5 +60,4 @@ public class PartnerFacadeImpl implements PartnerFacade {
         }
         return partnerMapper.mapEntityToLoginResponse(byEmail.get());
     }
-
 }

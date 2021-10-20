@@ -32,13 +32,11 @@ public class RegisterController {
         try {
             final UserRegisterResponseDetails response = userFacade.register(request);
             return ResponseEntity.ok(response);
-        }catch(final SomethingWentWrongException e){
-            return new ResponseEntity<>("PROVIDED_EMAIL_OR_PASSWORD_IS_INVALID", HttpStatus.FORBIDDEN);
-        }
-        catch (final UserAlreadyExistsException e) {
+        } catch (final SomethingWentWrongException e) {
+            return new ResponseEntity<>("PROVIDED_INFORMATION_IS_INVALID", HttpStatus.FORBIDDEN);
+        } catch (final UserAlreadyExistsException e) {
             return new ResponseEntity<>("PROVIDED_EMAIL_IS_ALREADY_REGISTERED", HttpStatus.FORBIDDEN);
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
@@ -48,13 +46,11 @@ public class RegisterController {
         try {
             final PartnerRegisterResponseDetails response = partnerFacade.register(request);
             return ResponseEntity.ok(response);
-        } catch(final SomethingWentWrongException e){
-            return new ResponseEntity<>("PROVIDED_EMAIL_OR_PASSWORD_IS_INVALID", HttpStatus.FORBIDDEN);
-        }
-        catch (final UserAlreadyExistsException e) {
+        } catch (final SomethingWentWrongException e) {
+            return new ResponseEntity<>("PROVIDED_INFORMATION_IS_INVALID", HttpStatus.FORBIDDEN);
+        } catch (final UserAlreadyExistsException e) {
             return new ResponseEntity<>("PROVIDED_EMAIL_IS_ALREADY_REGISTERED", HttpStatus.FORBIDDEN);
-        }
-        catch (final Exception e) {
+        } catch (final Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
