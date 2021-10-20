@@ -4,7 +4,8 @@ create table if not exists users
     first_name text not null,
     last_name  text not null,
     email      text not null unique,
-    password   text not null
+    password   text not null,
+    uuid       text not null unique
 );
 
 create table if not exists partners
@@ -16,7 +17,8 @@ create table if not exists partners
     longitude double precision not null,
     latitude  double precision not null,
     image_url text default 'default',
-    address   text             not null
+    address   text             not null,
+    uuid      text             not null unique
 );
 
 create table if not exists categories
@@ -27,11 +29,11 @@ create table if not exists categories
 
 create table if not exists reviews
 (
-    id            bigserial not null,
-    user_id       bigint    not null,
+    id         bigserial not null,
+    user_id    bigint    not null,
     partner_id bigint    not null,
-    rating        int check (rating > 0 and rating < 6),
-    comment       text,
+    rating     int check (rating > 0 and rating < 6),
+    comment    text,
     foreign key (user_id) references users (id),
     foreign key (partner_id) references partners (id),
     constraint reviews_user_id_partner_id_un unique (user_id, partner_id),
@@ -42,7 +44,7 @@ create table if not exists reviews
 create table if not exists partners_categories
 (
     partner_id bigint not null,
-    type_id       int not null,
+    type_id    int    not null,
     foreign key (partner_id) references partners (id),
     foreign key (type_id) references categories (id)
 );

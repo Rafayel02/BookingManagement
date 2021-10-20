@@ -4,25 +4,28 @@ import am.aca.bookingmanagement.dto.userdto.login.UserLoginResponseDetails;
 import am.aca.bookingmanagement.dto.userdto.register.UserRegisterRequestDetails;
 import am.aca.bookingmanagement.dto.userdto.register.UserRegisterResponseDetails;
 import am.aca.bookingmanagement.entity.User;
-import org.springframework.context.annotation.Bean;
+import am.aca.bookingmanagement.jwt.JwtTokenGenerator;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class UserMapperImpl implements UserMapper {
 
     private final PasswordEncoder passwordEncoder;
+    private final JwtTokenGenerator jwtTokenGenerator;
 
-    public UserMapperImpl(final PasswordEncoder passwordEncoder) {
+    public UserMapperImpl(final PasswordEncoder passwordEncoder, final JwtTokenGenerator jwtTokenGenerator) {
         this.passwordEncoder = passwordEncoder;
+        this.jwtTokenGenerator = jwtTokenGenerator;
     }
 
     @Override
-    public UserRegisterResponseDetails mapEntityToRegisterResponse(final am.aca.bookingmanagement.entity.User user) {
+    public UserRegisterResponseDetails mapEntityToRegisterResponse(final User user) {
         final UserRegisterResponseDetails response = new UserRegisterResponseDetails();
-        response.setFirstName(user.getFirstName());
-        response.setLastName(user.getLastName());
-        response.setEmail(user.getEmail());
+        response.setToken(jwtTokenGenerator.generate(user));
+        System.out.println(jwtTokenGenerator.generate(user));
         return response;
     }
 
@@ -33,15 +36,14 @@ public class UserMapperImpl implements UserMapper {
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setUuid(UUID.randomUUID().toString());
         return user;
     }
 
     @Override
     public UserLoginResponseDetails mapEntityToLoginResponse(final User user) {
         final UserLoginResponseDetails response = new UserLoginResponseDetails();
-        response.setFirstName(user.getFirstName());
-        response.setLastName(user.getEmail());
-        response.setEmail(user.getEmail());
+        response.setToken(jwtTokenGenerator.generate(user));
         return response;
     }
 

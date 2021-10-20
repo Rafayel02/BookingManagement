@@ -19,7 +19,7 @@ public class PartnerServiceImpl implements PartnerService {
     @Override
     public Partner create(final Partner partner) {
         final Optional<Partner> byEmail = findByEmail(partner.getEmail());
-        if(byEmail.isPresent()) {
+        if (byEmail.isPresent()) {
             throw new PartnerAlreadyExistsException("PARTNER_WITH_EMAIL_" + partner.getEmail() + "_ALREADY_EXISTS");
         }
         return partnerRepository.save(partner);
@@ -28,6 +28,10 @@ public class PartnerServiceImpl implements PartnerService {
     @Override
     public Optional<Partner> findByEmail(final String email) {
         return partnerRepository.findByEmail(email);
+    }
+
+    public Optional<Partner> findByUuid(final String uuid) {
+        return partnerRepository.findByUuid(uuid);
     }
 
 }

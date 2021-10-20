@@ -8,16 +8,5 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PartnerRegisterResponseDetails {
-
-    private String name;
-
-    private String email;
-
-    private double longitude;
-
-    private double latitude;
-
-    private String imageUrl;
-
-    private String address;
+    private String token;
 }

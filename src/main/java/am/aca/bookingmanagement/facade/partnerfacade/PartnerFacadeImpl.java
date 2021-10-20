@@ -7,7 +7,6 @@ import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterRequestDe
 import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterResponseDetails;
 import am.aca.bookingmanagement.entity.Partner;
 import am.aca.bookingmanagement.exception.PartnerNotFoundException;
-import am.aca.bookingmanagement.exception.UserNotFoundException;
 import am.aca.bookingmanagement.exception.SomethingWentWrongException;
 import am.aca.bookingmanagement.exception.WrongPasswordException;
 import am.aca.bookingmanagement.mapper.partnermapper.PartnerMapper;
@@ -28,7 +27,8 @@ public class PartnerFacadeImpl implements PartnerFacade {
 
     public PartnerFacadeImpl(final PartnerService partnerService,
                              final PartnerMapperImpl partnerMapper,
-                             final PasswordEncoder passwordEncoder, ValidationChecker validationChecker) {
+                             final PasswordEncoder passwordEncoder,
+                             final ValidationChecker validationChecker) {
         this.partnerService = partnerService;
         this.partnerMapper = partnerMapper;
         this.passwordEncoder = passwordEncoder;
@@ -37,10 +37,10 @@ public class PartnerFacadeImpl implements PartnerFacade {
 
     @Override
     public PartnerRegisterResponseDetails register(final PartnerRegisterRequestDetails request) {
-        if(!validationChecker.isEmailValid(request.getEmail())){
+        if (!validationChecker.isEmailValid(request.getEmail())) {
             throw new SomethingWentWrongException("Invalid email address");
         }
-        if(!validationChecker.isPasswordValid(request.getPassword())){
+        if (!validationChecker.isPasswordValid(request.getPassword())) {
             throw new SomethingWentWrongException("Invalid password format");
         }
         final Partner partner = partnerService.create(partnerMapper.mapRegisterRequestToEntity(request));
@@ -49,18 +49,18 @@ public class PartnerFacadeImpl implements PartnerFacade {
 
     @Override
     public PartnerLoginResponseDetails login(final PartnerLoginRequestDetails request) {
-        if(!validationChecker.isEmailValid(request.getEmail())){
+        if (!validationChecker.isEmailValid(request.getEmail())) {
             throw new SomethingWentWrongException("Invalid email address");
         }
-        if(!validationChecker.isPasswordValid(request.getPassword())){
+        if (!validationChecker.isPasswordValid(request.getPassword())) {
             throw new SomethingWentWrongException("Invalid password format");
         }
         final Optional<Partner> byEmail = partnerService.findByEmail(request.getEmail());
-        if(byEmail.isEmpty()) {
+        if (byEmail.isEmpty()) {
             throw new PartnerNotFoundException("PARTNER_DOES_NOT_EXIST");
         }
         final boolean passwordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.get().getPassword());
-        if (!passwordsMatch){
+        if (!passwordsMatch) {
             throw new WrongPasswordException("PASSWORDS_MISMATCH");
         }
         return partnerMapper.mapEntityToLoginResponse(byEmail.get());
