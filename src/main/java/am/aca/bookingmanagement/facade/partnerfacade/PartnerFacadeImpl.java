@@ -1,5 +1,6 @@
 package am.aca.bookingmanagement.facade.partnerfacade;
 
+import am.aca.bookingmanagement.checker.ValidationChecker;
 import am.aca.bookingmanagement.dto.partnerdto.login.PartnerLoginRequestDetails;
 import am.aca.bookingmanagement.dto.partnerdto.login.PartnerLoginResponseDetails;
 import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterRequestDetails;
@@ -7,6 +8,7 @@ import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterResponseD
 import am.aca.bookingmanagement.entity.Partner;
 import am.aca.bookingmanagement.exception.PartnerNotFoundException;
 import am.aca.bookingmanagement.exception.UserNotFoundException;
+import am.aca.bookingmanagement.exception.SomethingWentWrongException;
 import am.aca.bookingmanagement.exception.WrongPasswordException;
 import am.aca.bookingmanagement.mapper.partnermapper.PartnerMapper;
 import am.aca.bookingmanagement.mapper.partnermapper.PartnerMapperImpl;
@@ -22,26 +24,40 @@ public class PartnerFacadeImpl implements PartnerFacade {
     private final PartnerService partnerService;
     private final PartnerMapper partnerMapper;
     private final PasswordEncoder passwordEncoder;
+    private final ValidationChecker validationChecker;
 
     public PartnerFacadeImpl(final PartnerService partnerService,
                              final PartnerMapperImpl partnerMapper,
-                             final PasswordEncoder passwordEncoder) {
+                             final PasswordEncoder passwordEncoder, ValidationChecker validationChecker) {
         this.partnerService = partnerService;
         this.partnerMapper = partnerMapper;
         this.passwordEncoder = passwordEncoder;
+        this.validationChecker = validationChecker;
     }
 
     @Override
     public PartnerRegisterResponseDetails register(final PartnerRegisterRequestDetails request) {
+        if(!validationChecker.isEmailValid(request.getEmail())){
+            throw new SomethingWentWrongException("Invalid email address");
+        }
+        if(!validationChecker.isPasswordValid(request.getPassword())){
+            throw new SomethingWentWrongException("Invalid password format");
+        } //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
+
         final Partner partner = partnerService.create(partnerMapper.mapRegisterRequestToEntity(request));
         /*TODO switching to token facade, to generate token and save in db
             (rather to do with transactions of saving user and token)*/
-        //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
         return partnerMapper.mapEntityToRegisterResponse(partner);
     }
 
     @Override
     public PartnerLoginResponseDetails login(final PartnerLoginRequestDetails request) {
+        if(!validationChecker.isEmailValid(request.getEmail())){
+            throw new SomethingWentWrongException("Invalid email address");
+        }
+        if(!validationChecker.isPasswordValid(request.getPassword())){
+            throw new SomethingWentWrongException("Invalid password format");
+        }
         /*TODO getting token from request body, switching into
            token facade (to check token in db after some logic with token and restart it if needed)*/
         //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
