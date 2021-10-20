@@ -42,11 +42,8 @@ public class PartnerFacadeImpl implements PartnerFacade {
         }
         if(!validationChecker.isPasswordValid(request.getPassword())){
             throw new SomethingWentWrongException("Invalid password format");
-        } //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
-
+        }
         final Partner partner = partnerService.create(partnerMapper.mapRegisterRequestToEntity(request));
-        /*TODO switching to token facade, to generate token and save in db
-            (rather to do with transactions of saving user and token)*/
         return partnerMapper.mapEntityToRegisterResponse(partner);
     }
 
@@ -58,9 +55,6 @@ public class PartnerFacadeImpl implements PartnerFacade {
         if(!validationChecker.isPasswordValid(request.getPassword())){
             throw new SomethingWentWrongException("Invalid password format");
         }
-        /*TODO getting token from request body, switching into
-           token facade (to check token in db after some logic with token and restart it if needed)*/
-        //TODO validation checks, if something doesn't match always throw SOMETHING_WENT_WRONG_EXCEPTION
         final Optional<Partner> byEmail = partnerService.findByEmail(request.getEmail());
         if(byEmail.isEmpty()) {
             throw new PartnerNotFoundException("PARTNER_DOES_NOT_EXIST");

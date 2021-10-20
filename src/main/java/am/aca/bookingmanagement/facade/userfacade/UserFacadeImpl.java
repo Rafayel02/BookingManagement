@@ -9,9 +9,7 @@ import am.aca.bookingmanagement.entity.User;
 import am.aca.bookingmanagement.exception.UserNotFoundException;
 import am.aca.bookingmanagement.exception.SomethingWentWrongException;
 import am.aca.bookingmanagement.exception.WrongPasswordException;
-import am.aca.bookingmanagement.jwt.JwtTokenGenerator;
 import am.aca.bookingmanagement.mapper.usermapper.UserMapper;
-import am.aca.bookingmanagement.service.tokenservice.TokenService;
 import am.aca.bookingmanagement.service.userservice.UserService;
 import am.aca.bookingmanagement.service.userservice.UserServiceImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,43 +24,39 @@ public class UserFacadeImpl implements UserFacade {
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
     private final ValidationChecker validationChecker;
-    private final TokenService tokenService;
-    private final JwtTokenGenerator jwtTokenGenerator;
 
     public UserFacadeImpl(final UserServiceImpl userServiceImpl,
                           final UserMapper userMapper,
-                          final PasswordEncoder passwordEncoder, final TokenService tokenService, final JwtTokenGenerator jwtTokenGenerator) {
+                          final PasswordEncoder passwordEncoder,
+                          final ValidationChecker validationChecker) {
         this.userService = userServiceImpl;
         this.userMapper = userMapper;
         this.passwordEncoder = passwordEncoder;
-        this.tokenService = tokenService;
-        this.jwtTokenGenerator = jwtTokenGenerator;
         this.validationChecker = validationChecker;
     }
 
     @Override
     public UserRegisterResponseDetails register(final UserRegisterRequestDetails request) {
-        if(!validationChecker.isEmailValid(request.getEmail())){
+        if (!validationChecker.isEmailValid(request.getEmail())) {
             throw new SomethingWentWrongException("Invalid email address");
         }
-        if(!validationChecker.isPasswordValid(request.getPassword())){
+        if (!validationChecker.isPasswordValid(request.getPassword())) {
             throw new SomethingWentWrongException("Invalid password format");
         }
         final User user = userService.create(userMapper.mapRegisterRequestToEntity(request));
-        final UserRegisterResponseDetails response = userMapper.mapEntityToRegisterResponse(user);
-        return response;
+        return userMapper.mapEntityToRegisterResponse(user);
     }
 
     @Override
     public UserLoginResponseDetails login(final UserLoginRequestDetails request) {
-        if(!validationChecker.isEmailValid(request.getEmail())){
+        if (!validationChecker.isEmailValid(request.getEmail())) {
             throw new SomethingWentWrongException("Invalid email address");
         }
-        if(!validationChecker.isPasswordValid(request.getPassword())){
+        if (!validationChecker.isPasswordValid(request.getPassword())) {
             throw new SomethingWentWrongException("Invalid password format");
         }
         final Optional<User> byEmail = userService.findByEmail(request.getEmail());
-        if(byEmail.isEmpty()) {
+        if (byEmail.isEmpty()) {
             throw new UserNotFoundException("USER_DOES_NOT_EXIST");
         }
         final boolean passwordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.get().getPassword());
