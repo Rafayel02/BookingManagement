@@ -49,10 +49,10 @@ function UserRegister() {
         e.preventDefault();
         try {
             const response = await createUser(values);
-            localStorage.setItem("token", response.data.email);
+            localStorage.setItem("token", response.data.token);
 
             console.log(response.data);
-            // window.location.reload();
+            window.location.reload();
 
             //  updateToken(response.data.token);
             //S  history.push("/main");

@@ -32,7 +32,7 @@ function NavigationItems(){
           window.removeEventListener('storage', checkUserData)
         }
     }, [token]);
-    console.log(token)
+  //  console.log(token)
     return (
   <div className={classes.dist}>
     { !token ?
