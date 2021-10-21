@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
   
   function Search() {
 
-    const data = ["Malocco", "Boxk", "Kaxamb", "bambmir", "botanika"]
+    let data = ["malocco", "boxk", "kaxamb", "bambmir", "botanika"]
 
     let history = useHistory();
 
@@ -48,26 +48,48 @@ const useStyles = makeStyles(() => ({
   
     const handleFormSubmit = async (e) => {
       e.preventDefault();
-      try {
-        const response = await createUser(values);
-        localStorage.setItem("token", response.data);
+      console.log(values.search);
 
-        console.log(response.data);
-      //  updateToken(response.data.token);
-     //S  history.push("/main");
-      } catch (e) {
-          console.log(e);
-        setErrorMessage(e.response?.data?.message || "Something went wrong");
-      }
-    };
+      <h1> Hola</h1>
+    //   try {
+    //     const response = await createUser(values);
+    //     localStorage.setItem("token", response.data);
+
+    //     console.log(response.data);
+    //   //  updateToken(response.data.token);
+    //  //S  history.push("/main");
+    //   } catch (e) {
+    //       console.log(e);
+    //     setErrorMessage(e.response?.data?.message || "Something went wrong");
+    //   }
+    console.log("here");
+      data =  await data.filter(a => {
+            if(a.indexOf(values.search) > -1){
+              
+              return true;
+            }
+            return false
+          })
+          // console.log(arr);
+      
+          // for (const i in arr) {
+          //  <div> iijjj</div>
+           
+              
+          //   }
+          //   console.log("here");
+            values.search = ""
+          }
+    
   
     const createUser = async (values) => {
       return axios.post("http://localhost:5689/login", values);
     };
   
     return (
-      
+      <>
        <div style ={{alignItems:"center", paddingLeft:'25%', marginTop:"2%"}}>
+         
           <form onSubmit={handleFormSubmit} className={classik.forma}>
             <FormHelperText error={true}>{errorMessage || " "}</FormHelperText>
            
@@ -98,7 +120,10 @@ const useStyles = makeStyles(() => ({
          
           </form>
           </div>
-    
+       <div> 
+           {data}
+       </div>
+    </>
     );
 
 

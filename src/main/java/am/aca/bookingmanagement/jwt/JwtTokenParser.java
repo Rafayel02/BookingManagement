@@ -11,8 +11,7 @@ public class JwtTokenParser {
 
     public Jws<Claims> parse(String jws) {
         final JwtParser build = Jwts.parserBuilder().setSigningKey(JwtKey.KEY).build();
-        final Jws<Claims> claimsJws = build.parseClaimsJws(jws);
-        return claimsJws;
+        return build.parseClaimsJws(jws);
     }
 
 }

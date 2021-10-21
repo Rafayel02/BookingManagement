@@ -49,9 +49,11 @@ function UserRegister() {
         e.preventDefault();
         try {
             const response = await createUser(values);
-            localStorage.setItem("token", response.data.token);
-            alert(response.data.token)
+            localStorage.setItem("token", response.data.email);
+
             console.log(response.data);
+            // window.location.reload();
+
             //  updateToken(response.data.token);
             //S  history.push("/main");
         } catch (ex) {
