@@ -8,13 +8,19 @@ import Main from "../Main/Main";
 import {
     Switch,
     Route,
+    Redirect
 } from "react-router-dom";
 import NavigationItems from "../Navigation/NavigationItem";
+import Partner from "../Partner/Partner";
 
 const All = () => {
     return <div>
         <NavigationItems />
         <Switch>
+        <Route path="cafes/:cafeId" exact component={Partner} />
+        <Route path="/filter"  component={Partner} />
+
+
             <Route path="/login/partner">
                 <PartnerLogin/>
             </Route>
@@ -30,7 +36,10 @@ const All = () => {
             <Route path="/">
                 <Main/>
             </Route>
+            <Redirect to='/' />
+
         </Switch>
+
     </div>
 }
 

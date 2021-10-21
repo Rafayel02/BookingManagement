@@ -58,9 +58,8 @@ function PartnerRegister() {
             console.log(response.data);
             //  updateToken(response.data.token);
             //S  history.push("/main");
-        } catch (ex) {
-            alert(ex)
-            console.log(ex);
+        } catch (e) {
+            console.log(e);
             setErrorMessage(e.response?.data?.message || "Something went wrong");
         }
     };
