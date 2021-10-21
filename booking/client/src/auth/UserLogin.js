@@ -46,9 +46,11 @@ function UserLogin() {
         e.preventDefault();
         try {
             const response = await loginUser(values);
-            localStorage.setItem("token", response.data);
-            alert(response.data.email)
-            console.log(response.data);
+            localStorage.setItem("token", response.data.token);
+            window.location.reload();
+
+           //// alert(response.data.email)
+         //   console.log(response.data);
             //  updateToken(response.data.token);
             //S  history.push("/main");
         } catch (e) {

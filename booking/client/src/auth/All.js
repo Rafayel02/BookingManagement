@@ -12,12 +12,15 @@ import {
 } from "react-router-dom";
 import NavigationItems from "../Navigation/NavigationItem";
 import Partner from "../Partner/Partner";
+import GetPartner from "../Partner/GetPartner";
 
 const All = () => {
+
+    // const token = localStorage.getItem('token');
+    
     return <div>
         <NavigationItems />
         <Switch>
-        <Route path="cafes/:cafeId" exact component={Partner} />
         <Route path="/filter"  component={Partner} />
 
 
@@ -33,9 +36,12 @@ const All = () => {
             <Route path="/register">
                 <UserRegister/>
             </Route>
+            <Route path = "/partner"  component = {GetPartner} />
+
             <Route path="/">
                 <Main/>
             </Route>
+
             <Redirect to='/' />
 
         </Switch>
