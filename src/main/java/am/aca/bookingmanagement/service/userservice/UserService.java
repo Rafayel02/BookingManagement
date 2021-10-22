@@ -8,4 +8,8 @@ public interface UserService {
     User create(User user);
 
     Optional<User> findByEmail(String email);
+
+    Optional<User> findByUuid(String uuid);
+
+    Long findIdByUuid(String uuid);
 }

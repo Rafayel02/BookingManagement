@@ -9,4 +9,8 @@ public interface PartnerService {
     Partner create(Partner partner);
 
     Optional<Partner> findByEmail(String email);
+
+    Optional<Partner> findByUuid(String uuid);
+
+    Long findIdByUuid(String uuid);
 }

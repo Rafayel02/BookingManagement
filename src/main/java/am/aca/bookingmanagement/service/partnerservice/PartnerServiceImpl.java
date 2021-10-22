@@ -34,4 +34,9 @@ public class PartnerServiceImpl implements PartnerService {
         return partnerRepository.findByUuid(uuid);
     }
 
+    @Override
+    public Long findIdByUuid(final String uuid) {
+        return partnerRepository.findIdByUuid(uuid);
+    }
+
 }

@@ -33,6 +33,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByUuid(uuid);
     }
 
+    @Override
+    public Long findIdByUuid(final String uuid) {
+        return userRepository.findIdByUuid(uuid);
+
+    }
+
 }
 
 
