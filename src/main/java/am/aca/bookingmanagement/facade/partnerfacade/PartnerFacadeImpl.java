@@ -37,10 +37,10 @@ public class PartnerFacadeImpl implements PartnerFacade {
 
     @Override
     public PartnerRegisterResponseDetails register(final PartnerRegisterRequestDetails request) {
-        if (!validationChecker.isPartnerRegistrationValid(request.getName(), request.getEmail(),
-                request.getPassword(), request.getAddress(), request.getImageUrl())) {
-            throw new SomethingWentWrongException("INVALID_INPUT");
-        }
+//        if (!validationChecker.isPartnerRegistrationValid(request.getName(), request.getEmail(),
+//                request.getPassword(), request.getAddress(), request.getImageUrl())) {
+//            throw new SomethingWentWrongException("INVALID_INPUT");
+//        }
         final Partner partner = partnerService.create(partnerMapper.mapRegisterRequestToEntity(request));
         return partnerMapper.mapEntityToRegisterResponse(partner);
     }
