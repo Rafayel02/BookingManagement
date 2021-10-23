@@ -11,4 +11,6 @@ public interface ReviewService {
     Partner findPartnerUuid(String uuid);
 
     Review create(Review review);
+
+
 }
