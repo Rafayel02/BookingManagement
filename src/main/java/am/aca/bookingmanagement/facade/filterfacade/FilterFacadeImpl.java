@@ -25,6 +25,7 @@ public class FilterFacadeImpl implements FilterFacade {
         this.categoryService = categoryService;
     }
 
+
     @Override
     public FilterResponseDetails findAll(final FilterRequestDetails filterRequestDetails) {
         Optional<List<Partner>> partnerList = filterService.findAll(filterRequestDetails);
