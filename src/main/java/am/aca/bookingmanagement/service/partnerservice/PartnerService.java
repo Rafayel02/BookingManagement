@@ -13,4 +13,7 @@ public interface PartnerService {
     Optional<Partner> findByUuid(String uuid);
 
     Long findIdByUuid(String uuid);
+
+    Integer setPartnerRating(Integer rating, Long id);
+
 }

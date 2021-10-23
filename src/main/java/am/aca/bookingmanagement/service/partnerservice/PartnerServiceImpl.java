@@ -39,4 +39,9 @@ public class PartnerServiceImpl implements PartnerService {
         return partnerRepository.findIdByUuid(uuid);
     }
 
+    @Override
+    public Integer setPartnerRating(Integer rating, Long id) {
+        return partnerRepository.setPartnerRating(rating, id);
+    }
+
 }
