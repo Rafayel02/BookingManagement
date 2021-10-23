@@ -18,7 +18,8 @@ create table if not exists partners
     latitude  double precision not null,
     image_url text default 'default',
     address   text             not null,
-    uuid      text             not null unique
+    uuid      text             not null unique,
+    rating    int
 );
 
 create table if not exists categories
@@ -48,3 +49,12 @@ create table if not exists partners_categories
     foreign key (partner_id) references partners (id),
     foreign key (type_id) references categories (id)
 );
+
+
+select * from partners inner join partners_categories pc on partners.id = pc.partner_id where type_id = 1 and partners.rating >= 3;
+
+
+insert into partners_categories (partner_id, type_id)
+values (2, 1);
+
+select * from categories;
