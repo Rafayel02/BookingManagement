@@ -7,9 +7,9 @@ public interface FilterFacade {
     FilterResponseDetails findAll(FilterRequestDetails filterRequestDetails);
 
     FilterResponseDetails findByCategory(FilterRequestDetails filterRequestDetails);
-/*
-    FilterResponseDetails findByReview(FilterResponseDetails filterResponseDetails);
 
-    FilterResponseDetails findByCategoryAndReview(FilterResponseDetails filterResponseDetails);
- */
+    FilterResponseDetails findByReview(FilterRequestDetails filterRequestDetails);
+
+    FilterResponseDetails findByCategoryAndReview(FilterRequestDetails filterRequestDetails);
+
 }

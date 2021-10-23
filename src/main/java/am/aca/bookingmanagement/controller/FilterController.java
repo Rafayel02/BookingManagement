@@ -24,7 +24,7 @@ public class FilterController {
     @GetMapping
     public ResponseEntity<?> filterPartner(@RequestBody final FilterRequestDetails filterRequestDetails) {
         try {
-            final FilterResponseDetails filterResponseDetails = filterFacade.findByCategory(filterRequestDetails);
+            final FilterResponseDetails filterResponseDetails = filterFacade.findByCategoryAndReview(filterRequestDetails);
             return ResponseEntity.ok(filterResponseDetails);
         } catch (SomethingWentWrongException e) {
             return new ResponseEntity<>("WRONG_FILTER", HttpStatus.UNAUTHORIZED);

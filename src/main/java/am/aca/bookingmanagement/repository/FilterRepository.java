@@ -20,10 +20,13 @@ public interface FilterRepository extends JpaRepository<Partner, Long> {
             "pc.partner_id where pc.type_id in (:list)", nativeQuery = true)
     Optional<List<Partner>> findByCategory(@Param("list") List<Integer> list);
 
-/*
-    Optional<List<Partner>> findByReview(FilterRequestDetails filterRequestDetails);
 
-    Optional<List<Partner>> findByCategoryAndReview(FilterRequestDetails filterRequestDetails);
+    @Query(value = "select * from partners where rating >= ?1", nativeQuery = true)
+    Optional<List<Partner>> findByReview(Integer rating);
 
-*/
+    @Query(value = "select * from partners inner join partners_categories pc on partners.id = " +
+            "pc.partner_id where pc.type_id in (:list) and partners.rating >= :rating ", nativeQuery = true)
+    Optional<List<Partner>> findByCategoryAndReview(@Param("list") List<Integer> list, @Param("rating") Integer rating);
+
+
 }

@@ -59,15 +59,24 @@ public class FilterFacadeImpl implements FilterFacade {
         return categoryIdList;
     }
 
-/*
     @Override
-    public FilterResponseDetails findByReview(FilterResponseDetails filterResponseDetails) {
-        return null;
+    public FilterResponseDetails findByReview(final FilterRequestDetails filterRequestDetails) {
+        Optional<List<Partner>> partnerListByReview = filterService.findByReview(filterRequestDetails.getReview());
+        if (partnerListByReview.isEmpty()) {
+            throw new SomethingWentWrongException("Partner not found");
+        }
+        return filterMapper.mapEntityListToFilterResponse(partnerListByReview.get());
+
+
     }
 
     @Override
-    public FilterResponseDetails findByCategoryAndReview(FilterResponseDetails filterResponseDetails) {
-        return null;
+    public FilterResponseDetails findByCategoryAndReview(final FilterRequestDetails filterRequestDetails) {
+        List<Integer> categoryIdList = getIdFromCategoryType(filterRequestDetails);
+        Optional<List<Partner>> byCategoryAndReview = filterService.findByCategoryAndReview(categoryIdList, filterRequestDetails.getReview());
+        if (byCategoryAndReview.isEmpty()) {
+            throw new SomethingWentWrongException("Partner not found");
+        }
+        return filterMapper.mapEntityListToFilterResponse(byCategoryAndReview.get());
     }
- */
 }

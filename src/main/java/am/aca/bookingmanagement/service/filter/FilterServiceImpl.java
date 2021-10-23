@@ -26,4 +26,13 @@ public class FilterServiceImpl implements FilterService {
         return filterRepository.findAll(filterRequestDetails);
     }
 
+    @Override
+    public Optional<List<Partner>> findByReview(final Integer rating) {
+        return filterRepository.findByReview(rating);
+    }
+
+    @Override
+    public Optional<List<Partner>> findByCategoryAndReview(final List<Integer> list, final Integer rating) {
+        return filterRepository.findByCategoryAndReview(list, rating);
+    }
 }
