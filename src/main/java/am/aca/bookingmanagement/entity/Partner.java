@@ -42,6 +42,9 @@ public class Partner {
     @Column(name = "uuid")
     private String uuid;
 
+    @Column(name = "rating")
+    private Integer rating;
+
     @OneToMany(mappedBy = "partner")
     private List<Review> reviews;
 

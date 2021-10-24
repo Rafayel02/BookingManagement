@@ -58,3 +58,5 @@ insert into partners_categories (partner_id, type_id)
 values (2, 1);
 
 select * from categories;
+
+
