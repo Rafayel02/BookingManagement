@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.service.Category;
+package am.aca.bookingmanagement.service.category;
 
 import am.aca.bookingmanagement.repository.CategoryRepository;
 import org.springframework.stereotype.Service;

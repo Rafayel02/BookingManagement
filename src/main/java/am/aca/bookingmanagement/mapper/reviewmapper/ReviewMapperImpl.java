@@ -11,12 +11,16 @@ public class ReviewMapperImpl implements ReviewMapper {
 
 
     @Override
-    public Review mapRequestToEntity(Integer rating, String comment, User user, Partner partner) {
-        Review review = new Review();
-        review.setRating(rating);
-        review.setComment(comment);
+    public Review mapRequestToEntity(final ReviewRegisterRequestDetails request) {
+        final Review review = new Review();
+        final User user = new User();
+        final Partner partner = new Partner();
+        user.setId(request.getUserId());
+        partner.setId(request.getPartnerId());
         review.setUser(user);
         review.setPartner(partner);
+        review.setRating(request.getRating());
+        review.setComment(request.getComment());
         return review;
     }
 }

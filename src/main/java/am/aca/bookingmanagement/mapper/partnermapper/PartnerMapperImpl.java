@@ -32,7 +32,6 @@ public class PartnerMapperImpl implements PartnerMapper {
         partner.setLatitude(request.getLatitude());
         partner.setImageUrl(request.getImageUrl());
         partner.setAddress(request.getAddress());
-        partner.setUuid(UUID.randomUUID().toString());
         return partner;
     }
 

@@ -39,9 +39,6 @@ public class Partner {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "uuid")
-    private String uuid;
-
     @Column(name = "rating")
     private Integer rating;
 

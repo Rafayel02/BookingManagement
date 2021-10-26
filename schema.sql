@@ -4,8 +4,7 @@ create table if not exists users
     first_name text not null,
     last_name  text not null,
     email      text not null unique,
-    password   text not null,
-    uuid       text not null unique
+    password   text not null
 );
 
 create table if not exists partners
@@ -18,7 +17,6 @@ create table if not exists partners
     latitude  double precision not null,
     image_url text default 'default',
     address   text             not null,
-    uuid      text             not null unique,
     rating    int
 );
 
@@ -50,13 +48,13 @@ create table if not exists partners_categories
     foreign key (type_id) references categories (id)
 );
 
+insert into partners(name, email, password, longitude, latitude, address, rating)
+values ('A', 'A','A',12.0, 12.0, 'A', 5);
 
-select * from partners inner join partners_categories pc on partners.id = pc.partner_id where type_id = 1 and partners.rating >= 3;
+insert into users(first_name, last_name, email, password)
+values ('U','U','U','U');
 
+insert into users(first_name, last_name, email, password)
+values ('U2','U2','U2','U2');
 
-insert into partners_categories (partner_id, type_id)
-values (2, 1);
-
-select * from categories;
-
-
+select AVG(rating) from reviews where partner_id = id;

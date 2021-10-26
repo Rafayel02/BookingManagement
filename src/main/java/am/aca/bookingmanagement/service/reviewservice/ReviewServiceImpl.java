@@ -14,42 +14,24 @@ import java.util.Optional;
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
-
     private final UserService userService;
-    private final PartnerService partnerService;
-
     private final ReviewRepository reviewRepository;
-    public ReviewServiceImpl(PartnerRepository partnerRepository, final UserService userService,
-                             final PartnerService partnerService, ReviewRepository reviewRepository) {
+
+    public ReviewServiceImpl(final UserService userService,
+                             final PartnerService partnerService,
+                             final ReviewRepository reviewRepository) {
         this.userService = userService;
-        this.partnerService = partnerService;
         this.reviewRepository = reviewRepository;
     }
 
     @Override
-    public User findUserByUuid(final String uuid) {
-        return userService.findByUuid(uuid).get();
-    }
-
-    @Override
-    public Partner findPartnerUuid(final String uuid) {
-        return partnerService.findByUuid(uuid).get();
+    public Optional<User> findUserById(final Long id) {
+        return userService.findById(id);
     }
 
     @Override
     public Review create(final Review review) {
-        Review save = reviewRepository.save(review);
-        System.out.println(save.getRating());
-        Integer ratingAvg = reviewRepository.calculateAverage(save.getPartner().getId());
-        System.out.println(ratingAvg + "  " + save.getPartner().getId());
-
-//       Optional<Partner> partner = partnerService.setPartnerRating(ratingAvg, save.getPartner().getId());
-//        System.out.println(partner.isPresent());
-//        System.out.println("idk");
-        partnerService.setPartnerRating(ratingAvg, save.getPartner().getId());
-//        Optional<Partner> partner = partnerRepository.setPartnerRating(ratingAvg, save.getPartner().getId());
-        System.out.println("Im here");
-        return save;
-
+        return reviewRepository.save(review);
     }
+
 }
