@@ -8,12 +8,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.servlet.*;
-
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Collections;
-import java.util.UUID;
 
 public class JwtAuthorizationFilter implements Filter {
 
@@ -22,18 +19,28 @@ public class JwtAuthorizationFilter implements Filter {
                          final ServletResponse response,
                          final FilterChain filterChain) throws IOException, ServletException {
         final String jwtToken = ((HttpServletRequest) request).getHeader("Authorization");
-        if (jwtToken == null) {
+        final String token = resolveToken(jwtToken);
+
+        if (token == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        final Jws<Claims> claimsJws = new JwtTokenParser().parse(jwtToken);
-        final UUID uuid = UUID.fromString(claimsJws.getBody().get("id").toString());
+        final Jws<Claims> claimsJws = new JwtTokenParser().parse(token);
+        final Long id = Long.parseLong(claimsJws.getBody().get("id").toString());
         final String role = claimsJws.getBody().get("role").toString();
         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
-                uuid, null, Collections.singleton(new SimpleGrantedAuthority(role))
+                id, null, Collections.singleton(new SimpleGrantedAuthority(role))
         ));
 
         filterChain.doFilter(request, response);
     }
+
+    private String resolveToken(final String jwtToken) {
+        if (jwtToken == null || !jwtToken.startsWith("Bearer ")) {
+            return null;
+        }
+        return jwtToken.substring(7);
+    }
+
 }
