@@ -6,7 +6,11 @@ import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterRequestDe
 import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterResponseDetails;
 
 public interface PartnerFacade {
+
     PartnerRegisterResponseDetails register(PartnerRegisterRequestDetails partnerRegisterRequestDetails);
 
     PartnerLoginResponseDetails login(PartnerLoginRequestDetails partnerLoginRequestDetails);
+
+    void updateAverageRating(Long currentPartnerId);
+
 }

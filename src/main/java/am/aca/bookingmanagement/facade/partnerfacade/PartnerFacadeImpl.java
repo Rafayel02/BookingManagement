@@ -60,4 +60,10 @@ public class PartnerFacadeImpl implements PartnerFacade {
         }
         return partnerMapper.mapEntityToLoginResponse(byEmail.get());
     }
+
+    @Override
+    public void updateAverageRating(final Long id) {
+        partnerService.updateAverageRating(id);
+    }
+
 }

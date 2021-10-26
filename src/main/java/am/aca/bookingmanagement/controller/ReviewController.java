@@ -22,11 +22,11 @@ public class ReviewController {
     public ResponseEntity<?> registerReview(@RequestBody final ReviewRegisterRequestDetails request) {
         try {
             reviewFacade.registerReview(request);
-            return ResponseEntity.ok(HttpStatus.OK);
+            return ResponseEntity.ok("review added");
         } catch (final Exception e) {
-            return new ResponseEntity<>("USER_WITH_ID: " + request.getUserUuid() +
+            return new ResponseEntity<>("USER_WITH_ID: " + request.getUserId() +
                         " ALREADY_HAS_A_REVIEW_FOR_PARTNER_WITH_ID: " +
-                        request.getPartnerUuid(), HttpStatus.FORBIDDEN);
+                        request.getPartnerId(), HttpStatus.FORBIDDEN);
         }
     }
 

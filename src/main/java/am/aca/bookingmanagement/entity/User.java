@@ -30,9 +30,6 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "uuid", nullable = false, unique = true)
-    private String uuid;
-
     @OneToMany(mappedBy = "user")
     private List<Review> reviews;
 }

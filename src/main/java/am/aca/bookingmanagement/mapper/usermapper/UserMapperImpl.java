@@ -25,7 +25,6 @@ public class UserMapperImpl implements UserMapper {
     public UserRegisterResponseDetails mapEntityToRegisterResponse(final User user) {
         final UserRegisterResponseDetails response = new UserRegisterResponseDetails();
         response.setToken(jwtTokenGenerator.generate(user));
-        System.out.println(jwtTokenGenerator.generate(user));
         return response;
     }
 
@@ -36,7 +35,6 @@ public class UserMapperImpl implements UserMapper {
         user.setLastName(request.getLastName());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setUuid(UUID.randomUUID().toString());
         return user;
     }
 

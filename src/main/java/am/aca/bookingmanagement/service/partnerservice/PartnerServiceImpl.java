@@ -3,6 +3,7 @@ package am.aca.bookingmanagement.service.partnerservice;
 import am.aca.bookingmanagement.entity.Partner;
 import am.aca.bookingmanagement.exception.PartnerAlreadyExistsException;
 import am.aca.bookingmanagement.repository.PartnerRepository;
+import am.aca.bookingmanagement.service.reviewservice.ReviewService;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -30,18 +31,15 @@ public class PartnerServiceImpl implements PartnerService {
         return partnerRepository.findByEmail(email);
     }
 
-    public Optional<Partner> findByUuid(final String uuid) {
-        return partnerRepository.findByUuid(uuid);
+    @Override
+    public Optional<Partner> findById(final Long id) {
+        return partnerRepository.findById(id);
     }
 
     @Override
-    public Long findIdByUuid(final String uuid) {
-        return partnerRepository.findIdByUuid(uuid);
-    }
-
-    @Override
-    public Integer setPartnerRating(Integer rating, Long id) {
-        return partnerRepository.setPartnerRating(rating, id);
+    public void updateAverageRating(final Long id) {
+        final Integer currentAverage = partnerRepository.calculateAverage(id);
+        partnerRepository.updateRating(currentAverage, id);
     }
 
 }

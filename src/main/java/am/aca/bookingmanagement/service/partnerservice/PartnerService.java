@@ -10,10 +10,7 @@ public interface PartnerService {
 
     Optional<Partner> findByEmail(String email);
 
-    Optional<Partner> findByUuid(String uuid);
+    Optional<Partner> findById(Long id);
 
-    Long findIdByUuid(String uuid);
-
-    Integer setPartnerRating(Integer rating, Long id);
-
+    void updateAverageRating(Long id);
 }
