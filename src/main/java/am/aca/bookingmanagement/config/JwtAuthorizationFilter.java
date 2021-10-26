@@ -1,16 +1,16 @@
 package am.aca.bookingmanagement.config;
 
-import am.aca.bookingmanagement.jwt.JwtTokenParser;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import io.jsonwebtoken.Claims;
+import am.aca.bookingmanagement.jwt.JwtTokenParser;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
 import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Collections;
+import javax.servlet.http.HttpServletRequest;
 
 public class JwtAuthorizationFilter implements Filter {
 

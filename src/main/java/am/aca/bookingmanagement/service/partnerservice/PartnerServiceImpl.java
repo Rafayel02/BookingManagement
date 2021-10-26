@@ -1,10 +1,9 @@
 package am.aca.bookingmanagement.service.partnerservice;
 
-import am.aca.bookingmanagement.entity.Partner;
-import am.aca.bookingmanagement.exception.PartnerAlreadyExistsException;
-import am.aca.bookingmanagement.repository.PartnerRepository;
-import am.aca.bookingmanagement.service.reviewservice.ReviewService;
 import org.springframework.stereotype.Component;
+import am.aca.bookingmanagement.entity.Partner;
+import am.aca.bookingmanagement.repository.PartnerRepository;
+import am.aca.bookingmanagement.exception.PartnerAlreadyExistsException;
 
 import java.util.Optional;
 

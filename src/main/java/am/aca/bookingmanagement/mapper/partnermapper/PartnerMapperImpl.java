@@ -1,14 +1,12 @@
 package am.aca.bookingmanagement.mapper.partnermapper;
 
-import am.aca.bookingmanagement.dto.partnerdto.login.PartnerLoginResponseDetails;
-import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterRequestDetails;
-import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterResponseDetails;
+import org.springframework.stereotype.Component;
 import am.aca.bookingmanagement.entity.Partner;
 import am.aca.bookingmanagement.jwt.JwtTokenGenerator;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
-
-import java.util.UUID;
+import am.aca.bookingmanagement.dto.partner.login.PartnerLoginResponseDetails;
+import am.aca.bookingmanagement.dto.partner.register.PartnerRegisterRequestDetails;
+import am.aca.bookingmanagement.dto.partner.register.PartnerRegisterResponseDetails;
 
 @Component
 public class PartnerMapperImpl implements PartnerMapper {

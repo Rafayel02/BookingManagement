@@ -1,9 +1,9 @@
 package am.aca.bookingmanagement.jwt;
 
-import am.aca.bookingmanagement.entity.Partner;
-import am.aca.bookingmanagement.entity.User;
-import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Component;
+import io.jsonwebtoken.Jwts;
+import am.aca.bookingmanagement.entity.User;
+import am.aca.bookingmanagement.entity.Partner;
 
 @Component
 public class JwtTokenGenerator {
@@ -21,4 +21,5 @@ public class JwtTokenGenerator {
                 .claim("role", "ROLE_PARTNER")
                 .signWith(JwtKey.KEY).compact();
     }
+
 }

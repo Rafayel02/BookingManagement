@@ -1,8 +1,8 @@
 package am.aca.bookingmanagement.entity;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -47,5 +47,4 @@ public class Partner {
 
     @ManyToMany(mappedBy = "partners")
     private List<Category> categories;
-
 }

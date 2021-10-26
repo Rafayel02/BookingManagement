@@ -1,12 +1,13 @@
-package am.aca.bookingmanagement.dto.userdto.login;
+package am.aca.bookingmanagement.dto.user.login;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class UserLoginResponseDetails {
+
     private String token;
 }

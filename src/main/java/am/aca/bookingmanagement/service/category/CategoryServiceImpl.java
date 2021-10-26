@@ -1,7 +1,7 @@
 package am.aca.bookingmanagement.service.category;
 
-import am.aca.bookingmanagement.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
+import am.aca.bookingmanagement.repository.CategoryRepository;
 
 import java.util.Optional;
 
@@ -10,7 +10,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryService) {
+    public CategoryServiceImpl(final CategoryRepository categoryService) {
         this.categoryRepository = categoryService;
     }
 
@@ -18,4 +18,5 @@ public class CategoryServiceImpl implements CategoryService {
     public Optional<Integer> findCategoryIdByType(final String type) {
         return categoryRepository.findCategoryIdByType(type);
     }
+
 }

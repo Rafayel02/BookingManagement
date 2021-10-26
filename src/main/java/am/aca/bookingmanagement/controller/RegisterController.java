@@ -1,19 +1,19 @@
 package am.aca.bookingmanagement.controller;
 
-import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterRequestDetails;
-import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterResponseDetails;
-import am.aca.bookingmanagement.dto.userdto.register.UserRegisterRequestDetails;
-import am.aca.bookingmanagement.dto.userdto.register.UserRegisterResponseDetails;
-import am.aca.bookingmanagement.exception.SomethingWentWrongException;
-import am.aca.bookingmanagement.exception.UserAlreadyExistsException;
-import am.aca.bookingmanagement.facade.partnerfacade.PartnerFacade;
-import am.aca.bookingmanagement.facade.userfacade.UserFacade;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import am.aca.bookingmanagement.facade.userfacade.UserFacade;
+import am.aca.bookingmanagement.facade.partner.PartnerFacade;
+import am.aca.bookingmanagement.exception.UserAlreadyExistsException;
+import am.aca.bookingmanagement.exception.SomethingWentWrongException;
+import am.aca.bookingmanagement.dto.user.register.UserRegisterRequestDetails;
+import am.aca.bookingmanagement.dto.user.register.UserRegisterResponseDetails;
+import am.aca.bookingmanagement.dto.partner.register.PartnerRegisterRequestDetails;
+import am.aca.bookingmanagement.dto.partner.register.PartnerRegisterResponseDetails;
 
 @RestController
 @RequestMapping("/register")
@@ -22,7 +22,8 @@ public class RegisterController {
     private final UserFacade userFacade;
     private final PartnerFacade partnerFacade;
 
-    public RegisterController(final UserFacade userFacade, final PartnerFacade partnerFacade) {
+    public RegisterController(final UserFacade userFacade,
+                              final PartnerFacade partnerFacade) {
         this.userFacade = userFacade;
         this.partnerFacade = partnerFacade;
     }

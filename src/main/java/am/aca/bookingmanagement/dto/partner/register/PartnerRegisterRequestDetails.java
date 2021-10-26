@@ -1,8 +1,8 @@
-package am.aca.bookingmanagement.dto.partnerdto.register;
+package am.aca.bookingmanagement.dto.partner.register;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Setter
@@ -22,5 +22,4 @@ public class PartnerRegisterRequestDetails {
     private String imageUrl;
 
     private String address;
-
 }

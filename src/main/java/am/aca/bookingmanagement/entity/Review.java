@@ -1,19 +1,20 @@
 package am.aca.bookingmanagement.entity;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "reviews", uniqueConstraints = {
-        @UniqueConstraint(name = "reviews_user_id_partner_id_un", columnNames = {"user_id", "partner_id"}),
+        @UniqueConstraint(name = "reviews_user_id_partner_id_un", columnNames = {"user_id", "partner_id"})
 })
 @Getter
 @Setter
 @NoArgsConstructor
 public class Review {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,5 +32,4 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "partner_id", referencedColumnName = "id", nullable = false)
     private Partner partner;
-
 }

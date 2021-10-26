@@ -1,42 +1,37 @@
 package am.aca.bookingmanagement.facade.userfacade;
 
-import am.aca.bookingmanagement.checker.ValidationChecker;
-import am.aca.bookingmanagement.dto.userdto.login.UserLoginRequestDetails;
-import am.aca.bookingmanagement.dto.userdto.login.UserLoginResponseDetails;
-import am.aca.bookingmanagement.dto.userdto.register.UserRegisterRequestDetails;
-import am.aca.bookingmanagement.dto.userdto.register.UserRegisterResponseDetails;
-import am.aca.bookingmanagement.entity.User;
-import am.aca.bookingmanagement.exception.UserNotFoundException;
-import am.aca.bookingmanagement.exception.SomethingWentWrongException;
-import am.aca.bookingmanagement.exception.WrongPasswordException;
-import am.aca.bookingmanagement.jwt.JwtTokenGenerator;
-import am.aca.bookingmanagement.mapper.usermapper.UserMapper;
-import am.aca.bookingmanagement.service.userservice.UserService;
-import am.aca.bookingmanagement.service.userservice.UserServiceImpl;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import am.aca.bookingmanagement.entity.User;
+import am.aca.bookingmanagement.checker.ValidationChecker;
+import am.aca.bookingmanagement.mapper.usermapper.UserMapper;
+import am.aca.bookingmanagement.exception.UserNotFoundException;
+import am.aca.bookingmanagement.service.userservice.UserService;
+import am.aca.bookingmanagement.exception.WrongPasswordException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import am.aca.bookingmanagement.exception.SomethingWentWrongException;
+import am.aca.bookingmanagement.dto.user.login.UserLoginRequestDetails;
+import am.aca.bookingmanagement.dto.user.login.UserLoginResponseDetails;
+import am.aca.bookingmanagement.dto.user.register.UserRegisterRequestDetails;
+import am.aca.bookingmanagement.dto.user.register.UserRegisterResponseDetails;
 
 import java.util.Optional;
 
 @Component
 public class UserFacadeImpl implements UserFacade {
 
-    private final UserService userService;
     private final UserMapper userMapper;
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final ValidationChecker validationChecker;
-    private final JwtTokenGenerator jwtTokenGenerator;
 
-    public UserFacadeImpl(final UserServiceImpl userServiceImpl,
-                          final UserMapper userMapper,
+    public UserFacadeImpl(final UserMapper userMapper,
+                          final UserService userService,
                           final PasswordEncoder passwordEncoder,
-                          final ValidationChecker validationChecker,
-                          final JwtTokenGenerator jwtTokenGenerator) {
-        this.userService = userServiceImpl;
+                          final ValidationChecker validationChecker) {
         this.userMapper = userMapper;
+        this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.validationChecker = validationChecker;
-        this.jwtTokenGenerator = jwtTokenGenerator;
     }
 
     @Override
@@ -54,15 +49,15 @@ public class UserFacadeImpl implements UserFacade {
         if (!validationChecker.isLoginValid(request.getEmail(), request.getPassword())) {
             throw new SomethingWentWrongException("INVALID_EMAIL_OR_PASSWORD");
         }
-        final Optional<User> byEmail = userService.findByEmail(request.getEmail());
-        if (byEmail.isEmpty()) {
+        final Optional<User> user = userService.findByEmail(request.getEmail());
+        if (user.isEmpty()) {
             throw new UserNotFoundException("USER_DOES_NOT_EXIST");
         }
-        final boolean passwordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.get().getPassword());
-        if (!passwordsMatch) {
+        final boolean doPasswordsMatch = passwordEncoder.matches(request.getPassword(), user.get().getPassword());
+        if (!doPasswordsMatch) {
             throw new WrongPasswordException("PASSWORDS_MISMATCH");
         }
-        return userMapper.mapEntityToLoginResponse(byEmail.get());
+        return userMapper.mapEntityToLoginResponse(user.get());
     }
 
 }
