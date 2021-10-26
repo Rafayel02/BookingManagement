@@ -1,15 +1,16 @@
 package am.aca.bookingmanagement.mapper.partnermapper;
 
-import am.aca.bookingmanagement.dto.partnerdto.login.PartnerLoginResponseDetails;
-import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterRequestDetails;
-import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterResponseDetails;
 import am.aca.bookingmanagement.entity.Partner;
+import am.aca.bookingmanagement.dto.partner.login.PartnerLoginResponseDetails;
+import am.aca.bookingmanagement.dto.partner.register.PartnerRegisterRequestDetails;
+import am.aca.bookingmanagement.dto.partner.register.PartnerRegisterResponseDetails;
 
 public interface PartnerMapper {
 
-    Partner mapRegisterRequestToEntity(PartnerRegisterRequestDetails partnerRegisterRequestDetails);
+    Partner mapRegisterRequestToEntity(PartnerRegisterRequestDetails request);
 
     PartnerRegisterResponseDetails mapEntityToRegisterResponse(Partner partner);
 
     PartnerLoginResponseDetails mapEntityToLoginResponse(Partner partner);
+
 }

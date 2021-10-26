@@ -1,8 +1,8 @@
 package am.aca.bookingmanagement.repository;
 
+import org.springframework.stereotype.Repository;
 import am.aca.bookingmanagement.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 

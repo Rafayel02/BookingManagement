@@ -1,13 +1,14 @@
-package am.aca.bookingmanagement.dto.reviewdto;
+package am.aca.bookingmanagement.dto.review;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Setter
 @NoArgsConstructor
 public class ReviewRegisterRequestDetails {
+
     private Long userId;
     private Long partnerId;
     private String comment;

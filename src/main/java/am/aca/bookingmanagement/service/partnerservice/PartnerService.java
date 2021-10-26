@@ -13,4 +13,5 @@ public interface PartnerService {
     Optional<Partner> findById(Long id);
 
     void updateAverageRating(Long id);
+
 }

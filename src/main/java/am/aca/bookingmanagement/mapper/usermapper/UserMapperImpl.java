@@ -1,14 +1,12 @@
 package am.aca.bookingmanagement.mapper.usermapper;
 
-import am.aca.bookingmanagement.dto.userdto.login.UserLoginResponseDetails;
-import am.aca.bookingmanagement.dto.userdto.register.UserRegisterRequestDetails;
-import am.aca.bookingmanagement.dto.userdto.register.UserRegisterResponseDetails;
+import org.springframework.stereotype.Component;
 import am.aca.bookingmanagement.entity.User;
 import am.aca.bookingmanagement.jwt.JwtTokenGenerator;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
-
-import java.util.UUID;
+import am.aca.bookingmanagement.dto.user.login.UserLoginResponseDetails;
+import am.aca.bookingmanagement.dto.user.register.UserRegisterRequestDetails;
+import am.aca.bookingmanagement.dto.user.register.UserRegisterResponseDetails;
 
 @Component
 public class UserMapperImpl implements UserMapper {
@@ -16,7 +14,8 @@ public class UserMapperImpl implements UserMapper {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenGenerator jwtTokenGenerator;
 
-    public UserMapperImpl(final PasswordEncoder passwordEncoder, final JwtTokenGenerator jwtTokenGenerator) {
+    public UserMapperImpl(final PasswordEncoder passwordEncoder,
+                          final JwtTokenGenerator jwtTokenGenerator) {
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenGenerator = jwtTokenGenerator;
     }

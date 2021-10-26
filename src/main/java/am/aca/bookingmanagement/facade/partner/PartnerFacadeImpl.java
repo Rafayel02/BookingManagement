@@ -1,46 +1,45 @@
-package am.aca.bookingmanagement.facade.partnerfacade;
+package am.aca.bookingmanagement.facade.partner;
 
-import am.aca.bookingmanagement.checker.ValidationChecker;
-import am.aca.bookingmanagement.dto.partnerdto.login.PartnerLoginRequestDetails;
-import am.aca.bookingmanagement.dto.partnerdto.login.PartnerLoginResponseDetails;
-import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterRequestDetails;
-import am.aca.bookingmanagement.dto.partnerdto.register.PartnerRegisterResponseDetails;
-import am.aca.bookingmanagement.entity.Partner;
-import am.aca.bookingmanagement.exception.PartnerNotFoundException;
-import am.aca.bookingmanagement.exception.SomethingWentWrongException;
-import am.aca.bookingmanagement.exception.WrongPasswordException;
-import am.aca.bookingmanagement.mapper.partnermapper.PartnerMapper;
-import am.aca.bookingmanagement.mapper.partnermapper.PartnerMapperImpl;
-import am.aca.bookingmanagement.service.partnerservice.PartnerService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import am.aca.bookingmanagement.entity.Partner;
+import am.aca.bookingmanagement.checker.ValidationChecker;
+import am.aca.bookingmanagement.exception.WrongPasswordException;
+import am.aca.bookingmanagement.exception.PartnerNotFoundException;
+import am.aca.bookingmanagement.mapper.partnermapper.PartnerMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import am.aca.bookingmanagement.service.partnerservice.PartnerService;
+import am.aca.bookingmanagement.exception.SomethingWentWrongException;
+import am.aca.bookingmanagement.dto.partner.login.PartnerLoginRequestDetails;
+import am.aca.bookingmanagement.dto.partner.login.PartnerLoginResponseDetails;
+import am.aca.bookingmanagement.dto.partner.register.PartnerRegisterRequestDetails;
+import am.aca.bookingmanagement.dto.partner.register.PartnerRegisterResponseDetails;
 
 import java.util.Optional;
 
 @Component
 public class PartnerFacadeImpl implements PartnerFacade {
 
-    private final PartnerService partnerService;
     private final PartnerMapper partnerMapper;
+    private final PartnerService partnerService;
     private final PasswordEncoder passwordEncoder;
     private final ValidationChecker validationChecker;
 
-    public PartnerFacadeImpl(final PartnerService partnerService,
-                             final PartnerMapperImpl partnerMapper,
+    public PartnerFacadeImpl(final PartnerMapper partnerMapper,
+                             final PartnerService partnerService,
                              final PasswordEncoder passwordEncoder,
                              final ValidationChecker validationChecker) {
-        this.partnerService = partnerService;
         this.partnerMapper = partnerMapper;
+        this.partnerService = partnerService;
         this.passwordEncoder = passwordEncoder;
         this.validationChecker = validationChecker;
     }
 
     @Override
     public PartnerRegisterResponseDetails register(final PartnerRegisterRequestDetails request) {
-//        if (!validationChecker.isPartnerRegistrationValid(request.getName(), request.getEmail(),
-//                request.getPassword(), request.getAddress(), request.getImageUrl())) {
-//            throw new SomethingWentWrongException("INVALID_INPUT");
-//        }
+        if (!validationChecker.isPartnerRegistrationValid(request.getName(), request.getEmail(),
+                request.getPassword(), request.getAddress(), request.getImageUrl())) {
+            throw new SomethingWentWrongException("INVALID_INPUT");
+        }
         final Partner partner = partnerService.create(partnerMapper.mapRegisterRequestToEntity(request));
         return partnerMapper.mapEntityToRegisterResponse(partner);
     }
@@ -54,8 +53,8 @@ public class PartnerFacadeImpl implements PartnerFacade {
         if (byEmail.isEmpty()) {
             throw new PartnerNotFoundException("PARTNER_DOES_NOT_EXIST");
         }
-        final boolean passwordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.get().getPassword());
-        if (!passwordsMatch) {
+        final boolean doPasswordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.get().getPassword());
+        if (!doPasswordsMatch) {
             throw new WrongPasswordException("PASSWORDS_MISMATCH");
         }
         return partnerMapper.mapEntityToLoginResponse(byEmail.get());
