@@ -99,41 +99,41 @@ public class FilterFacadeImpl implements FilterFacade {
     public FilterResponseDetails findBy(final FilterRequestDetails filterRequestDetails) {
         if (filterRequestDetails.getCategory() != null &&
                 filterRequestDetails.getActivity() != null &&
-                filterRequestDetails.getLocation() != null &&
-                filterRequestDetails.getLocation().size() == 3) {
+                filterRequestDetails.getLocationInfo() != null &&
+                filterRequestDetails.getLocationInfo().size() == 3) {
             System.out.println("findVyActivityCategoryAndLocation");
             return findVyActivityCategoryAndLocation(filterRequestDetails);
         }
         if (filterRequestDetails.getCategory() != null &&
                 filterRequestDetails.getActivity() != null
-                && (filterRequestDetails.getLocation() == null ||
-                filterRequestDetails.getLocation().size() != 3)) {
+                && (filterRequestDetails.getLocationInfo() == null ||
+                filterRequestDetails.getLocationInfo().size() != 3)) {
             System.out.println("findByCategoryAndActivity");
             return findByCategoryAndActivity(filterRequestDetails);
         }
         if (filterRequestDetails.getCategory() != null && filterRequestDetails.getActivity() == null
-                && (filterRequestDetails.getLocation() == null || filterRequestDetails.getLocation().size() != 3 )) {
+                && (filterRequestDetails.getLocationInfo() == null || filterRequestDetails.getLocationInfo().size() != 3 )) {
             System.out.println("findByCategory");
 
             return findByCategory(filterRequestDetails);
         }
         if (filterRequestDetails.getCategory() == null && filterRequestDetails.getActivity() != null
-                && (filterRequestDetails.getLocation() == null || filterRequestDetails.getLocation().size() != 3)) {
+                && (filterRequestDetails.getLocationInfo() == null || filterRequestDetails.getLocationInfo().size() != 3)) {
             System.out.println("findByActivity");
             return findByActivity(filterRequestDetails);
         }
         if (filterRequestDetails.getCategory() == null && filterRequestDetails.getActivity() == null
-                && filterRequestDetails.getLocation() != null && filterRequestDetails.getLocation().size() == 3) {
+                && filterRequestDetails.getLocationInfo() != null && filterRequestDetails.getLocationInfo().size() == 3) {
             System.out.println("findByLocation");
             return findByLocation(filterRequestDetails);
         }
         if (filterRequestDetails.getCategory() != null && filterRequestDetails.getActivity() == null
-                && filterRequestDetails.getLocation() != null && filterRequestDetails.getLocation().size() == 3) {
+                && filterRequestDetails.getLocationInfo() != null && filterRequestDetails.getLocationInfo().size() == 3) {
             System.out.println("findByCategoriesAndLocation");
             return findByCategoriesAndLocation(filterRequestDetails);
         }
         if (filterRequestDetails.getCategory() == null && filterRequestDetails.getActivity() != null
-                && filterRequestDetails.getLocation() != null && filterRequestDetails.getLocation().size() == 3) {
+                && filterRequestDetails.getLocationInfo() != null && filterRequestDetails.getLocationInfo().size() == 3) {
             System.out.println("findByActivitiesAndLocation");
             return findByActivitiesAndLocation(filterRequestDetails);
         }
