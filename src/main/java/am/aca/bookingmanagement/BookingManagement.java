@@ -16,6 +16,8 @@ public class BookingManagement {
         SpringApplication.run(BookingManagement.class, args);
     }
 
+
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {

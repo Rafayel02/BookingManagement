@@ -1,93 +1,98 @@
 package am.aca.bookingmanagement.service.filter;
 
-import am.aca.bookingmanagement.dto.filterdto.FilterRequestDetails;
+import org.springframework.stereotype.Service;
 import am.aca.bookingmanagement.entity.Partner;
 import am.aca.bookingmanagement.repository.FilterRepository;
-import org.springframework.stereotype.Service;
+import am.aca.bookingmanagement.dto.filter.FilterRequestDetails;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.ArrayList;
 
 @Service
 public class FilterServiceImpl implements FilterService {
+
     private final FilterRepository filterRepository;
 
-    public FilterServiceImpl(FilterRepository filterRepository) {
+    public FilterServiceImpl(final FilterRepository filterRepository) {
         this.filterRepository = filterRepository;
     }
 
     @Override
-    public Set<Partner> findAll() {
-        return new HashSet<>(filterRepository.findAll());
+    public List<Partner> findAll() {
+        return new ArrayList<>(filterRepository.findAll()) {
+        };
     }
 
     @Override
-    public Set<Partner> findByCategory(List<Integer> categoryIDList) {
+    public List<Partner> findByCategory(final List<Integer> categoryIDList) {
         return filterRepository.findByCategory(categoryIDList);
     }
 
     @Override
-    public Set<Partner> findByActivity(final List<Integer> list) {
+    public List<Partner> findByActivity(final List<Integer> list) {
         return filterRepository.findByActivity(list);
     }
 
 
     @Override
-    public Set<Partner> findAllByCategoriesAndActivities(final List<Integer> categoryIDList,
-                                                         final List<Integer> activityIDList) {
+    public List<Partner> findAllByCategoriesAndActivities(final List<Integer> categoryIDList,
+                                                          final List<Integer> activityIDList) {
        return filterRepository.findByCategoryAndActivity(categoryIDList, activityIDList);
 
     }
 
     @Override
-    public Set<Partner> findByLocation(final FilterRequestDetails filterRequestDetails) {
-        Set<Partner> allPartnersList = findAll();
-        return partnersFilteringByLocation(filterRequestDetails, allPartnersList);
+    public List<Partner> findByLocation(final FilterRequestDetails request) {
+        List<Partner> allPartnersList = findAll();
+        return filterPartnersByLocation(request, allPartnersList);
     }
 
     @Override
-    public Set<Partner> findAllByCategoriesActivitiesAndLocation(final FilterRequestDetails filterRequestDetails,
-                                                                 final List<Integer> categoryIDList,
-                                                                 final List<Integer> activityIDList) {
-        Set<Partner> allByCategoriesAndActivities = findAllByCategoriesAndActivities(categoryIDList, activityIDList);
-        return partnersFilteringByLocation(filterRequestDetails, allByCategoriesAndActivities);
+    public List<Partner> findAllByCategoriesActivitiesAndLocation(final FilterRequestDetails request,
+                                                                  final List<Integer> categoryIDList,
+                                                                  final List<Integer> activityIDList) {
+        final List<Partner> allByCategoriesAndActivities = findAllByCategoriesAndActivities(categoryIDList, activityIDList);
+        return filterPartnersByLocation(request, allByCategoriesAndActivities);
     }
 
     @Override
-    public Set<Partner> findByCategoriesAndLocation(final FilterRequestDetails filterRequestDetails,
-                                                    final List<Integer> categoryIDList) {
-        Set<Partner> allByCategories = findByCategory(categoryIDList);
-        return partnersFilteringByLocation(filterRequestDetails, allByCategories);
+    public List<Partner> findByCategoriesAndLocation(final FilterRequestDetails request,
+                                                     final List<Integer> categoryIDList) {
+        final List<Partner> allByCategories = findByCategory(categoryIDList);
+        return filterPartnersByLocation(request, allByCategories);
     }
 
     @Override
-    public Set<Partner> findByActivitiesAndLocation(final FilterRequestDetails filterRequestDetails,
-                                                    final List<Integer> activityIDList) {
-        Set<Partner> allByActivities = findByActivity(activityIDList);
-        return partnersFilteringByLocation(filterRequestDetails, allByActivities);
+    public List<Partner> findByActivitiesAndLocation(final FilterRequestDetails request,
+                                                     final List<Integer> activityIDList) {
+        final List<Partner> allByActivities = findByActivity(activityIDList);
+        return filterPartnersByLocation(request, allByActivities);
     }
 
 
-    private boolean isCoordinateValid(final Double latitude0, final Double longitude0,
-                                      final Double latitude1, final Double longitude1, final Double distance) {
+    private boolean isCoordinateValid(final Double latitude0,
+                                      final Double longitude0,
+                                      final Double latitude1,
+                                      final Double longitude1,
+                                      final Double distance) {
         return Math.pow((latitude1 - latitude0), 2) + Math.pow((longitude1 - longitude0), 2) <= Math.pow(distance, 2);
     }
 
-    public Set<Partner> partnersFilteringByLocation(FilterRequestDetails filterRequestDetails, Set<Partner> partnerList) {
-        Set<Partner> filteredPartnerSet = new HashSet<>();
-        for (Partner partner : partnerList) {
-            if (filterRequestDetails.getLocationInfo().size() == 3 &&
-                    isCoordinateValid(filterRequestDetails.getLocationInfo().get(0), filterRequestDetails.getLocationInfo().get(1),
-                            partner.getLatitude(), partner.getLongitude(), filterRequestDetails.getLocationInfo().get(2))) {
-                filteredPartnerSet.add(partner);
+    public List<Partner> filterPartnersByLocation(final FilterRequestDetails request,
+                                                  final List<Partner> list) {
+        final List<Partner> partners = new ArrayList<>();
+        for (final Partner partner : list) {
+            if (request.getLocationInfo().size() == 3 &&
+                    isCoordinateValid(request.getLocationInfo().get(0), request.getLocationInfo().get(1),
+                            partner.getLatitude(), partner.getLongitude(), request.getLocationInfo().get(2))) {
+                partners.add(partner);
             }
         }
-        return filteredPartnerSet;
+        return partners;
     }
 
     @Override
-    public Set<Partner> findById(final List<Integer> partnersIdList) {
+    public List<Partner> findById(final List<Integer> partnersIdList) {
         return filterRepository.findById(partnersIdList);
     }
 }

@@ -1,13 +1,13 @@
-package am.aca.bookingmanagement.dto.filterdto;
+package am.aca.bookingmanagement.dto.filter;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class PartnerDto {
+public class FilteredPartnerResponseDetails {
 
     private String name;
 

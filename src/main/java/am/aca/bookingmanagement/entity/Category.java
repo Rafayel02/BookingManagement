@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -26,5 +26,5 @@ public class Category {
             name = "partners_categories",
             joinColumns = {@JoinColumn(name = "type_id")},
             inverseJoinColumns = {@JoinColumn(name = "partner_id")})
-    private Set<Partner> partners;
+    private List<Partner> partners;
 }

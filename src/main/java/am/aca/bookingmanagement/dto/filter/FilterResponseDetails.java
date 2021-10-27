@@ -1,8 +1,8 @@
-package am.aca.bookingmanagement.dto.filterdto;
+package am.aca.bookingmanagement.dto.filter;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -11,6 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 public class FilterResponseDetails {
 
-    private List<PartnerDto> partnersList;
+    private List<FilteredPartnerResponseDetails> partnersList;
 
 }
