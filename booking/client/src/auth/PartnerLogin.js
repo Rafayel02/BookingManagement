@@ -62,7 +62,7 @@ function PartnerLogin() {
             <CardContent>
                 <form onSubmit={handleFormSubmit}>
                     <FormHelperText error={true}>{errorMessage || " "}</FormHelperText>
-
+                    <h1>Login Partner</h1>
                     <TextField
                         name="email"
                         label="Email"
@@ -84,7 +84,7 @@ function PartnerLogin() {
                     />
 
                     <Box>
-                        <Button color="danger" variant="contained" type="submit">
+                        <Button color="primary" variant="contained" type="submit">
                             Log in
                         </Button>
                     </Box>

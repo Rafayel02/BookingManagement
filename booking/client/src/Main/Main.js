@@ -56,7 +56,7 @@ export default function MultipleSelectCheckmarks() {
 
   const [values, setValues] = React.useState({
     category:[]
-   
+
   });
 
   const handleChange = (event) => {
@@ -83,29 +83,25 @@ export default function MultipleSelectCheckmarks() {
   let history = useHistory();
   const handleSubmit = async (e) =>{
     e.preventDefault();
-    const {category} = values; 
+    const {category} = values;
     console.log(values.cuisine);
- 
+
     console.log(" Filter in Main : ", filtered);
- 
+
     let a = [1,2];
     // getFilteredData(filtered);
     history.push( `filter/${filtered}/${radius}`)
    const response = await axios.post("http://localhost:5689/filter", {"category": filtered});
     console.log(response.data);
-  
-    
+
+
   }
 
  console.log(radius);
 
-
-
-
-
   return (
     <div>
-      <div style = {{width: '50%', height:'50%', display: 'flex'}}>
+      <div style = {{width: '100%', height:'100%'}}>
         <FormControl sx={{ m: 1, width: 300 }}>
           <InputLabel id="demo-multiple-checkbox-label">Tag</InputLabel>
           <Select
@@ -125,8 +121,8 @@ export default function MultipleSelectCheckmarks() {
                 </MenuItem>
             ))}
           </Select>
-        
-          
+
+
         </FormControl>
 
         <FormControl sx={{ m: 1, minWidth: 120 }}>
@@ -155,12 +151,12 @@ export default function MultipleSelectCheckmarks() {
     {/* </Link> */}
     </div>
 
-     
+
 
       </div>
       <div className = {{width: '20px', height: '50px'}}>
           {/* <MapComponent /> */}
-          <GoogleMaps />
+          {/*<GoogleMaps />*/}
         </div>
       </div>
   );
