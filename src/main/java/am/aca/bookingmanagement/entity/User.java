@@ -1,17 +1,19 @@
 package am.aca.bookingmanagement.entity;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import javax.persistence.*;
 import java.util.List;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "users")
 public class User {
 
     @Id
@@ -30,9 +32,9 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "uuid", nullable = false, unique = true)
-    private String uuid;
-
+    @JsonManagedReference
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private List<Review> reviews;
+
 }

@@ -1,17 +1,19 @@
 package am.aca.bookingmanagement.entity;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "partners")
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "partners")
 public class Partner {
 
     @Id
@@ -39,16 +41,18 @@ public class Partner {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @Column(name = "uuid")
-    private String uuid;
-
     @Column(name = "rating")
     private Integer rating;
 
+    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(mappedBy = "partner")
     private List<Review> reviews;
 
     @ManyToMany(mappedBy = "partners")
     private List<Category> categories;
+
+    @ManyToMany(mappedBy = "partners")
+    private List<Activity> activities;
 
 }
