@@ -1,10 +1,10 @@
-package am.aca.bookingmanagement.service.reviewservice;
+package am.aca.bookingmanagement.service.review;
 
 import org.springframework.stereotype.Service;
 import am.aca.bookingmanagement.entity.User;
 import am.aca.bookingmanagement.entity.Review;
 import am.aca.bookingmanagement.repository.ReviewRepository;
-import am.aca.bookingmanagement.service.userservice.UserService;
+import am.aca.bookingmanagement.service.user.UserService;
 import am.aca.bookingmanagement.exception.DuplicateReviewException;
 
 import java.util.Optional;

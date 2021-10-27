@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.service.userservice;
+package am.aca.bookingmanagement.service.user;
 
 import am.aca.bookingmanagement.entity.User;
 
