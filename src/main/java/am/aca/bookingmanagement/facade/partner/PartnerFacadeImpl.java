@@ -7,7 +7,7 @@ import am.aca.bookingmanagement.exception.WrongPasswordException;
 import am.aca.bookingmanagement.exception.PartnerNotFoundException;
 import am.aca.bookingmanagement.mapper.partner.PartnerMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import am.aca.bookingmanagement.service.partnerservice.PartnerService;
+import am.aca.bookingmanagement.service.partner.PartnerService;
 import am.aca.bookingmanagement.exception.SomethingWentWrongException;
 import am.aca.bookingmanagement.dto.partner.login.PartnerLoginRequestDetails;
 import am.aca.bookingmanagement.dto.partner.login.PartnerLoginResponseDetails;

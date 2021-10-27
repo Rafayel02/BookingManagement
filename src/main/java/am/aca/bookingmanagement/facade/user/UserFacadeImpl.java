@@ -5,7 +5,7 @@ import am.aca.bookingmanagement.entity.User;
 import am.aca.bookingmanagement.checker.ValidationChecker;
 import am.aca.bookingmanagement.mapper.user.UserMapper;
 import am.aca.bookingmanagement.exception.UserNotFoundException;
-import am.aca.bookingmanagement.service.userservice.UserService;
+import am.aca.bookingmanagement.service.user.UserService;
 import am.aca.bookingmanagement.exception.WrongPasswordException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import am.aca.bookingmanagement.exception.SomethingWentWrongException;
@@ -46,9 +46,9 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public UserLoginResponseDetails login(final UserLoginRequestDetails request) {
-        if (!validationChecker.isLoginValid(request.getEmail(), request.getPassword())) {
-            throw new SomethingWentWrongException();
-        }
+//        if (!validationChecker.isLoginValid(request.getEmail(), request.getPassword())) {
+//            throw new SomethingWentWrongException();
+//        }
         final Optional<User> user = userService.findByEmail(request.getEmail());
         if (user.isEmpty()) {
             throw new UserNotFoundException();

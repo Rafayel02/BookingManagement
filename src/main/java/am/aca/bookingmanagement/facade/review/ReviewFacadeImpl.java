@@ -1,14 +1,11 @@
 package am.aca.bookingmanagement.facade.review;
 
-import org.postgresql.util.PSQLException;
 import org.springframework.stereotype.Component;
 import am.aca.bookingmanagement.entity.Review;
 import am.aca.bookingmanagement.facade.partner.PartnerFacade;
 import am.aca.bookingmanagement.mapper.review.ReviewMapper;
-import am.aca.bookingmanagement.service.reviewservice.ReviewService;
+import am.aca.bookingmanagement.service.review.ReviewService;
 import am.aca.bookingmanagement.dto.review.ReviewRegisterRequestDetails;
-
-import java.sql.SQLException;
 
 @Component
 public class ReviewFacadeImpl implements ReviewFacade {

@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.service.partnerservice;
+package am.aca.bookingmanagement.service.partner;
 
 import am.aca.bookingmanagement.dto.filterdto.FilterRequestDetails;
 import am.aca.bookingmanagement.entity.Partner;

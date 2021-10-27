@@ -1,12 +1,12 @@
 package am.aca.bookingmanagement.controller;
 
-import am.aca.bookingmanagement.dto.filterdto.FilterRequestDetails;
-import am.aca.bookingmanagement.dto.filterdto.FilterResponseDetails;
-import am.aca.bookingmanagement.exception.SomethingWentWrongException;
-import am.aca.bookingmanagement.facade.filterfacade.FilterFacade;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import am.aca.bookingmanagement.facade.filterfacade.FilterFacade;
+import am.aca.bookingmanagement.dto.filterdto.FilterRequestDetails;
+import am.aca.bookingmanagement.dto.filterdto.FilterResponseDetails;
+import am.aca.bookingmanagement.exception.SomethingWentWrongException;
 
 @RestController
 @RequestMapping("/filter")
