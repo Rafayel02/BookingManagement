@@ -17,6 +17,6 @@ public class FilterRequestDetails {
 
     private List<String> activity;
 
-    private List<Double> location;
+    private List<Double> locationInfo;
 
 }

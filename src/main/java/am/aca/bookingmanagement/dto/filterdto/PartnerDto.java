@@ -21,5 +21,4 @@ public class PartnerDto {
 
     private String imageUrl;
 
-    private String uuid;
 }
