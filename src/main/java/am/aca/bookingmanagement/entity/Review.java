@@ -27,13 +27,13 @@ public class Review {
     @Column(name = "comment")
     private String comment;
 
-    @JsonBackReference
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
-    @JsonBackReference
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "partner_id", referencedColumnName = "id", nullable = false)
     private Partner partner;
 }
