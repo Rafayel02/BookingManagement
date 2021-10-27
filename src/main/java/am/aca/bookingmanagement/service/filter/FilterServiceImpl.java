@@ -36,16 +36,6 @@ public class FilterServiceImpl implements FilterService {
     @Override
     public Set<Partner> findAllByCategoriesAndActivities(final List<Integer> categoryIDList,
                                                          final List<Integer> activityIDList) {
-       /* Set<Partner> partnersByCategory = filterRepository.findByCategory(categoryIDList);
-        Set<Partner> partnersByActivity = filterRepository.findByActivity(activityIDList);
-        Set<Partner> partnersByCategoryAndActivity = new HashSet<>();
-
-        for (Partner partner : partnersByCategory) {
-            if (partnersByActivity.contains(partner)) {
-                partnersByCategoryAndActivity.add(partner);
-            }
-        }
-        return  partnersByCategoryAndActivity;*/
        return filterRepository.findByCategoryAndActivity(categoryIDList, activityIDList);
 
     }
@@ -87,9 +77,9 @@ public class FilterServiceImpl implements FilterService {
     public Set<Partner> partnersFilteringByLocation(FilterRequestDetails filterRequestDetails, Set<Partner> partnerList) {
         Set<Partner> filteredPartnerSet = new HashSet<>();
         for (Partner partner : partnerList) {
-            if (filterRequestDetails.getLocation().size() == 3 &&
-                    isCoordinateValid(filterRequestDetails.getLocation().get(0), filterRequestDetails.getLocation().get(1),
-                            partner.getLatitude(), partner.getLongitude(), filterRequestDetails.getLocation().get(2))) {
+            if (filterRequestDetails.getLocationInfo().size() == 3 &&
+                    isCoordinateValid(filterRequestDetails.getLocationInfo().get(0), filterRequestDetails.getLocationInfo().get(1),
+                            partner.getLatitude(), partner.getLongitude(), filterRequestDetails.getLocationInfo().get(2))) {
                 filteredPartnerSet.add(partner);
             }
         }

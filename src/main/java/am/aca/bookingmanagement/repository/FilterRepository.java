@@ -21,20 +21,15 @@ public interface FilterRepository extends JpaRepository<Partner, Long>, JpaSpeci
             "pa.partner_id where pa.type_id in (:list)", nativeQuery = true)
     Set<Partner> findByActivity(@Param("list") List<Integer> list);
 
+    @Query(value = "select distinct * " +
+            "from (select distinct * " +
+            "      from partners p inner join (select * from partners_categories pc where pc.type_id in ?1) pc on p.id = pc.partner_id) pm " +
+            "         inner join (select * from partners_activities pa where pa.type_id in ?2) pa on pa.partner_id = pm.id;", nativeQuery = true)
 
-    /*@Query(value = "select * from  partners " +
-            "inner join (select * from partners_categories pc where pc.type_id in :listCat) pc on partners.id = pc.partner_id " +
-            "inner join (select * from partners_activities pa where pa.type_id in :listAct) pa on partners.id = pa.partner_id ",
-            nativeQuery = true) */
-
-  /*   @Query(value = "select * from  partners " +
-            "inner join (select * from partners_categories pc where pc.type_id in :listCat) pc on partners.id = pc.partner_id " +
-            "inner join (select * from partners_activities pa where pa.type_id in :listAct) pa on partners.id = pa.partner_id ",
-            nativeQuery = true)*/
-    @Query(value ="select id, name, email, password, longitude, latitude, image_url, address, uuid, rating\n" +
-            "from (select id, name, email, password, longitude, latitude, image_url, address, uuid, rating\n" +
-            "from partners p inner join (select * from partners_categories pc where pc.type_id in : listCat) pc on p.id = pc.partner_id) pm\n" +
-            "inner join (select * from partners_activities pa where pa.type_id in : listAct) pa on pa.partner_id = pm.id " , nativeQuery = true)
+//    @Query(value = "select * from  partners " +
+//            "inner join (select * from partners_categories pc where pc.type_id in :listCat) pc on partners.id = pc.partner_id " +
+//            "inner join (select * from partners_activities pa where pa.type_id in :listAct) pa on partners.id = pa.partner_id ",
+//            nativeQuery = true)
     Set<Partner> findByCategoryAndActivity(@Param("listCat") List<Integer> listCat,
                                            @Param("listAct") List<Integer> listAct);
 
