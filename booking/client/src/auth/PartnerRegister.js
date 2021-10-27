@@ -86,7 +86,7 @@ function PartnerRegister() {
             <CardContent>
                 <form onSubmit={handleFormSubmit}>
                     <FormHelperText error={true}>{errorMessage || " "}</FormHelperText>
-
+                    <h1>Sign Up Partner</h1>
                     <TextField
                         name="name"
                         label="Name"
@@ -138,8 +138,8 @@ function PartnerRegister() {
                     />
 
                     <Box>
-                        <Button color="danger" variant="contained" type="submit">
-                            Sign up
+                        <Button color="primary" variant="contained" type="submit">
+                            Sign Up
                         </Button>
                     </Box>
                 </form>

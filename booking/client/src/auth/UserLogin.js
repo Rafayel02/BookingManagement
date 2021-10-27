@@ -47,15 +47,9 @@ function UserLogin() {
         e.preventDefault();
         try {
             const response = await loginUser(values);
-            console.log(response, "BLAAAAAAAAAH");
-            
-            localStorage.setItem("token", response.data.token);
-            window.location.reload();
 
-           //// alert(response.data.email)
-         //   console.log(response.data);
-            //  updateToken(response.data.token);
-            //S  history.push("/main");
+            localStorage.setItem("token", response.data.token);
+            window.location.href = '/'
         } catch (e) {
             console.log(e);
             setErrorMessage(e.response?.data?.message || "Something went wrong");
@@ -67,7 +61,7 @@ function UserLogin() {
             <CardContent>
                 <form onSubmit={handleFormSubmit}>
                     <FormHelperText error={true}>{errorMessage || " "}</FormHelperText>
-
+                    <h1>Login</h1>
                     <TextField
                         name="email"
                         label="Email"
@@ -89,7 +83,7 @@ function UserLogin() {
                     />
 
                     <Box>
-                        <Button color="danger" variant="contained" type="submit">
+                        <Button color="primary" variant="contained" type="submit">
                             Log in
                         </Button>
                     </Box>

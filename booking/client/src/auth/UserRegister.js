@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import {useHistory} from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
@@ -52,12 +52,8 @@ function UserRegister() {
             localStorage.setItem("token", response.data.token);
 
             console.log(response.data);
-            window.location.reload();
-
-            //  updateToken(response.data.token);
-            //S  history.push("/main");
+            window.location.href = '/'
         } catch (ex) {
-            alert(ex)
             console.log(ex);
             setErrorMessage(e.response?.data?.message || "Something went wrong");
         }
@@ -72,7 +68,7 @@ function UserRegister() {
             <CardContent>
                 <form onSubmit={handleFormSubmit}>
                     <FormHelperText error={true}>{errorMessage || " "}</FormHelperText>
-
+                    <h1>Sign Up</h1>
                     <TextField
                         name="email"
                         label="Email"
@@ -112,8 +108,8 @@ function UserRegister() {
                     />
 
                     <Box>
-                        <Button color="danger" variant="contained" type="submit">
-                            Sign up
+                        <Button color="primary" variant="contained" type="submit">
+                            Sign Up
                         </Button>
                     </Box>
                 </form>
