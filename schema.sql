@@ -26,6 +26,12 @@ create table if not exists categories
     type text not null
 );
 
+create table if not exists activity
+(
+    id   serial primary key,
+    type text not null
+);
+
 create table if not exists reviews
 (
     id         bigserial not null,
@@ -47,14 +53,16 @@ create table if not exists partners_categories
     foreign key (partner_id) references partners (id),
     foreign key (type_id) references categories (id)
 );
+
+create table if not exists partners_activities
+(
+    partner_id bigint not null,
+    type_id    int    not null,
+    foreign key (partner_id) references partners (id),
+    foreign key (type_id) references activity (id)
+);
 --
--- insert into partners(name, email, password, longitude, latitude, address, rating)
--- values ('A', 'A','A',12.0, 12.0, 'A', 5);
---
--- insert into users(first_name, last_name, email, password)
--- values ('U','U','U','U');
---
--- insert into users(first_name, last_name, email, password)
--- values ('U2','U2','U2','U2');
---
--- select AVG(rating) from reviews where partner_id = id;
+-- select id, name, email, password, longitude, latitude, image_url, address, rating
+-- from (select id, name, email, password, longitude, latitude, image_url, address, rating
+-- from partners p inner join (select * from partners_categories pc where pc.type_id in (select id from categories where categories.type in ('a', 'b'))) pc on p.id = pc.partner_id) pm
+-- inner join (select * from partners_activities pa where pa.type_id in (1)) pa on pa.partner_id = pm.id;
