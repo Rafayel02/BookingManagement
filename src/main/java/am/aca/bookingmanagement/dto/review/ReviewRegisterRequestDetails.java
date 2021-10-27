@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Setter
 @NoArgsConstructor
 public class ReviewRegisterRequestDetails {
-
     private Long userId;
     private Long partnerId;
     private String comment;

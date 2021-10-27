@@ -1,5 +1,7 @@
 package am.aca.bookingmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -42,6 +44,7 @@ public class Partner {
     @Column(name = "rating")
     private Integer rating;
 
+    @JsonBackReference
     @OneToMany(mappedBy = "partner")
     private List<Review> reviews;
 
