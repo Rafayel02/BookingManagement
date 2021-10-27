@@ -27,6 +27,7 @@ public class RegisterController {
         this.partnerFacade = partnerFacade;
     }
 
+
     @PostMapping
     public ResponseEntity<?> registerUser(@RequestBody final UserRegisterRequestDetails request) {
         try {

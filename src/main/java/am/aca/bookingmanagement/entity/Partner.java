@@ -51,4 +51,7 @@ public class Partner {
     @ManyToMany(mappedBy = "partners")
     private List<Category> categories;
 
+    @ManyToMany(mappedBy = "partners")
+    private List<Activity> activities;
+
 }

@@ -7,12 +7,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class FilterMapperImpl implements FilterMapper {
 
     @Override
-    public FilterResponseDetails mapEntityListToFilterResponse(final List<Partner> partnerList) {
+    public FilterResponseDetails mapEntityListToFilterResponse(final Set<Partner> partnerList) {
         FilterResponseDetails filterResponseDetails = new FilterResponseDetails();
         List<PartnerDto> partnerDtoList = new ArrayList<>();
         for (Partner partner : partnerList) {

@@ -28,6 +28,12 @@ create table if not exists categories
     type text not null
 );
 
+create table if not exists activity
+(
+    id   serial primary key,
+    type text not null
+);
+
 create table if not exists reviews
 (
     id         bigserial not null,
@@ -51,12 +57,42 @@ create table if not exists partners_categories
 );
 
 
-select * from partners inner join partners_categories pc on partners.id = pc.partner_id where type_id = 1 and partners.rating >= 3;
+create table if not exists partners_activities
+(
+    partner_id bigint not null,
+    type_id    int    not null,
+    foreign key (partner_id) references partners (id),
+    foreign key (type_id) references activity (id)
+);
 
 
-insert into partners_categories (partner_id, type_id)
-values (2, 1);
 
 select * from categories;
 
+select * from partners_categories;
 
+select * from partners;
+
+select *
+from activity;
+
+insert into activity (type) values ('a');
+
+insert into partners_activities (partner_id, type_id) values (1,1);
+
+select * from partners_activities;
+
+select * from partners inner join partners_categories pc on partners.id = pc.partner_id inner join partners_activities pa on partners.id = pa.partner_id;
+
+
+select * from  partners inner join (select * from partners_categories pc where pc.type_id in :listCat) pc on partners.id = pc.partner_id
+            inner join (select * from partners_activities pa where pa.type_id in :listAct) pa on partners.id = pa.partner_id;
+
+
+insert into partners(name, email, password, longitude, latitude, address, uuid, rating)
+VALUES('name2', 'email2', 'password', 12.3, 12.3, 'address','uuueueueuid', 3);
+
+select id, name, email, password, longitude, latitude, image_url, address, uuid, rating
+from (select id, name, email, password, longitude, latitude, image_url, address, uuid, rating
+from partners p inner join (select * from partners_categories pc where pc.type_id in (select id from categories where categories.type in ('a', 'b'))) pc on p.id = pc.partner_id) pm
+inner join (select * from partners_activities pa where pa.type_id in (1)) pa on pa.partner_id = pm.id;

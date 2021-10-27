@@ -18,6 +18,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUuid(String uuid);
 
     @Query(value = "select id from users u where u.uuid = ?1", nativeQuery = true)
-    public Long findIdByUuid(String uuid);
-    
+    Long findIdByUuid(String uuid);
+
+
 }
