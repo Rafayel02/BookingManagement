@@ -1,20 +1,32 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import NavigationItem from './NavigationItem/NavigationItem';
 import classes from './NavigationItem.module.css';
 // import logo from '../../../assets/logo.png';
 import {  NavLink } from 'react-router-dom';
 
+import { AuthContext } from '../contexts/AuthContext';
+
 function NavigationItems(){
 
-    const [token, setToken] = useState(localStorage.getItem("token"));
+
+    const {token, updateToken, getToken } = useContext(AuthContext);
+    // const [token, setToken] = useState(localStorage.getItem("token"));
     // if(token){
     //    // axios.defaults.headers.common["authorization"] = `Bearer ${token}`;
     //  }
     function logout(){
-       localStorage.removeItem("token");
-        // window.location.reload();
-        window.location.href = "/";
-        setToken("a");
+      //  localStorage.removeItem("token");
+      //   // window.location.reload();
+      //   window.location.href = "/";
+      //   setToken("a");
+      updateToken("");
+    }
+
+    console.log(token);
+    const checker = () =>{
+      if(token != localStorage.getItem("token")){
+        updateToken("");
+      }
     }
 
 
@@ -23,7 +35,8 @@ function NavigationItems(){
         function checkUserData(){
             const item = localStorage.getItem('token');
             if(item){
-                setToken(item)
+                // setToken(item)
+                updateToken(item)
             }
         }
         window.addEventListener('storage', checkUserData)
@@ -31,8 +44,9 @@ function NavigationItems(){
         return () => {
           window.removeEventListener('storage', checkUserData)
         }
+        // checker();
     }, [token]);
-  //  console.log(token)
+   console.log(token)
     return (
   <div className={classes.dist}>
     { !token ?
