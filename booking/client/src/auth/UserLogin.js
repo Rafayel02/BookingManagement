@@ -21,6 +21,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
+console.log("smth")
 function UserLogin() {
     const classes = useStyles();
 
@@ -46,6 +47,8 @@ function UserLogin() {
         e.preventDefault();
         try {
             const response = await loginUser(values);
+            console.log(response, "BLAAAAAAAAAH");
+            
             localStorage.setItem("token", response.data.token);
             window.location.reload();
 

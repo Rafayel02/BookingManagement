@@ -1,0 +1,9 @@
+.footerItems {
+  background-color: rgb(196, 39, 39);
+  display: flex;
+  color: white;
+  padding: 2em;
+ margin-top: auto;
+  min-height: 100%;
+  text-align: center;
+}

@@ -9,6 +9,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 
 import {makeStyles} from "@material-ui/core/styles";
 import axios from "axios";
+import GoogleMaps from "../Maps/GoogleMaps";
 
 
 const useStyles = makeStyles(() => ({
@@ -47,12 +48,20 @@ function PartnerRegister() {
             ...values,
             [name]: value,
         });
+
+        console.log(name)
     };
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await createPartner(values);
+            console.log( localStorage.getItem('location').split(",")[0],  localStorage.getItem('location').split(",")[1], "boxk")
+            setValues({...values, "latitude": localStorage.getItem('location').split(",")[0]});
+            setValues({...values, "longitude": localStorage.getItem('location').split(",")[1]});
+            const response = await createPartner({
+                ...values,
+                "latitude": localStorage.getItem('location').split(",")[0],
+            "longitude": localStorage.getItem('location').split(",")[1]});
             localStorage.setItem("token", response.data);
 
             console.log(response.data);
@@ -65,7 +74,11 @@ function PartnerRegister() {
     };
 
     const createPartner = async (values) => {
+      
+        // localStorage.removeItem("location")
         return axios.post("http://localhost:5689/register/partner", values);
+
+
     };
 
     return (
@@ -104,26 +117,7 @@ function PartnerRegister() {
                         fullWidth
                     />
 
-                    <TextField
-                        name="longitude"
-                        label="Longitude"
-                        value={values.longitude}
-                        onChange={handleInputValue}
-                        className={classes.formField}
-                        required
-                        fullWidth
-                    />
-
-                    <TextField
-                        name="latitude"
-                        label="Latitude"
-                        value={values.latitude}
-                        onChange={handleInputValue}
-                        className={classes.formField}
-                        required
-                        fullWidth
-                    />
-
+                  <GoogleMaps />
                     <TextField
                         name="imageUrl"
                         label="Image url"

@@ -4,6 +4,7 @@ import UserLogin from "./UserLogin";
 import PartnerRegister from "./PartnerRegister";
 import UserRegister from "./UserRegister";
 import Main from "../Main/Main";
+import PartnerContexProvider from  '../contexts/PartnerContext'
 
 import {
     Switch,
@@ -13,17 +14,24 @@ import {
 import NavigationItems from "../Navigation/NavigationItem";
 import Partner from "../Partner/Partner";
 import GetPartner from "../Partner/GetPartner";
-import axios from "axios";
+import Footer from "../Footer/Footer"
 
 const All = () => {
     return <div>
         <NavigationItems />
         <Switch>
-        <Route path="/filter"  component={Partner} />
+            <Route path="/filter">
+            <PartnerContexProvider>
+                <Partner />
+            </PartnerContexProvider>
+            </Route>
 
 
             <Route path="/login/partner">
+            <PartnerContexProvider>
                 <PartnerLogin/>
+            </PartnerContexProvider>
+
             </Route>
             <Route path="/login">
                 <UserLogin/>
@@ -37,12 +45,15 @@ const All = () => {
             <Route path = "/partner"  component = {GetPartner} />
 
             <Route path="/">
+                <PartnerContexProvider>
                 <Main/>
+                </PartnerContexProvider>
             </Route>
 
             <Redirect to='/' />
 
         </Switch>
+        <Footer />
 
     </div>
 }

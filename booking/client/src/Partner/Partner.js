@@ -1,9 +1,16 @@
 
-import React from 'react';
+import React, { useContext } from 'react';
 import {Link, Route} from 'react-router-dom'
 import { useParams } from "react-router-dom";
+
+import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
+
+
+
 import Mockdata from './Mockdata'
 import classes from './Partner.module.css'
+import { PartnerContext } from '../contexts/PartnerContext';
 
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -15,6 +22,8 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+
 
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
@@ -23,6 +32,9 @@ import ListItemText from '@mui/material/ListItemText';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import Button from '@mui/material/Button';
+
+import axios from 'axios';
+
 
 
 const ITEM_HEIGHT = 48;
@@ -47,59 +59,123 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 const category = [
-    'italian',
-    'mexican',
-    'armenian',
-    'syrian',
-    'Meh',
-    'Meh2 ',
-    'Meh3',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
+  'italian',
+  'mexican',
+  'chinese',
+  'japanese',
+  'russian',
+  'armenian'
   ];
-  const ratingArr = [
-      '5 star',
-      '4> rating',
-     
-  ]
+  
+function Partner(props){
 
-function Partner(){
+  const [change, setChange] =React.useState("1");
 
-    const [personName, setPersonName] = React.useState([]);
-    const [cuisine, setCuisine] = React.useState([]);
-    const [rating, setRating] = React.useState([]);
-
-    // const [values , setValue] = useState({
-    //     cuisine:""
-    // })
-
-
+  let pathArray = window.location.pathname.split("/");
+  let cat = [];
+  let rad = [];
+  if(pathArray[2]){
+    cat = pathArray[2].split(',');
+  }
+  if(pathArray[3]){
+    rad = pathArray[3];
+  }
   
 
-    const handleChange = (event) => {
-      const {
-        target: { value },
-      } = event;
-      setCuisine(
-         typeof value === 'string' ? value.split(',') : value,
-      );
-    };
-    
-    const handleChange1 = (event) => {
-        const {
-          target: { value },
-        } = event;
-        setRating(
-           typeof value === 'string' ? value.split(',') : value,
-        );
-      };
+  const filt = props.val;
+ 
+  const [radius, setRadius] = React.useState(rad);
+
+const [filtered, setfiltered] = React.useState(cat);
+const [values, setValues] = React.useState({
+  category:[]
+ 
+});
+
+const [cafes, setCafes] = React.useState();
+
+
+const handleChange = (event) => {
+  const {
+    target: { value },
+  } = event;
+
+  setfiltered(value);
+
+  setValues({...values, cuisine:value});
+};
+
+const handleChange1 = (event) => {
+  const {
+    target: { value },
+  } = event;
+
+  setRadius(value);
+
+  setValues({...values, cuisine:value});
+};
+
+console.log(filtered)
+console.log(radius);
+
+
+const handleSubmit = async (e) =>{
+  e.preventDefault();
+  const {category} = values; 
+  console.log(values.cuisine);
+
+  console.log(" Filter in Main : ", filtered);
+
+  let a = [1,2];
+  // getFilteredData(filtered);
+ 
+ const response = await axios.post("http://localhost:5689/filter", 
+ {"category": filtered,
+ 
+ 
+
+});
+  console.log(response.data);
+  setCafes(response)
 
   
+}
+
+const handleSubmit1 = async (e) =>{
+  // e.preventDefault();
+  const {category} = values; 
+  console.log(values.cuisine);
+
+  console.log(" Filter in Main : ", filtered);
+
+  let a = [1,2];
+  // getFilteredData(filtered);
+ 
+ const response = await axios.post("http://localhost:5689/filter", {"category": filtered });
+  console.log(response.data);
+  setCafes(response.data);
+
+  
+}
+
+// console.log(cafes.partnersList[0], "cafes");
+if(cafes)
+console.log(cafes.partnersList, "cafes blah blah")
+else{
+  console.log(cafes, "dead");
+}
+
+
+    let counter = 0;
+      useEffect(() => {
+        counter++;
+        console.log("counter : ", counter)
+        handleSubmit1();
+
+      },[change]);
 
   
       
-console.log(rating)
 
 return (
     <Box sx={{ flexGrow: 1 }}>
@@ -110,61 +186,50 @@ return (
                 <FormControl sx={{ m: 1, width:'80%', padding:0, marginButtom : '200px' }}>
                         <InputLabel id="demo-multiple-checkbox-label">Cuisine</InputLabel>
                         <Select
-                        labelId="demo-multiple-checkbox-label"
-                        id="demo-multiple-checkbox"
-                        multiple
-                        value={cuisine}
-                        onChange={handleChange}
-                        input={<OutlinedInput label= "Cuisine" />}
-                        renderValue={(selected) => selected.join(', ')}
-                        MenuProps={MenuProps}
-                        >
-                        {category.map((v) => (
-                            <MenuItem key={v} value={v}>
-                            <Checkbox checked={cuisine.indexOf(v) > -1} />
-                            <ListItemText primary={v} />
-                            </MenuItem>
-                        ))}
-                            </Select>
+              labelId="demo-multiple-checkbox-label"
+              id="demo-multiple-checkbox"
+              multiple
+              value = {filtered}
+              onChange={handleChange}
+              input={<OutlinedInput label="Tag" />}
+              renderValue={(selected) => selected.join(', ')}
+              MenuProps={MenuProps}
+          >
+            {category.map((name) => (
+                <MenuItem key={name} value={name}>
+                  <Checkbox checked={filtered.indexOf(name) > -1} />
+                  <ListItemText primary={name} />
+                </MenuItem>
+            ))}
+          </Select>
+                            
                             </FormControl>
              
                
-                <FormControl sx={{ m: 1, width:'80%', padding:0, marginButtom : '200px' }}>
-
-                    <InputLabel id="demo-multiple-checkbox-label">Rating</InputLabel>
-                    <Select
-                    labelId="demo-multiple-checkbox-label"
-                    id="demo-multiple-checkbox"
-                    multiple
-                    value={rating}
+         <FormControl sx={{ m: 1, width:'80%', padding:0, marginButtom : '200px' }}>
+            <InputLabel id="demo-simple-select-readonly-label">Radius</InputLabel>
+                <Select
+                    labelId="demo-simple-select-readonly-label"
+                    id="demo-simple-select-readonly"
+                    value={radius}
+                    label="Age"
                     onChange={handleChange1}
-                    input={<OutlinedInput label= "Rating" />}
-                    renderValue={(selected) => selected.join(', ')}
-                    MenuProps={MenuProps}
-                    >
-                    {ratingArr.map((name) => (
-                    <MenuItem key={name} value={name}>
-                    <Checkbox checked={rating.indexOf(name) > -1} />
-                    <ListItemText primary={name} />
-                    </MenuItem>
-                    ))}
-                    </Select>
-                    </FormControl>
-                    <FormControl sx={{ m: 1, width:'80%', padding:0, marginButtom : '200px' }}>
-                    <RadioGroup
-                    aria-label="Location"
+                    inputProps={{readOnly: false}}
+                  >
+                    <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={1}>1km Radius</MenuItem>
+                  <MenuItem value={2}>2km Radius</MenuItem>
+                  <MenuItem value={5}>5km Radius</MenuItem>
+                  <MenuItem value={10}>10km Radius</MenuItem>
+               </Select>
+        <FormHelperText>{sessionStorage.getItem("location") ? "" : "Add Location"}</FormHelperText>
+      </FormControl>
+      
+      
+                          <button  onClick={handleSubmit1}>FILTER</button>
 
-                    name="radio-buttons-group"
-                    >
-                    <FormControlLabel value="Bird's-eye View" control={<Radio />} label="Bird's eye view" />
-                    <FormControlLabel value="1km radius" control={<Radio />} label="1km radius" />
-                    <FormControlLabel value="3km radius" control={<Radio />} label="3km radius" />
-                    <FormControlLabel value="5km radius" control={<Radio />} label="5km radius" />
-                    <FormControlLabel value="none" control={<Radio />} label="none" />
-
-
-                    </RadioGroup>
-</FormControl>
 
              </div>
           </Item>
@@ -173,27 +238,26 @@ return (
           <Item> 
               <div className = {classes.cafeItems}>
 
-                 {
-            Mockdata.map( cafe => (
-                <Link className={classes.poqr}  to={`partner/${cafe.id}`} >
-                <div className={classes.cardWrapper} id={cafe.id} onClick = {() => {
+                 { cafes ? cafes.partnersList.map( cafe => (
+                <Link className={classes.poqr}  to={`/partner/${cafe.uuid}`} >
+                <div className={classes.cardWrapper} id={cafe.uuid} onClick = {() => {
                 //    history.push("partners/" + cafe.id);
 
                 }}> 
                 
-                    <img src={cafe.logo}  className={classes.cardImage}/>
+                    <img src={cafe.imageUrl}  className={classes.cardImage}/>
                   
                     <p> {cafe.name}  <br />
-                        Review: <b>{cafe.review}</b> <br />
+                        Review: <b>{cafe.review? cafe.review : "No review yet"}</b> <br />
                         Address: {cafe.address} <br />
-                        Contact: {cafe.phone}
                      </p>
 
                 </div>
                 </Link >
 
-           ) )
+           )  ): <h1> "DEAd" </h1>
         }
+        {/* <h1>  {cafes.partnersList[0]} </h1> */}
         </div>
         </Item>
         </Grid>
