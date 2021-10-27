@@ -1,5 +1,6 @@
 package am.aca.bookingmanagement.facade.partner;
 
+import am.aca.bookingmanagement.entity.Review;
 import org.springframework.stereotype.Component;
 import am.aca.bookingmanagement.entity.Partner;
 import am.aca.bookingmanagement.checker.ValidationChecker;
@@ -14,6 +15,7 @@ import am.aca.bookingmanagement.dto.partner.login.PartnerLoginResponseDetails;
 import am.aca.bookingmanagement.dto.partner.register.PartnerRegisterRequestDetails;
 import am.aca.bookingmanagement.dto.partner.register.PartnerRegisterResponseDetails;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -36,10 +38,10 @@ public class PartnerFacadeImpl implements PartnerFacade {
 
     @Override
     public PartnerRegisterResponseDetails register(final PartnerRegisterRequestDetails request) {
-//        if (!validationChecker.isPartnerRegistrationValid(request.getName(), request.getEmail(),
-//                request.getPassword(), request.getAddress(), request.getImageUrl())) {
-//            throw new SomethingWentWrongException("INVALID_INPUT");
-//        }
+        if (!validationChecker.isPartnerRegistrationValid(request.getName(), request.getEmail(),
+                request.getPassword(), request.getAddress(), request.getImageUrl())) {
+            throw new SomethingWentWrongException();
+        }
         final Partner partner = partnerService.create(partnerMapper.mapRegisterRequestToEntity(request));
         return partnerMapper.mapEntityToRegisterResponse(partner);
     }
@@ -63,6 +65,11 @@ public class PartnerFacadeImpl implements PartnerFacade {
     @Override
     public void updateAverageRating(final Long id) {
         partnerService.updateAverageRating(id);
+    }
+
+    @Override
+    public List<Review> getAllReviews(final Long id) {
+        return partnerService.getAllReviews(id);
     }
 
 }

@@ -1,5 +1,6 @@
 package am.aca.bookingmanagement.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Review> reviews;
 }
