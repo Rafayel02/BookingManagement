@@ -1,9 +1,7 @@
 package am.aca.bookingmanagement.service.review;
 
 import org.springframework.stereotype.Service;
-import am.aca.bookingmanagement.entity.User;
 import am.aca.bookingmanagement.entity.Review;
-import am.aca.bookingmanagement.service.user.UserService;
 import am.aca.bookingmanagement.repository.ReviewRepository;
 import am.aca.bookingmanagement.exception.DuplicateReviewException;
 
@@ -13,18 +11,10 @@ import java.util.Optional;
 @Service
 public class ReviewServiceImpl implements ReviewService {
 
-    private final UserService userService;
     private final ReviewRepository reviewRepository;
 
-    public ReviewServiceImpl(final UserService userService,
-                             final ReviewRepository reviewRepository) {
-        this.userService = userService;
+    public ReviewServiceImpl(final ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
-    }
-
-    @Override
-    public Optional<User> findUserById(final Long id) {
-        return userService.findById(id);
     }
 
     @Override
@@ -43,6 +33,10 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<Review> getAllReviewsByPartnerId(final Long id) {
         return reviewRepository.findReviewsByPartner_Id(id);
+    }
+
+    public List<Review> getAllReviewsByUserId(final Long id) {
+        return reviewRepository.findReviewByUser_Id(id);
     }
 
 }
