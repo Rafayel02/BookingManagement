@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+
 @SpringBootApplication
 @ImportResource("classpath:beans/passwordEncoder.xml")
 public class BookingManagement {

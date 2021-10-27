@@ -1,10 +1,12 @@
 package am.aca.bookingmanagement.service.partner;
 
+import am.aca.bookingmanagement.dto.filterdto.FilterRequestDetails;
 import am.aca.bookingmanagement.entity.Partner;
 import am.aca.bookingmanagement.exception.PartnerAlreadyExistsException;
 import am.aca.bookingmanagement.repository.PartnerRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -25,7 +27,7 @@ public class PartnerServiceImpl implements PartnerService {
         return partnerRepository.save(partner);
     }
 
-    @Override
+      @Override
     public Optional<Partner> findByEmail(final String email) {
         return partnerRepository.findByEmail(email);
     }
