@@ -1,7 +1,7 @@
 package am.aca.bookingmanagement.service.partner;
 
-import am.aca.bookingmanagement.dto.filterdto.FilterRequestDetails;
 import am.aca.bookingmanagement.entity.Partner;
+import am.aca.bookingmanagement.entity.Review;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,5 +16,6 @@ public interface PartnerService {
 
     void updateAverageRating(Long id);
 
+    List<Review> getAllReviews(Long id);
 
 }

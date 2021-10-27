@@ -1,5 +1,6 @@
 package am.aca.bookingmanagement.facade.user;
 
+import am.aca.bookingmanagement.entity.Review;
 import org.springframework.stereotype.Component;
 import am.aca.bookingmanagement.entity.User;
 import am.aca.bookingmanagement.checker.ValidationChecker;
@@ -14,6 +15,7 @@ import am.aca.bookingmanagement.dto.user.login.UserLoginResponseDetails;
 import am.aca.bookingmanagement.dto.user.register.UserRegisterRequestDetails;
 import am.aca.bookingmanagement.dto.user.register.UserRegisterResponseDetails;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -46,9 +48,9 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public UserLoginResponseDetails login(final UserLoginRequestDetails request) {
-//        if (!validationChecker.isLoginValid(request.getEmail(), request.getPassword())) {
-//            throw new SomethingWentWrongException();
-//        }
+        if (!validationChecker.isLoginValid(request.getEmail(), request.getPassword())) {
+            throw new SomethingWentWrongException();
+        }
         final Optional<User> user = userService.findByEmail(request.getEmail());
         if (user.isEmpty()) {
             throw new UserNotFoundException();
@@ -58,6 +60,11 @@ public class UserFacadeImpl implements UserFacade {
             throw new WrongPasswordException();
         }
         return userMapper.mapEntityToLoginResponse(user.get());
+    }
+
+    @Override
+    public List<Review> getAllReviews(final Long id) {
+        return userService.getAllReviews(id);
     }
 
 }

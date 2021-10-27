@@ -1,9 +1,10 @@
 package am.aca.bookingmanagement.service.partner;
 
-import am.aca.bookingmanagement.dto.filterdto.FilterRequestDetails;
 import am.aca.bookingmanagement.entity.Partner;
+import am.aca.bookingmanagement.entity.Review;
 import am.aca.bookingmanagement.exception.PartnerAlreadyExistsException;
 import am.aca.bookingmanagement.repository.PartnerRepository;
+import am.aca.bookingmanagement.service.review.ReviewService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -12,10 +13,12 @@ import java.util.Optional;
 @Component
 public class PartnerServiceImpl implements PartnerService {
 
+    private final ReviewService reviewService;
     private final PartnerRepository partnerRepository;
 
-    public PartnerServiceImpl(final PartnerRepository partnerRepository) {
+    public PartnerServiceImpl( final ReviewService reviewService, final PartnerRepository partnerRepository) {
         this.partnerRepository = partnerRepository;
+        this.reviewService = reviewService;
     }
 
     @Override
@@ -41,6 +44,11 @@ public class PartnerServiceImpl implements PartnerService {
     public void updateAverageRating(final Long id) {
         final Integer currentAverage = partnerRepository.calculateAverage(id);
         partnerRepository.updateRating(currentAverage, id);
+    }
+
+    @Override
+    public List<Review> getAllReviews(final Long id) {
+        return reviewService.getAllReviewsByPartnerId(id);
     }
 
 }

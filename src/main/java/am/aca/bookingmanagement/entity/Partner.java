@@ -3,6 +3,8 @@ package am.aca.bookingmanagement.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.List;
@@ -42,6 +44,8 @@ public class Partner {
     @Column(name = "rating")
     private Integer rating;
 
+    @JsonManagedReference
+    @JsonBackReference
     @OneToMany(mappedBy = "partner")
     private List<Review> reviews;
 

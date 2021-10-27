@@ -97,6 +97,15 @@ insert into partners_categories(partner_id, type_id) VALUES (1, 3);
 insert into partners_categories(partner_id, type_id) VALUES (2, 2);
 insert into partners_categories(partner_id, type_id) VALUES (3, 3);
 
+insert into users(first_name, last_name, email, password)
+values ('U', 'U', 'U','U');
+
+insert into reviews(user_id, partner_id, rating, comment)
+values (1, 1, 3, 'aaaaaaaa');
+
+insert into reviews(user_id, partner_id, rating, comment)
+values (1, 2, 3, 'bbbbb');
+
 select distinct id, name, email, password, longitude, latitude, image_url, address, rating
 from partners inner join partners_categories pc on partners.id = pc.partner_id;
 

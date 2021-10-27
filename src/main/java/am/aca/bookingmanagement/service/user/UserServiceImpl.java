@@ -1,19 +1,24 @@
 package am.aca.bookingmanagement.service.user;
 
-import org.springframework.stereotype.Service;
+import am.aca.bookingmanagement.entity.Review;
 import am.aca.bookingmanagement.entity.User;
-import am.aca.bookingmanagement.repository.UserRepository;
 import am.aca.bookingmanagement.exception.UserAlreadyExistsException;
+import am.aca.bookingmanagement.repository.UserRepository;
+import am.aca.bookingmanagement.service.review.ReviewService;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
+    private final ReviewService reviewService;
 
-    public UserServiceImpl(final UserRepository userRepository) {
+    public UserServiceImpl(final UserRepository userRepository, final ReviewService reviewService) {
         this.userRepository = userRepository;
+        this.reviewService = reviewService;
     }
 
     @Override
@@ -32,6 +37,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findById(final Long id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public List<Review> getAllReviews(final Long id) {
+        return reviewService.getAllReviewsByUserId(id);
     }
 
 }

@@ -1,14 +1,15 @@
 package am.aca.bookingmanagement.service.review;
 
 import am.aca.bookingmanagement.entity.Review;
-import am.aca.bookingmanagement.entity.User;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface ReviewService {
 
-    Optional<User> findUserById(Long id);
-
     Review create(Review review);
+
+    List<Review> getAllReviewsByPartnerId(Long id);
+
+    List<Review> getAllReviewsByUserId(Long id);
 
 }
