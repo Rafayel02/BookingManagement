@@ -12,12 +12,10 @@ public class ValidationChecker {
     private static final Pattern FIRST_NAME_VALIDATOR = Pattern.compile("[A-Z][a-z]{2,20}$");
     private static final Pattern PASSWORD_VALIDATOR =
             Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\\W|])(?=\\S+$).{8,}$");
-
     private static final Pattern PARTNER_NAME_VALIDATOR =
             Pattern.compile("[A-Z ]{2,40}$", Pattern.CASE_INSENSITIVE);
     private static final Pattern EMAIL_VALIDATOR =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-
     private static final Pattern IMAGE_URL_VALIDATOR =
             Pattern.compile("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
 

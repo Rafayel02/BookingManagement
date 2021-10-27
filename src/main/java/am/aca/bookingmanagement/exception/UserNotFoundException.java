@@ -1,8 +1,8 @@
 package am.aca.bookingmanagement.exception;
 
-public class UserNotFoundException extends RuntimeException {
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
 
-    public UserNotFoundException(String message) {
-        super(message);
-    }
+@ResponseStatus(reason = "User_Does_Not_Exist", code = HttpStatus.NOT_FOUND)
+public class UserNotFoundException extends RuntimeException {
 }

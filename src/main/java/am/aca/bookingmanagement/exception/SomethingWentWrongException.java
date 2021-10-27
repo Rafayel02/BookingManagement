@@ -1,8 +1,8 @@
 package am.aca.bookingmanagement.exception;
 
-public class SomethingWentWrongException extends RuntimeException{
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
 
-    public SomethingWentWrongException(String message){
-        super(message);
-    }
+@ResponseStatus(reason = "Provided_Information_Is_Invalid", code = HttpStatus.FORBIDDEN)
+public class SomethingWentWrongException extends RuntimeException{
 }

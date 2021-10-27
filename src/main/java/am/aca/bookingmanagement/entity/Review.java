@@ -7,12 +7,12 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "reviews", uniqueConstraints = {
-        @UniqueConstraint(name = "reviews_user_id_partner_id_un", columnNames = {"user_id", "partner_id"})
-})
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "reviews", uniqueConstraints = {
+        @UniqueConstraint(name = "reviews_user_id_partner_id_un", columnNames = {"user_id", "partner_id"})
+})
 public class Review {
 
     @Id

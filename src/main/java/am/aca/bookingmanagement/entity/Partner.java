@@ -8,10 +8,10 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "partners")
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "partners")
 public class Partner {
 
     @Id

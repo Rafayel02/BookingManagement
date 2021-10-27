@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.mapper.usermapper;
+package am.aca.bookingmanagement.mapper.user;
 
 import am.aca.bookingmanagement.entity.User;
 import am.aca.bookingmanagement.dto.user.login.UserLoginResponseDetails;

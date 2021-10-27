@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.mapper.reviewmapper;
+package am.aca.bookingmanagement.mapper.review;
 
 import am.aca.bookingmanagement.entity.Review;
 import am.aca.bookingmanagement.dto.review.ReviewRegisterRequestDetails;

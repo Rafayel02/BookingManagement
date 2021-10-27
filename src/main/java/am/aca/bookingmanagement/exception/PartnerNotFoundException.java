@@ -1,8 +1,8 @@
 package am.aca.bookingmanagement.exception;
 
-public class PartnerNotFoundException extends RuntimeException {
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
 
-    public PartnerNotFoundException(final String message) {
-        super(message);
-    }
+@ResponseStatus(reason = "Partner_Does_Not_Exist", code = HttpStatus.NOT_FOUND)
+public class PartnerNotFoundException extends RuntimeException {
 }
