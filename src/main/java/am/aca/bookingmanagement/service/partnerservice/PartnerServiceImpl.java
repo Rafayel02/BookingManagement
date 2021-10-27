@@ -1,9 +1,9 @@
 package am.aca.bookingmanagement.service.partnerservice;
 
-import org.springframework.stereotype.Component;
 import am.aca.bookingmanagement.entity.Partner;
-import am.aca.bookingmanagement.repository.PartnerRepository;
 import am.aca.bookingmanagement.exception.PartnerAlreadyExistsException;
+import am.aca.bookingmanagement.repository.PartnerRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
@@ -20,7 +20,7 @@ public class PartnerServiceImpl implements PartnerService {
     public Partner create(final Partner partner) {
         final Optional<Partner> byEmail = findByEmail(partner.getEmail());
         if (byEmail.isPresent()) {
-            throw new PartnerAlreadyExistsException("PARTNER_WITH_EMAIL_" + partner.getEmail() + "_ALREADY_EXISTS");
+            throw new PartnerAlreadyExistsException();
         }
         return partnerRepository.save(partner);
     }

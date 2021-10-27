@@ -8,10 +8,10 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "categories")
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(name = "categories")
 public class Category {
 
     @Id

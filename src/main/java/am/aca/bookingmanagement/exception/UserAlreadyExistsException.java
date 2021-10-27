@@ -1,8 +1,8 @@
 package am.aca.bookingmanagement.exception;
 
-public class UserAlreadyExistsException extends RuntimeException {
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
 
-    public UserAlreadyExistsException(final String message) {
-        super(message);
-    }
+@ResponseStatus(reason = "Provided_Email_Is_Already_Registered", code = HttpStatus.FORBIDDEN)
+public class UserAlreadyExistsException extends RuntimeException {
 }

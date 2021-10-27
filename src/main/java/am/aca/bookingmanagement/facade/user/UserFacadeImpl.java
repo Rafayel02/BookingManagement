@@ -1,9 +1,9 @@
-package am.aca.bookingmanagement.facade.userfacade;
+package am.aca.bookingmanagement.facade.user;
 
 import org.springframework.stereotype.Component;
 import am.aca.bookingmanagement.entity.User;
 import am.aca.bookingmanagement.checker.ValidationChecker;
-import am.aca.bookingmanagement.mapper.usermapper.UserMapper;
+import am.aca.bookingmanagement.mapper.user.UserMapper;
 import am.aca.bookingmanagement.exception.UserNotFoundException;
 import am.aca.bookingmanagement.service.userservice.UserService;
 import am.aca.bookingmanagement.exception.WrongPasswordException;
@@ -38,7 +38,7 @@ public class UserFacadeImpl implements UserFacade {
     public UserRegisterResponseDetails register(final UserRegisterRequestDetails request) {
         if (!validationChecker.isUserRegistrationValid(request.getFirstName(), request.getLastName(),
                 request.getEmail(), request.getPassword())) {
-            throw new SomethingWentWrongException("INVALID_INPUT");
+            throw new SomethingWentWrongException();
         }
         final User user = userService.create(userMapper.mapRegisterRequestToEntity(request));
         return userMapper.mapEntityToRegisterResponse(user);
@@ -47,15 +47,15 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public UserLoginResponseDetails login(final UserLoginRequestDetails request) {
         if (!validationChecker.isLoginValid(request.getEmail(), request.getPassword())) {
-            throw new SomethingWentWrongException("INVALID_EMAIL_OR_PASSWORD");
+            throw new SomethingWentWrongException();
         }
         final Optional<User> user = userService.findByEmail(request.getEmail());
         if (user.isEmpty()) {
-            throw new UserNotFoundException("USER_DOES_NOT_EXIST");
+            throw new UserNotFoundException();
         }
         final boolean doPasswordsMatch = passwordEncoder.matches(request.getPassword(), user.get().getPassword());
         if (!doPasswordsMatch) {
-            throw new WrongPasswordException("PASSWORDS_MISMATCH");
+            throw new WrongPasswordException();
         }
         return userMapper.mapEntityToLoginResponse(user.get());
     }

@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.mapper.reviewmapper;
+package am.aca.bookingmanagement.mapper.review;
 
 import org.springframework.stereotype.Component;
 import am.aca.bookingmanagement.entity.User;

@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.facade.userfacade;
+package am.aca.bookingmanagement.facade.user;
 
 import am.aca.bookingmanagement.dto.user.login.UserLoginRequestDetails;
 import am.aca.bookingmanagement.dto.user.login.UserLoginResponseDetails;

@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.mapper.partnermapper;
+package am.aca.bookingmanagement.mapper.partner;
 
 import org.springframework.stereotype.Component;
 import am.aca.bookingmanagement.entity.Partner;

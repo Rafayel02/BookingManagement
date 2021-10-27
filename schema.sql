@@ -47,14 +47,14 @@ create table if not exists partners_categories
     foreign key (partner_id) references partners (id),
     foreign key (type_id) references categories (id)
 );
-
-insert into partners(name, email, password, longitude, latitude, address, rating)
-values ('A', 'A','A',12.0, 12.0, 'A', 5);
-
-insert into users(first_name, last_name, email, password)
-values ('U','U','U','U');
-
-insert into users(first_name, last_name, email, password)
-values ('U2','U2','U2','U2');
-
-select AVG(rating) from reviews where partner_id = id;
+--
+-- insert into partners(name, email, password, longitude, latitude, address, rating)
+-- values ('A', 'A','A',12.0, 12.0, 'A', 5);
+--
+-- insert into users(first_name, last_name, email, password)
+-- values ('U','U','U','U');
+--
+-- insert into users(first_name, last_name, email, password)
+-- values ('U2','U2','U2','U2');
+--
+-- select AVG(rating) from reviews where partner_id = id;

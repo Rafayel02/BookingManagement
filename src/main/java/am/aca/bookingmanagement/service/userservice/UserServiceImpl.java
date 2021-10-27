@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     public User create(final User user) {
         final Optional<User> byEmail = findByEmail(user.getEmail());
         if (byEmail.isPresent()) {
-            throw new UserAlreadyExistsException("USER_WITH_EMAIL_: " + user.getEmail() + "_ALREADY_EXISTS");
+            throw new UserAlreadyExistsException();
         }
         return userRepository.save(user);
     }

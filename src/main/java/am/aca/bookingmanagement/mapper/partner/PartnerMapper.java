@@ -1,4 +1,4 @@
-package am.aca.bookingmanagement.mapper.partnermapper;
+package am.aca.bookingmanagement.mapper.partner;
 
 import am.aca.bookingmanagement.entity.Partner;
 import am.aca.bookingmanagement.dto.partner.login.PartnerLoginResponseDetails;

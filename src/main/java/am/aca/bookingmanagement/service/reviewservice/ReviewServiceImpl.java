@@ -5,6 +5,7 @@ import am.aca.bookingmanagement.entity.User;
 import am.aca.bookingmanagement.entity.Review;
 import am.aca.bookingmanagement.repository.ReviewRepository;
 import am.aca.bookingmanagement.service.userservice.UserService;
+import am.aca.bookingmanagement.exception.DuplicateReviewException;
 
 import java.util.Optional;
 
@@ -27,6 +28,14 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review create(final Review review) {
+        final Optional<Review> foundReview = reviewRepository.findReviewByUser_IdAndPartner_Id(
+                review.getUser().getId(),
+                review.getPartner().getId()
+        );
+
+        if (foundReview.isPresent()) {
+            throw new DuplicateReviewException();
+        }
         return reviewRepository.save(review);
     }
 

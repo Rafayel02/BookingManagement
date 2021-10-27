@@ -1,8 +1,8 @@
 package am.aca.bookingmanagement.exception;
 
-public class PartnerAlreadyExistsException extends RuntimeException {
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.http.HttpStatus;
 
-    public PartnerAlreadyExistsException(final String message) {
-        super(message);
-    }
+@ResponseStatus(reason = "Partner_Already_Exists", code = HttpStatus.FORBIDDEN)
+public class PartnerAlreadyExistsException extends RuntimeException {
 }
