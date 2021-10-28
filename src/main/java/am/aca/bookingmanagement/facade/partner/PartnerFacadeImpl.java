@@ -46,13 +46,12 @@ public class PartnerFacadeImpl implements PartnerFacade {
     @Override
     public PartnerRegisterResponseDetails register(final PartnerRegisterRequestDetails request) {
         if (!validationChecker.isPartnerRegistrationValid(request.getName(), request.getEmail(),
-                request.getPassword(), request.getAddress(), request.getImageUrl())) {
+                request.getPassword(), request.getAddress())) {
             throw new SomethingWentWrongException();
         }
         final Partner partner = partnerService.create(partnerMapper.mapRegisterRequestToEntity(request));
         addPartnerCategory(partner.getId(), request.getPartnerCategories());
         addPartnerActivity(partner.getId(), request.getPartnerActivities());
-
         return partnerMapper.mapEntityToRegisterResponse(partner);
     }
 
@@ -62,7 +61,6 @@ public class PartnerFacadeImpl implements PartnerFacade {
             if (activityId.isEmpty()){
                 throw new ActivityNotFoundException();
             }
-
             partnerService.createPartnersActivities(id, activityId.get());
         }
     }

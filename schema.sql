@@ -34,7 +34,6 @@ create table if not exists activity
     type text not null
 );
 
-
 create table if not exists reviews
 (
     id         bigserial not null,
