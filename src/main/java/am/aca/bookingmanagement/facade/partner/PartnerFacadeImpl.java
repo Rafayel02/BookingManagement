@@ -79,17 +79,17 @@ public class PartnerFacadeImpl implements PartnerFacade {
 
     @Override
     public PartnerLoginResponseDetails login(final PartnerLoginRequestDetails request) {
-        if (!validationChecker.isLoginValid(request.getEmail(), request.getPassword())) {
-            throw new SomethingWentWrongException();
-        }
+//        if (!validationChecker.isLoginValid(request.getEmail(), request.getPassword())) {
+//            throw new SomethingWentWrongException();
+//        }
         final Optional<Partner> byEmail = partnerService.findByEmail(request.getEmail());
         if (byEmail.isEmpty()) {
             throw new PartnerNotFoundException();
         }
         final boolean doPasswordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.get().getPassword());
-        if (!doPasswordsMatch) {
-            throw new WrongPasswordException();
-        }
+//        if (!doPasswordsMatch) {
+//            throw new WrongPasswordException();
+//        }
         return partnerMapper.mapEntityToLoginResponse(byEmail.get());
     }
 

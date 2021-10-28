@@ -8,7 +8,7 @@ import PartnerContexProvider from '../contexts/PartnerContext'
 import {Route, Switch} from "react-router-dom";
 import NavigationItems from "../Navigation/NavigationItem";
 import Partner from "../Partner/Partner";
-import GetPartner from "../Partner/GetPartner";
+import PartnerProfile from "../profiles/PartnerProfile";
 import Footer from "../Footer/Footer"
 import {AuthContext} from "../contexts/AuthContext";
 import jwt from 'jwt-decode'
@@ -51,13 +51,13 @@ const All = () => {
                         getPayload(token).role === "ROLE_USER" ?
                             <UserProfile/>
                             : getPayload(token).role === "ROLE_PARTNER" ?
-                                <h1>partner</h1>
+                                <PartnerProfile/>
                                 : <h1>Not Found</h1>
                         : <h1>Not Found</h1>
                 }
             </Route>
 
-            <Route path="/partner" component={GetPartner}/>
+            <Route path="/partner" component={PartnerProfile}/>
 
             <Route path="/">
                 <PartnerContexProvider>

@@ -1,55 +1,56 @@
 .cafeItems {
     display: grid;
-   grid-template-columns: auto auto auto;
-   padding: 5%;
-   text-align: center;
-   height: 1200px;
-   margin: auto;
-  }
-  
-  .cafeItems a {
+    grid-template-columns: auto auto auto;
+    padding: 5%;
+    text-align: center;
+    height: 1200px;
+    margin: auto;
+}
+
+.cafeItems a {
     text-decoration: none;
     color: #000000;
 
 }
-  .cafeItems div {
+
+.cafeItems div {
     /* border: 1px solid black;
     margin: 10px;
     padding: 10px; */
 
-  }
-  .cardWrapper {
-      padding: 10px 6px;
-  }
+}
 
-  .cardImage {
+.cardWrapper {
+    padding: 10px 6px;
+}
+
+.cardImage {
     height: 300px;
     object-fit: contain;
-    width: 100%!important;
-  }
+    width: 100% !important;
+}
 
 
-  
-  .cafeItems img {
+.cafeItems img {
     width: 20%;
-  }
-  
-  a.button1{
-   display: inline-block;
-   padding: 0.35em 1.2em;
-   color: #000000;
-   border: 0.1em solid #000000;
-   margin: 0 0.3em 0.3em 0;
-   border-radius: 0.12em;
-   box-sizing: border-box;
-   text-decoration: none;
-   font-weight: 300;
-   transition: all 0.2s;
-  }
-  
-  a.button1:hover{
-   
+}
+
+a.button1 {
+    display: inline-block;
+    padding: 0.35em 1.2em;
+    color: #000000;
+    border: 0.1em solid #000000;
+    margin: 0 0.3em 0.3em 0;
+    border-radius: 0.12em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-weight: 300;
+    transition: all 0.2s;
+}
+
+a.button1:hover {
+
     background-color: #2A324B;
-   color: white;
-  }
+    color: white;
+}
   
