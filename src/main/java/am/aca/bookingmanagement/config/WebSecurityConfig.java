@@ -14,19 +14,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
+
+                .antMatchers("/review").hasRole("USER")
+                .antMatchers("/filter").permitAll()
+
+                .antMatchers("/register/partner").anonymous()
+                .antMatchers("/register").anonymous()
+
+                .antMatchers("/info/partner").permitAll()
+                .antMatchers("/info").hasRole("USER")
+
+                .antMatchers("/history/partner").permitAll()
+                .antMatchers("/history").hasRole("USER")
+
+                .antMatchers("/login/partner").anonymous()
+                .antMatchers("/login").anonymous()
+
+                .antMatchers("/").permitAll()
+
                 .anyRequest().permitAll()
-//                .antMatchers("/review").hasRole("USER")
-//                .antMatchers("/history").hasRole("USER")
-//                .antMatchers("/info").hasRole("USER")
-//                .antMatchers("/login").anonymous()
-//                .antMatchers("/login/partner").anonymous()
-//                .antMatchers("/register").anonymous()
-//                .antMatchers("/register/partner").anonymous()
-//                .anyRequest().permitAll()
-//                .antMatchers("/info/partner").permitAll()
-//                .antMatchers("/").permitAll()
-//                .antMatchers("/filter").permitAll()
-//                .antMatchers("/history/partner").permitAll()
                 .and()
                 .addFilterBefore(new JwtAuthorizationFilter(), BasicAuthenticationFilter.class)
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
