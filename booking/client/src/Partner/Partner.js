@@ -159,10 +159,12 @@ function Partner(props) {
 
         let locationArray = [
             sessionStorage.getItem('location') ? sessionStorage.getItem('location').split(',')[0] : 40.1777,
-            sessionStorage.getItem('location') ? sessionStorage.getItem('location').split(',')[0] : 44.5127,
-            radius ? radius : 100]
-        if (!radius) {
-            locationArray.pop()
+            sessionStorage.getItem('location') ? sessionStorage.getItem('location').split(',')[0] : 44.5127
+        ]
+
+        if (typeof radius!== 'object') {
+            console.log("*******"+radius)
+            locationArray=[...locationArray,radius]
         }
 
         console.log({
