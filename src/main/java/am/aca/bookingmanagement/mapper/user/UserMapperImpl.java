@@ -1,5 +1,6 @@
 package am.aca.bookingmanagement.mapper.user;
 
+import am.aca.bookingmanagement.dto.filter.FilterUserResponseDetails;
 import org.springframework.stereotype.Component;
 import am.aca.bookingmanagement.entity.User;
 import am.aca.bookingmanagement.jwt.JwtTokenGenerator;
@@ -42,6 +43,15 @@ public class UserMapperImpl implements UserMapper {
         final UserLoginResponseDetails response = new UserLoginResponseDetails();
         response.setToken(jwtTokenGenerator.generate(user));
         return response;
+    }
+
+    @Override
+    public FilterUserResponseDetails mapEntityToFilteredUser(final User user) {
+        final FilterUserResponseDetails filteredResponse = new FilterUserResponseDetails();
+        filteredResponse.setFirstName(user.getFirstName());
+        filteredResponse.setLastName(user.getLastName());
+        filteredResponse.setEmail(user.getEmail());
+        return filteredResponse;
     }
 
 }
