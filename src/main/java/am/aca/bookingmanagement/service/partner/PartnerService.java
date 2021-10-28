@@ -14,8 +14,12 @@ public interface PartnerService {
 
     Optional<Partner> findById(Long id);
 
+    List<Review> getAllReviews(Long id);
+
     void updateAverageRating(Long id);
 
-    List<Review> getAllReviews(Long id);
+    void createPartnersCategories (Long partnerId, Integer categoryId);
+
+    void createPartnersActivities(Long partnerId, Integer activityId);
 
 }

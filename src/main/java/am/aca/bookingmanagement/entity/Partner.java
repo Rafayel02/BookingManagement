@@ -42,7 +42,7 @@ public class Partner {
     private String imageUrl;
 
     @Column(name = "rating")
-    private Integer rating;
+    private Double rating;
 
     @JsonBackReference
     @JsonManagedReference
