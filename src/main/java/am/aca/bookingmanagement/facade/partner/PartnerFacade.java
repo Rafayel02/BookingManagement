@@ -1,5 +1,6 @@
 package am.aca.bookingmanagement.facade.partner;
 
+import am.aca.bookingmanagement.dto.filter.FilteredPartnerResponseDetails;
 import am.aca.bookingmanagement.dto.partner.login.PartnerLoginRequestDetails;
 import am.aca.bookingmanagement.dto.partner.login.PartnerLoginResponseDetails;
 import am.aca.bookingmanagement.dto.partner.register.PartnerRegisterRequestDetails;
@@ -18,4 +19,5 @@ public interface PartnerFacade {
 
     List<Review> getAllReviews(Long id);
 
+    FilteredPartnerResponseDetails getPartner(Long id);
 }
