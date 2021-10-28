@@ -100,45 +100,76 @@ public class FilterFacadeImpl implements FilterFacade {
 
     @Override
     public FilterResponseDetails findBy(final FilterRequestDetails request) {
-        if (request.getCategory() != null &&
-                request.getActivity() != null &&
-                request.getLocationInfo() != null &&
-                request.getLocationInfo().size() == 3) {
+        if (areAllListsPresent(request)) {
             return findByActivityCategoryAndLocation(request);
         }
 
-        if (request.getCategory() != null &&
-                request.getActivity() != null
-                && (request.getLocationInfo() == null ||
-                request.getLocationInfo().size() != 3)) {
+        if (areCategoryActivityListsPresent(request)) {
             return findByCategoryAndActivity(request);
         }
 
-        if (request.getCategory() != null && request.getActivity() == null
-                && (request.getLocationInfo() == null || request.getLocationInfo().size() != 3 )) {
+        if (isCategoryListPresent(request)) {
             return findByCategory(request);
         }
 
-        if (request.getCategory() == null && request.getActivity() != null
-                && (request.getLocationInfo() == null || request.getLocationInfo().size() != 3)) {
+        if (isActivityListPresent(request)) {
             return findByActivity(request);
         }
 
-        if (request.getCategory() == null && request.getActivity() == null
-                && request.getLocationInfo() != null && request.getLocationInfo().size() == 3) {
+        if (isLocationListPresent(request)) {
             return findByLocation(request);
         }
 
-        if (request.getCategory() != null && request.getActivity() == null
-                && request.getLocationInfo() != null && request.getLocationInfo().size() == 3) {
+        if (areCategoryLocationListsPresent(request)) {
             return findByCategoriesAndLocation(request);
         }
 
-        if (request.getCategory() == null && request.getActivity() != null
-                && request.getLocationInfo() != null && request.getLocationInfo().size() == 3) {
+        if (areActivityLocationListsPresent(request)) {
             return findByActivitiesAndLocation(request);
         }
         return findAll();
+    }
+
+    private boolean areCategoryLocationListsPresent(final FilterRequestDetails request) {
+        return !request.getCategory().isEmpty() &&
+                request.getActivity().isEmpty() &&
+                request.getLocationInfo().size() == 3;
+    }
+
+    private boolean areActivityLocationListsPresent(final FilterRequestDetails request) {
+        return request.getCategory().isEmpty() &&
+                !request.getActivity().isEmpty() &&
+                request.getLocationInfo().size() == 3;
+    }
+
+    private boolean isLocationListPresent(final FilterRequestDetails request) {
+        return request.getCategory().isEmpty() &&
+                request.getActivity().isEmpty() &&
+                request.getLocationInfo().size() == 3;
+    }
+
+    private boolean isActivityListPresent(final FilterRequestDetails request) {
+        return request.getCategory().isEmpty() &&
+                !request.getActivity().isEmpty() &&
+                request.getLocationInfo().size() != 3;
+    }
+
+    private boolean isCategoryListPresent(final FilterRequestDetails request) {
+        return !request.getCategory().isEmpty() &&
+                request.getActivity().isEmpty() &&
+                request.getLocationInfo().size() != 3;
+    }
+
+    private boolean areCategoryActivityListsPresent(final FilterRequestDetails request) {
+        return !request.getCategory().isEmpty() &&
+                !request.getActivity().isEmpty() &&
+                request.getLocationInfo().size() != 3;
+    }
+
+    private boolean areAllListsPresent(final FilterRequestDetails request) {
+        return !request.getCategory().isEmpty() &&
+                !request.getActivity().isEmpty() &&
+                request.getLocationInfo().size() == 3;
     }
 
     private List<Integer> getCategoryIdFromType(final FilterRequestDetails request) {

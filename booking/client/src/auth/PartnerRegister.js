@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import {useHistory} from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
@@ -55,18 +55,17 @@ function PartnerRegister() {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log( localStorage.getItem('location').split(",")[0],  localStorage.getItem('location').split(",")[1], "boxk")
+            console.log(localStorage.getItem('location').split(",")[0], localStorage.getItem('location').split(",")[1], "boxk")
             setValues({...values, "latitude": localStorage.getItem('location').split(",")[0]});
             setValues({...values, "longitude": localStorage.getItem('location').split(",")[1]});
             const response = await createPartner({
                 ...values,
                 "latitude": localStorage.getItem('location').split(",")[0],
-            "longitude": localStorage.getItem('location').split(",")[1]});
-            localStorage.setItem("token", response.data);
-
+                "longitude": localStorage.getItem('location').split(",")[1]
+            });
+            localStorage.setItem("token", response.data.token);
             console.log(response.data);
-            //  updateToken(response.data.token);
-            //S  history.push("/main");
+            window.location.href = '/'
         } catch (e) {
             console.log(e);
             setErrorMessage(e.response?.data?.message || "Something went wrong");
@@ -74,11 +73,7 @@ function PartnerRegister() {
     };
 
     const createPartner = async (values) => {
-      
-        // localStorage.removeItem("location")
         return axios.post("http://localhost:5689/register/partner", values);
-
-
     };
 
     return (
@@ -117,7 +112,7 @@ function PartnerRegister() {
                         fullWidth
                     />
 
-                  <GoogleMaps />
+                    <GoogleMaps/>
                     <TextField
                         name="imageUrl"
                         label="Image url"

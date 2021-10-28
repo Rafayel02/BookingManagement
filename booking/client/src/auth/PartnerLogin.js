@@ -1,5 +1,4 @@
-import React, {useContext, useState} from "react";
-import {useHistory} from "react-router-dom";
+import React, {useState} from "react";
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
@@ -39,18 +38,16 @@ function PartnerLogin() {
     };
 
     const loginPartner = async (values) => {
-        return axios.post("http://localhost:5689/login", values);
+        return axios.post("http://localhost:5689/login/partner", values);
     };
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await loginPartner(values);
-            localStorage.setItem("token", response.data);
-            alert(response.data.email)
+            localStorage.setItem("token", response.data.token);
             console.log(response.data);
-            //  updateToken(response.data.token);
-            //S  history.push("/main");
+            window.location.href = '/'
         } catch (e) {
             console.log(e);
             setErrorMessage(e.response?.data?.message || "Something went wrong");
