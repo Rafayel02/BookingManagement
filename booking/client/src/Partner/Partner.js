@@ -10,7 +10,6 @@ import { useEffect } from "react";
 
 import Mockdata from './Mockdata'
 import classes from './Partner.module.css'
-import { PartnerContext } from '../contexts/PartnerContext';
 
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';

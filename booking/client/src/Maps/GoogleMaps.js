@@ -1,18 +1,21 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component, useEffect, useState, useContext } from 'react';
 import {Map, Marker, GoogleApiWrapper} from 'google-maps-react';
 import PlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from 'react-places-autocomplete';
+import { PartnerContext } from '../contexts/PartnerContext';
 
 export function MapContainer (props) {
+
+  const {location , setLocation, setAddress} = useContext(PartnerContext);
   const [address, setaddress] = useState('')
 const [showingInfoWindow, setshowingInfoWindow] = useState(false)
 const [activeMarker, setactiveMarker] = useState({})
 const [selectedPlace, setselectedPlace] = useState({})
 const [mapCenter, setmapCenter] = useState({
   lat: 40.1777,
-  lng:11.5127
+  lng:44.5127
 })
  const  handleChange = address => {
    setaddress(address)
@@ -27,11 +30,14 @@ const [mapCenter, setmapCenter] = useState({
       .then(latLng => {
         console.log('Success', latLng);
         setmapCenter(latLng)
+        setLocation(latLng);
         // this.setState({ mapCenter: latLng });
       })
       .catch(error => console.error('Error', error));
-      sessionStorage.setItem("location", [mapCenter.lat , mapCenter.lng ])
-      localStorage.setItem("location", [mapCenter.lat , mapCenter.lng ])
+      // sessionStorage.setItem("location", [mapCenter.lat , mapCenter.lng ])
+      // localStorage.setItem("location", [mapCenter.lat , mapCenter.lng ])
+      // setLocation([mapCenter.lat , mapCenter.lng])
+      setAddress(address);
 
 
   };
@@ -65,14 +71,17 @@ const [mapCenter, setmapCenter] = useState({
   )
 );
 console.log(mapCenter, "this map center")
-sessionStorage.setItem("location", [mapCenter.lat , mapCenter.lng ])
-localStorage.setItem("location", [mapCenter.lat , mapCenter.lng ])
+
+// sessionStorage.setItem("location", [mapCenter.lat , mapCenter.lng ])
+// localStorage.setItem("location", [mapCenter.lat , mapCenter.lng ])
 
 
 }
 
-useEffect(() => {
-  saveNow()
+useEffect( async () => {
+  await saveNow()
+  // setLocation([mapCenter.lat , mapCenter.lng])
+
 }, [])
 
 return (
