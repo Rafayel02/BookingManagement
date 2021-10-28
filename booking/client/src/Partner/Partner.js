@@ -301,7 +301,7 @@ function Partner(props){
                         </div>
                     </Item>
                 </Grid>
-                <Grid item xs={10}>
+                <Grid item xs={8}>
                     <Item>
                         <div className = {classes.cafeItems}>
                             { cafes ? cafes.partnersList.map( cafe => (
@@ -312,7 +312,7 @@ function Partner(props){
                                         <img src={cafe.imageUrl}  className={classes.cardImage}/>
 
                                         <p> {cafe.name}  <br />
-                                            Review: <b>{cafe.review? cafe.review : "No review yet"}</b> <br />
+                                            Rating: <b>{!!cafe.review? cafe.review : "No rating yet"}</b> <br />
                                             Address: {cafe.address} <br />
                                         </p>
 

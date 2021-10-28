@@ -24,6 +24,7 @@ public class FilterMapperImpl implements FilterMapper {
             response.setLatitude(partner.getLatitude());
             response.setAddress(partner.getAddress());
             response.setImageUrl(partner.getImageUrl());
+            response.setReview(partner.getRating());
             filteredPartnersList.add(response);
         }
         filterResponseDetails.setPartnersList(filteredPartnersList);
