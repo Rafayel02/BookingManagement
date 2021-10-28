@@ -192,7 +192,7 @@ function PartnerRegister() {
                         fullWidth
                     />
 
-                    <FormControl sx={{m: 1, width: '100%', marginLeft: '-2px'}}>
+                    <FormControl sx={{m: 1, height: '100%', width: '100%', marginLeft: '-2px'}}>
                         <InputLabel id="demo-multiple-checkbox-label">Cuisine</InputLabel>
                         <Select
                             labelId="demo-multiple-checkbox-label"
@@ -213,7 +213,7 @@ function PartnerRegister() {
                         </Select>
 
                     </FormControl>
-                    <FormControl sx={{m: 1, width: '100%', marginLeft: '-2px'}}>
+                    <FormControl sx={{m: 1, height: '100%', width: '100%', marginLeft: '-2px'}}>
                         <InputLabel id="demo-multiple-checkbox-label">Activity</InputLabel>
                         <Select
                             labelId="demo-multiple-checkbox-label"

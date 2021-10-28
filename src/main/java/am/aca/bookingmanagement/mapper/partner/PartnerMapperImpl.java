@@ -1,13 +1,13 @@
 package am.aca.bookingmanagement.mapper.partner;
 
 import am.aca.bookingmanagement.dto.filter.FilteredPartnerResponseDetails;
-import org.springframework.stereotype.Component;
-import am.aca.bookingmanagement.entity.Partner;
-import am.aca.bookingmanagement.jwt.JwtTokenGenerator;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import am.aca.bookingmanagement.dto.partner.login.PartnerLoginResponseDetails;
 import am.aca.bookingmanagement.dto.partner.register.PartnerRegisterRequestDetails;
 import am.aca.bookingmanagement.dto.partner.register.PartnerRegisterResponseDetails;
+import am.aca.bookingmanagement.entity.Partner;
+import am.aca.bookingmanagement.jwt.JwtTokenGenerator;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 
 @Component
 public class PartnerMapperImpl implements PartnerMapper {
@@ -29,7 +29,9 @@ public class PartnerMapperImpl implements PartnerMapper {
         partner.setPassword(passwordEncoder.encode(request.getPassword()));
         partner.setLongitude(request.getLongitude());
         partner.setLatitude(request.getLatitude());
-        partner.setImageUrl(request.getImageUrl());
+        if (request.getImageUrl() == null) {
+            partner.setImageUrl("default");
+        }
         partner.setAddress(request.getAddress());
         return partner;
     }

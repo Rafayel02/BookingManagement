@@ -46,7 +46,7 @@ public class PartnerFacadeImpl implements PartnerFacade {
     @Override
     public PartnerRegisterResponseDetails register(final PartnerRegisterRequestDetails request) {
         if (!validationChecker.isPartnerRegistrationValid(request.getName(), request.getEmail(),
-                request.getPassword(), request.getAddress())) {
+                request.getPassword())) {
             throw new SomethingWentWrongException();
         }
         final Partner partner = partnerService.create(partnerMapper.mapRegisterRequestToEntity(request));
@@ -58,7 +58,7 @@ public class PartnerFacadeImpl implements PartnerFacade {
     private void addPartnerActivity(final Long id, final List<String> partnerActivities) {
         for (final String partnerActivity : partnerActivities) {
             final Optional<Integer> activityId = activityService.findActivityIdByType(partnerActivity);
-            if (activityId.isEmpty()){
+            if (activityId.isEmpty()) {
                 throw new ActivityNotFoundException();
             }
             partnerService.createPartnersActivities(id, activityId.get());
@@ -84,10 +84,10 @@ public class PartnerFacadeImpl implements PartnerFacade {
         if (byEmail.isEmpty()) {
             throw new PartnerNotFoundException();
         }
-//        final boolean doPasswordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.get().getPassword());
-//        if (!doPasswordsMatch) {
-//            throw new WrongPasswordException();
-//        }
+        final boolean doPasswordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.get().getPassword());
+        if (!doPasswordsMatch) {
+            throw new WrongPasswordException();
+        }
         return partnerMapper.mapEntityToLoginResponse(byEmail.get());
     }
 

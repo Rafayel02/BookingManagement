@@ -94,8 +94,9 @@ return (
       {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
         <div>
           <input
+              style={{width:'448px', height:'30px'}}
             {...getInputProps({
-              placeholder: 'Search Places ...',
+              placeholder: 'Find your location',
               className: 'location-search-input',
             })}
           />

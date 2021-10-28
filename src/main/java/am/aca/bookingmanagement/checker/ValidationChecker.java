@@ -7,7 +7,6 @@ import java.util.regex.Pattern;
 @Component
 public class ValidationChecker {
 
-    private static final Pattern ADDRESS_VALIDATOR = Pattern.compile("[A-Za-z0-9./,-]*");
     private static final Pattern LAST_NAME_VALIDATOR = Pattern.compile("[A-Z][a-z]{2,20}$");
     private static final Pattern FIRST_NAME_VALIDATOR = Pattern.compile("[A-Z][a-z]{2,20}$");
     private static final Pattern PASSWORD_VALIDATOR =
@@ -37,10 +36,6 @@ public class ValidationChecker {
         return PARTNER_NAME_VALIDATOR.matcher(partnerName).matches();
     }
 
-    public boolean isAddressValid(final String address) {
-        return ADDRESS_VALIDATOR.matcher(address).matches();
-    }
-
     public boolean isUserRegistrationValid(final String firstName,
                                            final String lastName,
                                            final String email,
@@ -53,12 +48,10 @@ public class ValidationChecker {
 
     public boolean isPartnerRegistrationValid(final String name,
                                               final String email,
-                                              final String password,
-                                              final String address) {
+                                              final String password) {
         return isPartnerNameValid(name)
                 && isEmailValid(email)
-                && isPasswordValid(password)
-                && isAddressValid(address);
+                && isPasswordValid(password);
     }
 
     public boolean isLoginValid(final String email, final String password) {
