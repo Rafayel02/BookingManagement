@@ -209,11 +209,11 @@ export default function MultipleSelectCheckmarks() {
               <div style={{position: 'absolute', bottom: 30, right: 20}}>
                 {token ? '' :
                     <div>
-                      <Link to={`/register/partner`}>
+                      <Link to={`/register/partner`} style={{textDecoration:"none", color:"white"}}>
                         Register as Partner
                       </Link>
                       <br/>
-                      <Link to={`/login/partner`}>
+                      <Link to={`/login/partner`} style={{textDecoration:"none", color:"white"}}>
                         Login as Partner
                       </Link>
                     </div>
