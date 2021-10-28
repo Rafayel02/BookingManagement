@@ -15,16 +15,16 @@
     margin: 1.3%;
   }
   
-  
   @media (min-width: 500px) {
     .NavigationItems {
       flex-flow: row;
+        height: 80px;
     }
   }
 
   .dist{
       padding-bottom: 30px;
       background-color: rgb(182, 55, 55);
-      
+      height: 65px;
   }
   

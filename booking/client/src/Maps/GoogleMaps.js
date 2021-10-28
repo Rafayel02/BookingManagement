@@ -126,7 +126,7 @@ return (
         lat: mapCenter.lat,
         lng: mapCenter.lng
       }}
-      style = {{width:'34%', height:'34%'}}
+      style = {{width:'30%', height:'20%'}}
     >
       <Marker 
        draggable={true}

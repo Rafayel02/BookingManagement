@@ -112,7 +112,6 @@ function PartnerRegister() {
                         fullWidth
                     />
 
-                    <GoogleMaps/>
                     <TextField
                         name="imageUrl"
                         label="Image url"
@@ -131,6 +130,8 @@ function PartnerRegister() {
                         required
                         fullWidth
                     />
+
+                    <GoogleMaps/>
 
                     <Box>
                         <Button color="primary" variant="contained" type="submit">
