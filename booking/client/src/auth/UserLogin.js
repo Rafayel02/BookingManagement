@@ -9,6 +9,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 
 import {makeStyles} from "@material-ui/core/styles";
 import axios from "axios";
+import { AuthContext } from "../contexts/AuthContext";
 
 const useStyles = makeStyles(() => ({
     formField: {
@@ -23,8 +24,9 @@ const useStyles = makeStyles(() => ({
 
 console.log("smth")
 function UserLogin() {
+    let history = useHistory();
     const classes = useStyles();
-
+    const {updateToken} = useContext(AuthContext);
     const [values, setValues] = useState({
         email: "",
         password: ""
@@ -47,9 +49,10 @@ function UserLogin() {
         e.preventDefault();
         try {
             const response = await loginUser(values);
-
             localStorage.setItem("token", response.data.token);
-            window.location.href = '/'
+            updateToken(response.data.token)
+            history.push("/main")
+            localStorage.setItem("token", response.data.token);
         } catch (e) {
             console.log(e);
             setErrorMessage(e.response?.data?.message || "Something went wrong");
@@ -81,7 +84,6 @@ function UserLogin() {
                         required
                         fullWidth
                     />
-
                     <Box>
                         <Button color="primary" variant="contained" type="submit">
                             Log in
@@ -91,7 +93,6 @@ function UserLogin() {
             </CardContent>
         </Card>
     );
-
 }
 
 export default UserLogin;

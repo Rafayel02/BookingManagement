@@ -1,5 +1,6 @@
 package am.aca.bookingmanagement.facade.partner;
 
+import am.aca.bookingmanagement.dto.filter.FilteredPartnerResponseDetails;
 import am.aca.bookingmanagement.entity.Review;
 import org.springframework.stereotype.Component;
 import am.aca.bookingmanagement.entity.Partner;
@@ -70,6 +71,17 @@ public class PartnerFacadeImpl implements PartnerFacade {
     @Override
     public List<Review> getAllReviews(final Long id) {
         return partnerService.getAllReviews(id);
+    }
+
+    @Override
+    public FilteredPartnerResponseDetails getPartner(final Long id) {
+        final Optional<Partner> partner = partnerService.findById(id);
+
+        if (partner.isEmpty()){
+            throw new PartnerNotFoundException();
+        }
+
+        return partnerMapper.mapEntityToFilteredPartner(partner.get());
     }
 
 }

@@ -1,5 +1,6 @@
 package am.aca.bookingmanagement.mapper.partner;
 
+import am.aca.bookingmanagement.dto.filter.FilteredPartnerResponseDetails;
 import am.aca.bookingmanagement.entity.Partner;
 import am.aca.bookingmanagement.dto.partner.login.PartnerLoginResponseDetails;
 import am.aca.bookingmanagement.dto.partner.register.PartnerRegisterRequestDetails;
@@ -13,4 +14,5 @@ public interface PartnerMapper {
 
     PartnerLoginResponseDetails mapEntityToLoginResponse(Partner partner);
 
+    FilteredPartnerResponseDetails mapEntityToFilteredPartner(Partner partner);
 }

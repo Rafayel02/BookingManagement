@@ -25,7 +25,6 @@ const useStyles = makeStyles(() => ({
   
   function Search() {
 
-    let data = ["malocco", "boxk", "kaxamb", "bambmir", "botanika"]
 
     let history = useHistory();
 

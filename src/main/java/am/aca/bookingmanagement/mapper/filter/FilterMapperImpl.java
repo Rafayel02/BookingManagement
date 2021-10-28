@@ -12,20 +12,21 @@ import java.util.ArrayList;
 public class FilterMapperImpl implements FilterMapper {
 
     @Override
-    public FilterResponseDetails mapEntityListToFilterResponse(final List<Partner> partnerList) {
+    public FilterResponseDetails mapEntityListToFilterResponse(final List<Partner> partnersList) {
         final FilterResponseDetails filterResponseDetails = new FilterResponseDetails();
-        final List<FilteredPartnerResponseDetails> filteredPartnerResponseDetailsList = new ArrayList<>();
-        for (final Partner partner : partnerList) {
-            FilteredPartnerResponseDetails filteredPartnerResponseDetails = new FilteredPartnerResponseDetails();
-            filteredPartnerResponseDetails.setName(partner.getName());
-            filteredPartnerResponseDetails.setEmail(partner.getEmail());
-            filteredPartnerResponseDetails.setLongitude(partner.getLongitude());
-            filteredPartnerResponseDetails.setLatitude(partner.getLatitude());
-            filteredPartnerResponseDetails.setAddress(partner.getAddress());
-            filteredPartnerResponseDetails.setImageUrl(partner.getImageUrl());
-            filteredPartnerResponseDetailsList.add(filteredPartnerResponseDetails);
+        final List<FilteredPartnerResponseDetails> filteredPartnersList = new ArrayList<>();
+        for (final Partner partner : partnersList) {
+            FilteredPartnerResponseDetails response = new FilteredPartnerResponseDetails();
+            response.setId(partner.getId());
+            response.setName(partner.getName());
+            response.setEmail(partner.getEmail());
+            response.setLongitude(partner.getLongitude());
+            response.setLatitude(partner.getLatitude());
+            response.setAddress(partner.getAddress());
+            response.setImageUrl(partner.getImageUrl());
+            filteredPartnersList.add(response);
         }
-        filterResponseDetails.setPartnersList(filteredPartnerResponseDetailsList);
+        filterResponseDetails.setPartnersList(filteredPartnersList);
         return filterResponseDetails;
     }
 }

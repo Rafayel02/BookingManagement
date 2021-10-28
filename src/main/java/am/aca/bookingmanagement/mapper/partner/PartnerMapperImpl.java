@@ -1,5 +1,6 @@
 package am.aca.bookingmanagement.mapper.partner;
 
+import am.aca.bookingmanagement.dto.filter.FilteredPartnerResponseDetails;
 import org.springframework.stereotype.Component;
 import am.aca.bookingmanagement.entity.Partner;
 import am.aca.bookingmanagement.jwt.JwtTokenGenerator;
@@ -44,6 +45,19 @@ public class PartnerMapperImpl implements PartnerMapper {
     public PartnerLoginResponseDetails mapEntityToLoginResponse(final Partner partner) {
         final PartnerLoginResponseDetails response = new PartnerLoginResponseDetails();
         response.setToken(jwtTokenGenerator.generate(partner));
+        return response;
+    }
+
+    @Override
+    public FilteredPartnerResponseDetails mapEntityToFilteredPartner(final Partner partner) {
+        final FilteredPartnerResponseDetails response = new FilteredPartnerResponseDetails();
+        response.setId(partner.getId());
+        response.setName(partner.getName());
+        response.setAddress(partner.getAddress());
+        response.setImageUrl(partner.getImageUrl());
+        response.setLatitude(partner.getLatitude());
+        response.setLongitude(partner.getLongitude());
+        response.setEmail(partner.getEmail());
         return response;
     }
 

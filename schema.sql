@@ -62,41 +62,42 @@ create table if not exists partners_activities
     foreign key (type_id) references activity (id)
 );
 
-
+--
 -- select distinct id, name, email, password, longitude, latitude, image_url, address, rating
 -- from (select distinct id, name, email, password, longitude, latitude, image_url, address, rating
 --       from partners p inner join (select * from partners_categories pc where pc.type_id in (1, 2)) pc on p.id = pc.partner_id) pm
 --          inner join (select * from partners_activities pa where pa.type_id in (1, 3)) pa on pa.partner_id = pm.id;
-
-insert into partners(name, email, password, longitude, latitude, address, rating)
-VALUES ('R','R','R',1.0, 1.0, 'R', 4);
-
-insert into partners(name, email, password, longitude, latitude, address, rating)
-VALUES ('R1','R1','R1',1.0, 1.0, 'R1', 2);
-
-insert into partners(name, email, password, longitude, latitude, address, rating)
-VALUES ('R2','R2','R2',1.0, 1.0, 'R2', 2);
 --
-insert into categories(type) values ('italian');
-insert into categories(type) values ('mexican');
-insert into categories(type) values ('chinese');
+-- insert into partners(name, email, password, longitude, latitude, address, rating)
+-- VALUES ('R','R','R',1.0, 1.0, 'R', 4);
 --
+-- insert into partners(name, email, password, longitude, latitude, address, rating)
+-- VALUES ('R1','R1','R1',1.0, 1.0, 'R1', 2);
+--
+-- insert into partners(name, email, password, longitude, latitude, address, rating)
+-- VALUES ('R2','R2','R2',1.0, 1.0, 'R2', 2);
+--
+-- insert into categories(type) values ('italian');
+-- insert into categories(type) values ('mexican');
+-- insert into categories(type) values ('chinese');
+--
+
+-- insert into activity(type) values ('with friends');
+-- insert into activity(type) values ('with family');
+-- insert into activity(type) values ('for couples');
+-- insert into activity(type) values ('birthday');
+-- insert into activity(type) values ('work & study');
+
 -- insert into activity(type) values ('AActivity');
 -- insert into activity(type) values ('BActivity');
 -- insert into activity(type) values ('CActivity');
---
--- insert into partners_activities(partner_id, type_id) VALUES (1, 1);
--- insert into partners_activities(partner_id, type_id) VALUES (1, 2);
--- insert into partners_activities(partner_id, type_id) VALUES (1, 3);
--- insert into partners_activities(partner_id, type_id) VALUES (2, 3);
--- insert into partners_activities(partner_id, type_id) VALUES (3, 2);
---
+
 insert into partners_categories(partner_id, type_id) VALUES (1, 1);
 insert into partners_categories(partner_id, type_id) VALUES (1, 2);
 insert into partners_categories(partner_id, type_id) VALUES (1, 3);
 insert into partners_categories(partner_id, type_id) VALUES (2, 2);
 insert into partners_categories(partner_id, type_id) VALUES (3, 3);
---
+
 -- insert into users(first_name, last_name, email, password)
 -- values ('U', 'U', 'U','U');
 --
@@ -109,3 +110,13 @@ insert into partners_categories(partner_id, type_id) VALUES (3, 3);
 -- select distinct id, name, email, password, longitude, latitude, image_url, address, rating
 -- from partners inner join partners_categories pc on partners.id = pc.partner_id;
 --
+
+insert into categories(type) values ('italian');
+insert into categories(type) values ('mexican');
+insert into categories(type) values ('chinese');
+--
+insert into activity(type) values ('with friends');
+insert into activity(type) values ('with family');
+insert into activity(type) values ('for couples');
+insert into activity(type) values ('birthday');
+insert into activity(type) values ('work & study');

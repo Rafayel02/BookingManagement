@@ -20,16 +20,17 @@ public class HistoryController {
         this.userFacade = userFacade;
         this.partnerFacade = partnerFacade;
     }
-    @GetMapping("/partner")
-    public ResponseEntity<?> getPartnerHistory(@RequestParam final Long id){
-        final List<Review> partnerReviews = partnerFacade.getAllReviews(id);
-        return ResponseEntity.ok(partnerReviews);
-    }
 
     @GetMapping
     public ResponseEntity<?> getUserHistory(@RequestParam final Long id) {
         final List<Review> userReviews = userFacade.getAllReviews(id);
         return ResponseEntity.ok(userReviews);
+    }
+
+    @GetMapping("/partner")
+    public ResponseEntity<?> getPartnerHistory(@RequestParam final Long id){
+        final List<Review> partnerReviews = partnerFacade.getAllReviews(id);
+        return ResponseEntity.ok(partnerReviews);
     }
 
 }

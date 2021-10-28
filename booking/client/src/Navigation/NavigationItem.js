@@ -3,11 +3,13 @@ import NavigationItem from './NavigationItem/NavigationItem';
 import classes from './NavigationItem.module.css';
 // import logo from '../../../assets/logo.png';
 import {  NavLink } from 'react-router-dom';
+import {useHistory} from "react-router-dom";
 
 import { AuthContext } from '../contexts/AuthContext';
 
 function NavigationItems(){
 
+    let history = useHistory();
 
     const {token, updateToken, getToken } = useContext(AuthContext);
     // const [token, setToken] = useState(localStorage.getItem("token"));
@@ -16,6 +18,8 @@ function NavigationItems(){
     //  }
     function logout(){
       updateToken("");
+      history.push("/login")
+
     }
 
     console.log(token);
