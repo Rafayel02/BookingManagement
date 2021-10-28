@@ -12,6 +12,7 @@ import GetPartner from "../Partner/GetPartner";
 import Footer from "../Footer/Footer"
 import {AuthContext} from "../contexts/AuthContext";
 import jwt from 'jwt-decode'
+import UserProfile from "../profiles/UserProfile";
 
 const All = () => {
     const {token} = useContext(AuthContext)
@@ -48,7 +49,7 @@ const All = () => {
                 {
                     getPayload(token) ?
                         getPayload(token).role === "ROLE_USER" ?
-                            <h1>user</h1>
+                            <UserProfile/>
                             : getPayload(token).role === "ROLE_PARTNER" ?
                                 <h1>partner</h1>
                                 : <h1>Not Found</h1>
