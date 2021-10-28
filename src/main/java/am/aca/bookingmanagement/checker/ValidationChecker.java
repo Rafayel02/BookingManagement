@@ -16,8 +16,6 @@ public class ValidationChecker {
             Pattern.compile("[A-Z ]{2,40}$", Pattern.CASE_INSENSITIVE);
     private static final Pattern EMAIL_VALIDATOR =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern IMAGE_URL_VALIDATOR =
-            Pattern.compile("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]");
 
     public boolean isPasswordValid(final String password) {
         return PASSWORD_VALIDATOR.matcher(password).matches();
@@ -39,10 +37,6 @@ public class ValidationChecker {
         return PARTNER_NAME_VALIDATOR.matcher(partnerName).matches();
     }
 
-    public boolean isImageUrlValid(final String url) {
-        return url == null || IMAGE_URL_VALIDATOR.matcher(url).matches();
-    }
-
     public boolean isAddressValid(final String address) {
         return ADDRESS_VALIDATOR.matcher(address).matches();
     }
@@ -60,13 +54,11 @@ public class ValidationChecker {
     public boolean isPartnerRegistrationValid(final String name,
                                               final String email,
                                               final String password,
-                                              final String address,
-                                              final String image_url) {
+                                              final String address) {
         return isPartnerNameValid(name)
                 && isEmailValid(email)
                 && isPasswordValid(password)
-                && isAddressValid(address)
-                && isImageUrlValid(image_url);
+                && isAddressValid(address);
     }
 
     public boolean isLoginValid(final String email, final String password) {
