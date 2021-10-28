@@ -1,5 +1,6 @@
 package am.aca.bookingmanagement.facade.user;
 
+import am.aca.bookingmanagement.dto.filter.FilterUserResponseDetails;
 import am.aca.bookingmanagement.dto.user.login.UserLoginRequestDetails;
 import am.aca.bookingmanagement.dto.user.login.UserLoginResponseDetails;
 import am.aca.bookingmanagement.dto.user.register.UserRegisterRequestDetails;
@@ -16,4 +17,5 @@ public interface UserFacade {
 
     List<Review> getAllReviews(Long id);
 
+    FilterUserResponseDetails getUser(Long id);
 }

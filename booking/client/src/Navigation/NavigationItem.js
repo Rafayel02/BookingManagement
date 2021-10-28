@@ -50,7 +50,6 @@ function NavigationItems() {
                     <NavigationItem><NavLink to="/">Home</NavLink></ NavigationItem>
                     <NavigationItem><NavLink to="/filter"> Restaurants & Cafes </NavLink></ NavigationItem>
 
-                    <img src={"https://i.pinimg.com/564x/be/5c/9a/be5c9abb9f508c3f61381f724c8ca75a.jpg"}/>
                     <NavigationItem>
                         <NavLink to="/profile"> My profile </NavLink>{" "}
                     </NavigationItem>
