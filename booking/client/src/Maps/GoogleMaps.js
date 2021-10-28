@@ -76,7 +76,7 @@ useEffect(() => {
 }, [])
 
 return (
-  <div id='googleMaps' style = {{width:'40%', height:'40%'}}>
+  <div id='googleMaps' style = {{width:'10%', height:'10%'}}>
     <PlacesAutocomplete
       value={address}
       onChange={handleChange}
@@ -115,8 +115,9 @@ return (
         </div>
       )}
     </PlacesAutocomplete>
-<div style ={{height:'500px'}}>
-    <Map 
+<div style ={{height:'230px'}} >
+    <Map
+        className='mapBox'
       google={props.google}
       initialCenter={{
         lat: mapCenter.lat,
@@ -126,7 +127,7 @@ return (
         lat: mapCenter.lat,
         lng: mapCenter.lng
       }}
-      style = {{width:'30%', height:'20%'}}
+      //style = {{width:'31%', height:'30%'}}
     >
       <Marker 
        draggable={true}

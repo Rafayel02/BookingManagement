@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
     },
     cardGrid: {
         width: "500px",
+        height: '100%',
         margin: "auto",
         marginTop: 10
     },

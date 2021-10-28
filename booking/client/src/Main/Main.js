@@ -135,6 +135,8 @@ export default function MultipleSelectCheckmarks() {
 
     return (
         <div className={classes.filtersContainer}>
+            <img style={{marginTop:'140px', height: '90px', borderRadius:'10px'}} src={"https://i.pinimg.com/564x/be/5c/9a/be5c9abb9f508c3f61381f724c8ca75a.jpg"}/>
+            <br/>
             <div style={{width: '50%', height: '73px', display: 'flex', backgroundColor: 'white', borderRadius: '5px'}}>
                 <FormControl sx={{m: 1, height: '60%', width: '30%'}}>
                     <InputLabel id="demo-multiple-checkbox-label tagName">Tag</InputLabel>
