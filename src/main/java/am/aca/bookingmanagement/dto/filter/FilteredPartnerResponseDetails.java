@@ -23,6 +23,6 @@ public class FilteredPartnerResponseDetails {
 
     private String imageUrl;
 
-    private Integer review;
+    private Double review;
 
 }

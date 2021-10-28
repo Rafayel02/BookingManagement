@@ -5,6 +5,7 @@ import classes from './NavigationItem.module.css';
 import {NavLink, useHistory} from 'react-router-dom';
 
 import {AuthContext} from '../contexts/AuthContext';
+import jwt from "jwt-decode";
 
 function NavigationItems() {
 
@@ -18,7 +19,14 @@ function NavigationItems() {
     function logout() {
         updateToken("");
         history.push("/login")
+    }
 
+    function getPayload(token) {
+        if (token) {
+            console.log(jwt(token));
+            return jwt(token)
+        }
+        return null
     }
 
     useEffect(() => {
@@ -51,7 +59,7 @@ function NavigationItems() {
                     <NavigationItem><NavLink to="/filter"> Restaurants & Cafes </NavLink></ NavigationItem>
 
                     <NavigationItem>
-                        <NavLink to="/profile"> My profile </NavLink>{" "}
+                        <NavLink to='/profile/' > My profile </NavLink>{" "}
                     </NavigationItem>
                     <NavigationItem>
                         <NavLink to="/" onClick={logout}> Log Out </NavLink>{" "}

@@ -36,13 +36,9 @@ function UserProfile() {
                     <img style={{height: '120px', borderRadius: '40px'}}
                          src={"https://www.un.org/sites/un2.un.org/files/user.png"}/>
                     <div style={{height: "100%"}}>
-                        First Name: {userInfo.firstName}
-                        <br/>
-                        <br/>
-                        Last Name: {userInfo.lastName}
-                        <br/>
-                        <br/>
-                        Email: {userInfo.email}
+                        <h4>First Name: {userInfo.firstName}</h4>
+                        <h4>Last Name: {userInfo.lastName}</h4>
+                        <h4>Email: {userInfo.email}</h4>
                     </div>
                 </div>
             </div>
@@ -64,7 +60,7 @@ function UserProfile() {
                         </div>
                     </div>
 
-                )) : (< div><p> No reviews yet </p></div>)}
+                )) : (<h4 style={{marginRight: '330px'}}>No reviews yet </h4>)}
             </div>
         </div>
     );

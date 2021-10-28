@@ -182,4 +182,7 @@ values (6, 1),
        (6, 3);
 
 
+select distinct id, name, email, password, longitude, latitude, image_url, address, rating from partners inner join partners_categories pc
+    on partners.id = pc.partner_id where pc.type_id in (1, 2, 3, 4, 5, 6);
+
 insert into partners_categories (partner_id, type_id) values (1, 2);

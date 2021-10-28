@@ -39,19 +39,19 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public UserRegisterResponseDetails register(final UserRegisterRequestDetails request) {
-        if (!validationChecker.isUserRegistrationValid(request.getFirstName(), request.getLastName(),
-                request.getEmail(), request.getPassword())) {
-            throw new SomethingWentWrongException();
-        }
+//        if (!validationChecker.isUserRegistrationValid(request.getFirstName(), request.getLastName(),
+//                request.getEmail(), request.getPassword())) {
+//            throw new SomethingWentWrongException();
+//        }
         final User user = userService.create(userMapper.mapRegisterRequestToEntity(request));
         return userMapper.mapEntityToRegisterResponse(user);
     }
 
     @Override
     public UserLoginResponseDetails login(final UserLoginRequestDetails request) {
-        if (!validationChecker.isLoginValid(request.getEmail(), request.getPassword())) {
-            throw new SomethingWentWrongException();
-        }
+//        if (!validationChecker.isLoginValid(request.getEmail(), request.getPassword())) {
+//            throw new SomethingWentWrongException();
+//        }
         final Optional<User> user = userService.findByEmail(request.getEmail());
         if (user.isEmpty()) {
             throw new UserNotFoundException();

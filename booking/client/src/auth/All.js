@@ -51,7 +51,7 @@ const All = () => {
                         getPayload(token).role === "ROLE_USER" ?
                             <UserProfile/>
                             : getPayload(token).role === "ROLE_PARTNER" ?
-                                <h1>partner</h1>
+                                <PartnerProfile/>
                                 : <h1>Not Found</h1>
                         : <h1>Not Found</h1>
                 }
