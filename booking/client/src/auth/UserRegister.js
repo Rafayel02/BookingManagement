@@ -1,4 +1,4 @@
-import React, {useContext, useState} from "react";
+import React, {useState , useContext}from "react";
 import {useHistory} from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
@@ -28,9 +28,7 @@ function UserRegister() {
     let history = useHistory();
 
     const classes = useStyles();
-    /// const { updateToken } = useContext(AuthContext);
     const {updateToken} = useContext(AuthContext);
-
 
     const [values, setValues] = useState({
         email: "",
@@ -58,8 +56,8 @@ function UserRegister() {
             updateToken(response.data.token)
 
           history.push("/main");
+
         } catch (ex) {
-            alert(ex)
             console.log(ex);
             setErrorMessage(e.response?.data?.message || "Something went wrong");
         }
@@ -74,7 +72,7 @@ function UserRegister() {
             <CardContent>
                 <form onSubmit={handleFormSubmit}>
                     <FormHelperText error={true}>{errorMessage || " "}</FormHelperText>
-
+                    <h1>Sign Up</h1>
                     <TextField
                         name="email"
                         label="Email"
@@ -114,8 +112,8 @@ function UserRegister() {
                     />
 
                     <Box>
-                        <Button color="danger" variant="contained" type="submit">
-                            Sign up
+                        <Button color="primary" variant="contained" type="submit">
+                            Sign Up
                         </Button>
                     </Box>
                 </form>

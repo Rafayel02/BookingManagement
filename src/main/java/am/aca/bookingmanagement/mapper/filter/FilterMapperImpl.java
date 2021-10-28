@@ -1,32 +1,31 @@
 package am.aca.bookingmanagement.mapper.filter;
 
-import am.aca.bookingmanagement.dto.filterdto.FilterResponseDetails;
-import am.aca.bookingmanagement.dto.filterdto.PartnerDto;
-import am.aca.bookingmanagement.entity.Partner;
 import org.springframework.stereotype.Component;
+import am.aca.bookingmanagement.entity.Partner;
+import am.aca.bookingmanagement.dto.filter.FilterResponseDetails;
+import am.aca.bookingmanagement.dto.filter.FilteredPartnerResponseDetails;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.ArrayList;
 
 @Component
 public class FilterMapperImpl implements FilterMapper {
 
     @Override
-    public FilterResponseDetails mapEntityListToFilterResponse(final Set<Partner> partnerList) {
-        FilterResponseDetails filterResponseDetails = new FilterResponseDetails();
-        List<PartnerDto> partnerDtoList = new ArrayList<>();
-        for (Partner partner : partnerList) {
-            PartnerDto partnerDto = new PartnerDto();
-            partnerDto.setName(partner.getName());
-            partnerDto.setEmail(partner.getEmail());
-            partnerDto.setLongitude(partner.getLongitude());
-            partnerDto.setLatitude(partner.getLatitude());
-            partnerDto.setAddress(partner.getAddress());
-            partnerDto.setImageUrl(partner.getImageUrl());
-            partnerDtoList.add(partnerDto);
+    public FilterResponseDetails mapEntityListToFilterResponse(final List<Partner> partnerList) {
+        final FilterResponseDetails filterResponseDetails = new FilterResponseDetails();
+        final List<FilteredPartnerResponseDetails> filteredPartnerResponseDetailsList = new ArrayList<>();
+        for (final Partner partner : partnerList) {
+            FilteredPartnerResponseDetails filteredPartnerResponseDetails = new FilteredPartnerResponseDetails();
+            filteredPartnerResponseDetails.setName(partner.getName());
+            filteredPartnerResponseDetails.setEmail(partner.getEmail());
+            filteredPartnerResponseDetails.setLongitude(partner.getLongitude());
+            filteredPartnerResponseDetails.setLatitude(partner.getLatitude());
+            filteredPartnerResponseDetails.setAddress(partner.getAddress());
+            filteredPartnerResponseDetails.setImageUrl(partner.getImageUrl());
+            filteredPartnerResponseDetailsList.add(filteredPartnerResponseDetails);
         }
-        filterResponseDetails.setPartnersList(partnerDtoList);
+        filterResponseDetails.setPartnersList(filteredPartnerResponseDetailsList);
         return filterResponseDetails;
     }
 }

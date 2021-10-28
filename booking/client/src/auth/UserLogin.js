@@ -25,9 +25,7 @@ const useStyles = makeStyles(() => ({
 console.log("smth")
 function UserLogin() {
     let history = useHistory();
-
     const classes = useStyles();
-
     const {updateToken} = useContext(AuthContext);
     const [values, setValues] = useState({
         email: "",
@@ -51,13 +49,10 @@ function UserLogin() {
         e.preventDefault();
         try {
             const response = await loginUser(values);
-            console.log(response, "BLAAAAAAAAAH");
-        
             localStorage.setItem("token", response.data.token);
-
             updateToken(response.data.token)
             history.push("/main")
-         
+            localStorage.setItem("token", response.data.token);
         } catch (e) {
             console.log(e);
             setErrorMessage(e.response?.data?.message || "Something went wrong");
@@ -69,7 +64,7 @@ function UserLogin() {
             <CardContent>
                 <form onSubmit={handleFormSubmit}>
                     <FormHelperText error={true}>{errorMessage || " "}</FormHelperText>
-
+                    <h1>Login</h1>
                     <TextField
                         name="email"
                         label="Email"
@@ -89,9 +84,8 @@ function UserLogin() {
                         required
                         fullWidth
                     />
-
                     <Box>
-                        <Button color="danger" variant="contained" type="submit">
+                        <Button color="primary" variant="contained" type="submit">
                             Log in
                         </Button>
                     </Box>
@@ -99,7 +93,6 @@ function UserLogin() {
             </CardContent>
         </Card>
     );
-
 }
 
 export default UserLogin;

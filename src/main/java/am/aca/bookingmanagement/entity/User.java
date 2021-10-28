@@ -32,8 +32,8 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @JsonManagedReference
     @JsonIgnore
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Review> reviews;
 

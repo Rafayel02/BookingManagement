@@ -44,8 +44,8 @@ public class Partner {
     @Column(name = "rating")
     private Integer rating;
 
-    @JsonManagedReference
     @JsonBackReference
+    @JsonManagedReference
     @OneToMany(mappedBy = "partner")
     private List<Review> reviews;
 

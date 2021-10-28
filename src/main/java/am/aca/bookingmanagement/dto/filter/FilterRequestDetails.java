@@ -1,11 +1,9 @@
-package am.aca.bookingmanagement.dto.filterdto;
+package am.aca.bookingmanagement.dto.filter;
 
-import am.aca.bookingmanagement.entity.Activity;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter

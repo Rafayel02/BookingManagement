@@ -17,11 +17,6 @@ function NavigationItems(){
     //    // axios.defaults.headers.common["authorization"] = `Bearer ${token}`;
     //  }
     function logout(){
-
-      //  localStorage.removeItem("token");
-      //   // window.location.reload();
-      //   window.location.href = "/";
-      //   setToken("a");
       updateToken("");
       history.push("/login")
 
@@ -63,7 +58,6 @@ function NavigationItems(){
 
     <NavigationItem><NavLink to="/register"> Sign Up </NavLink> </ NavigationItem>
     <NavigationItem><NavLink to="/login" > Login </NavLink> </ NavigationItem>
-    <NavigationItem><NavLink to="/contact"> Contact </NavLink> </ NavigationItem>
     </ul>
     :
     <ul className={classes.NavigationItems}>
@@ -73,9 +67,6 @@ function NavigationItems(){
     <img src={"https://i.pinimg.com/564x/be/5c/9a/be5c9abb9f508c3f61381f724c8ca75a.jpg"}  />
     <NavigationItem>
               <NavLink to="/profile"> My profile </NavLink>{" "}
-            </NavigationItem>
-            <NavigationItem>
-              <NavLink to="/contact"> Contact </NavLink>{" "}
             </NavigationItem>
             <NavigationItem>
               <NavLink to="/" onClick={logout}> Log Out </NavLink>{" "}
