@@ -8,7 +8,7 @@ import PartnerContexProvider from '../contexts/PartnerContext'
 import {Route, Switch} from "react-router-dom";
 import NavigationItems from "../Navigation/NavigationItem";
 import Partner from "../Partner/Partner";
-import GetPartner from "../Partner/GetPartner";
+import PartnerProfile from "../profiles/PartnerProfile";
 import Footer from "../Footer/Footer"
 import {AuthContext} from "../contexts/AuthContext";
 import jwt from 'jwt-decode'
@@ -57,7 +57,7 @@ const All = () => {
                 }
             </Route>
 
-            <Route path="/partner" component={GetPartner}/>
+            <Route path="/partner" component={PartnerProfile}/>
 
             <Route path="/">
                 <PartnerContexProvider>

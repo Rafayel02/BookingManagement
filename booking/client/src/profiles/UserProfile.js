@@ -45,7 +45,6 @@ function UserProfile() {
                         Email: {userInfo.email}
                     </div>
                 </div>
-                {console.log(userReviewHistory)}
             </div>
             <div style={{textAlign: 'right', width: '50%'}}>
                 <h1 style={{textAlign: 'center'}}>History</h1>
