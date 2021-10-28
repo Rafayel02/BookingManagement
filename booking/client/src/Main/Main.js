@@ -199,7 +199,6 @@ export default function MultipleSelectCheckmarks() {
                         <MenuItem value={5}>5km Radius</MenuItem>
                         <MenuItem value={100}>100km Radius</MenuItem>
                     </Select>
-                    <FormHelperText>{sessionStorage.getItem("location") ? "" : "Add Location"}</FormHelperText>
                 </FormControl>
                 <div style={{padding: '20px'}}>
                     {/* <Link to = { `partner/${filtered}`}> */}
