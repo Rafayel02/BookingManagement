@@ -21,6 +21,6 @@ public interface FilterFacade {
 
     FilterResponseDetails findByActivityCategoryAndLocation(FilterRequestDetails request);
 
-    FilterResponseDetails findBy(FilterRequestDetails request);
+    FilterResponseDetails findMatchingPartners(FilterRequestDetails request);
 
 }

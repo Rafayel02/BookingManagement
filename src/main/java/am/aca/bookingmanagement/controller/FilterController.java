@@ -18,7 +18,7 @@ public class FilterController {
 
     @PostMapping
     public ResponseEntity<?> filterPartner(@RequestBody final FilterRequestDetails request) {
-        final FilterResponseDetails response = filterFacade.findBy(request);
+        final FilterResponseDetails response = filterFacade.findMatchingPartners(request);
         return ResponseEntity.ok(response);
     }
 
