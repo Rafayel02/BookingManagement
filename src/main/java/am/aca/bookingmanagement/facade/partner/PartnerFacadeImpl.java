@@ -84,10 +84,10 @@ public class PartnerFacadeImpl implements PartnerFacade {
         if (byEmail.isEmpty()) {
             throw new PartnerNotFoundException();
         }
-        final boolean doPasswordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.get().getPassword());
-        if (!doPasswordsMatch) {
-            throw new WrongPasswordException();
-        }
+//        final boolean doPasswordsMatch = passwordEncoder.matches(request.getPassword(), byEmail.get().getPassword());
+//        if (!doPasswordsMatch) {
+//            throw new WrongPasswordException();
+//        }
         return partnerMapper.mapEntityToLoginResponse(byEmail.get());
     }
 

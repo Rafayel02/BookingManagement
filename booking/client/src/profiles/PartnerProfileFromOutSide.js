@@ -19,7 +19,7 @@ const Item = styled(Paper)(({theme}) => ({
 }));
 
 
-function PartnerProfile() {
+function PartnerProfileFromOutSide() {
 
     const {token} = useContext(AuthContext);
     let decoded;
@@ -42,15 +42,7 @@ function PartnerProfile() {
 
     const {pathname} = useLocation()
 
-    let partnerId = getPayload(token).id
-
-    function getPayload(token) {
-        if (token) {
-            console.log(jwt(token));
-            return jwt(token)
-        }
-        return null
-    }
+    let partnerId = useMemo(() => pathname?.split("/")?.[2] || '', [pathname])
 
     const FetchPartner = async (e) => {
         console.log("*************" + partnerId)
@@ -65,7 +57,7 @@ function PartnerProfile() {
 
     }
 
-    // console.log(all[0].id, 'all')    
+    // console.log(all[0].id, 'all')
     useEffect(() => {
         FetchPartner();
     }, [])
@@ -210,6 +202,14 @@ function PartnerProfile() {
         </div>
     )
 
+    function getPayload(token) {
+        if (token) {
+            console.log(jwt(token));
+            return jwt(token)
+        }
+        return null
+    }
+
 }
 
-export default PartnerProfile;
+export default PartnerProfileFromOutSide;

@@ -13,6 +13,7 @@ import Footer from "../Footer/Footer"
 import {AuthContext} from "../contexts/AuthContext";
 import jwt from 'jwt-decode'
 import UserProfile from "../profiles/UserProfile";
+import PartnerProfileFromOutSide from "../profiles/PartnerProfileFromOutSide";
 
 const All = () => {
     const {token} = useContext(AuthContext)
@@ -57,7 +58,7 @@ const All = () => {
                 }
             </Route>
 
-            <Route path="/partner" component={PartnerProfile}/>
+            <Route path="/partner" component={PartnerProfileFromOutSide}/>
 
             <Route path="/">
                 <PartnerContexProvider>
