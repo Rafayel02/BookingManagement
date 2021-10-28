@@ -12,7 +12,6 @@ import FormHelperText from '@mui/material/FormHelperText';
 import classes from './Main.module.css';
 import axios from 'axios';
 
-import {PartnerContext} from '../contexts/PartnerContext'
 import {AuthContext} from '../contexts/AuthContext';
 
 const ITEM_HEIGHT = 48;
@@ -44,7 +43,6 @@ const act = [
 ]
 export default function MultipleSelectCheckmarks() {
 
-    const {getFilteredData, filt} = useContext(PartnerContext);
 
     const {token} = useContext(AuthContext)
     const [location, setLocation] = React.useState([40.1777, 44.5127]);

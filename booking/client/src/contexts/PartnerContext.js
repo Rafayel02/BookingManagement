@@ -3,29 +3,30 @@ import axios from "axios";
 
 
 export const PartnerContext = createContext({
-  filt: {},
+  location: {},
+  address: "",
+  setAddress: () => {},
   getFilteredData: () => {},
-  setFiltered: () => {}
+  setLocation: () => {}
 });
 
 const PartnerContextProvider = (props) => {
-  const [filt, setFiltered] = useState([]);
+  const [location, setLocation] = useState([]);
+  const [address, setAddress] = useState("");
 
 const getFilteredData = (values) => {
    
 
-   return setFiltered({
+   return setLocation({
      values
     });
   }
 
-//   useEffect(() => {
-//     getFilteredData();
-//   }, []);
+
 
   return (
     <PartnerContext.Provider
-      value={{ filt, getFilteredData, setFiltered }}
+      value={{ location, getFilteredData, setLocation, address, setAddress}}
     >
       {props.children}
     </PartnerContext.Provider>

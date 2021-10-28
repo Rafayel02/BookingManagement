@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {useHistory} from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
@@ -10,6 +10,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import {makeStyles} from "@material-ui/core/styles";
 import axios from "axios";
 import GoogleMaps from "../Maps/GoogleMaps";
+import { PartnerContext } from "../contexts/PartnerContext";
 
 
 const useStyles = makeStyles(() => ({
@@ -28,6 +29,10 @@ const useStyles = makeStyles(() => ({
 function PartnerRegister() {
 
     let history = useHistory();
+
+    const {location, address} = useContext(PartnerContext);
+    console.log(location, 'location')
+    console.log(address, 'address');
 
     const classes = useStyles();
     /// const { updateToken } = useContext(AuthContext);
@@ -56,13 +61,13 @@ function PartnerRegister() {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         try {
-            console.log(localStorage.getItem('location').split(",")[0], localStorage.getItem('location').split(",")[1], "boxk")
-            setValues({...values, "latitude": localStorage.getItem('location').split(",")[0]});
-            setValues({...values, "longitude": localStorage.getItem('location').split(",")[1]});
+            // setValues({...values, "latitude": localStorage.getItem('location').split(",")[0]});
+            // setValues({...values, "longitude": localStorage.getItem('location').split(",")[1]});
             const response = await createPartner({
                 ...values,
-                "latitude": localStorage.getItem('location').split(",")[0],
-                "longitude": localStorage.getItem('location').split(",")[1]
+                "latitude":location.lat,
+                "longitude": location.lng,
+                "address": address
             });
             localStorage.setItem("token", response.data.token);
             console.log(response.data);
@@ -122,7 +127,7 @@ function PartnerRegister() {
                         fullWidth
                     />
 
-                    <TextField
+                    {/* <TextField
                         name="address"
                         label="Address"
                         value={values.address}
@@ -130,7 +135,7 @@ function PartnerRegister() {
                         className={classes.formField}
                         required
                         fullWidth
-                    />
+                    /> */}
 
                     <GoogleMaps/>
 
