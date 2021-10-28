@@ -19,7 +19,7 @@ const headerItems = () => (
     </div>
 
     <div >
-      <Link to = { `/register/partner`}>
+      <Link to = { `/register/partner`} >
           Register as Partner
       </Link>
       </div>

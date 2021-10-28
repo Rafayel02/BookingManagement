@@ -43,7 +43,7 @@ function GetPartner(){
 
 
 const FetchPartner = async (e) =>{
-     const response = await axios.get(`http://localhost:5689/filter/findu?id=${id}`);
+     const response = await axios.get(`http://localhost:5689/filter/history/partner?id=${id}`);
     // console.log(response.data, "response data");
     setValues(response.data)
   }

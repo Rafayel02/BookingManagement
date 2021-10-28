@@ -9,6 +9,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 
 import {makeStyles} from "@material-ui/core/styles";
 import axios from "axios";
+import { AuthContext } from "../contexts/AuthContext";
 
 const useStyles = makeStyles(() => ({
     formField: {
@@ -23,8 +24,11 @@ const useStyles = makeStyles(() => ({
 
 console.log("smth")
 function UserLogin() {
+    let history = useHistory();
+
     const classes = useStyles();
 
+    const {updateToken} = useContext(AuthContext);
     const [values, setValues] = useState({
         email: "",
         password: ""
@@ -48,14 +52,12 @@ function UserLogin() {
         try {
             const response = await loginUser(values);
             console.log(response, "BLAAAAAAAAAH");
-            
+        
             localStorage.setItem("token", response.data.token);
-            window.location.reload();
 
-           //// alert(response.data.email)
-         //   console.log(response.data);
-            //  updateToken(response.data.token);
-            //S  history.push("/main");
+            updateToken(response.data.token)
+            history.push("/main")
+         
         } catch (e) {
             console.log(e);
             setErrorMessage(e.response?.data?.message || "Something went wrong");

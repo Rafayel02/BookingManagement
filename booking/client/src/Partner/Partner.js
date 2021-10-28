@@ -67,6 +67,13 @@ const category = [
   'armenian'
   ];
   
+  const act = [
+    'with friends',
+    'with family',
+    'for couples',
+    'birthday',
+    'work & study'
+  ]
 function Partner(props){
 
   const [change, setChange] =React.useState("1");
@@ -74,19 +81,31 @@ function Partner(props){
   let pathArray = window.location.pathname.split("/");
   let cat = [];
   let rad = [];
+  let active = [];
+  let location = [];
   if(pathArray[2]){
     cat = pathArray[2].split(',');
   }
   if(pathArray[3]){
     rad = pathArray[3];
   }
+  if(pathArray[4]){
+    active = pathArray[4].replaceAll('%20', " ").split(",")
+  }
+  if(pathArray[5]){
+    location = pathArray[5].split(",")
+  }
+  console.log(+location[0], "loc")
+  // console.log(pathArray[4].replaceAll('%20', " ").split(","), "path Array 4");
   
+  // console.log(p.replace('dog', 'monkey'));
 
   const filt = props.val;
  
   const [radius, setRadius] = React.useState(rad);
 
 const [filtered, setfiltered] = React.useState(cat);
+const [activity, setActivity] = React.useState(active);
 const [values, setValues] = React.useState({
   category:[]
  
@@ -115,6 +134,17 @@ const handleChange1 = (event) => {
   setValues({...values, cuisine:value});
 };
 
+
+const handleChange2 = (event) => {
+  const {
+    target: { value },
+  } = event;
+
+  setActivity(value);
+
+  setValues({...values, cuisine:value});
+};
+
 console.log(filtered)
 console.log(radius);
 
@@ -131,6 +161,7 @@ const handleSubmit = async (e) =>{
  
  const response = await axios.post("http://localhost:5689/filter", 
  {"category": filtered,
+   
  
  
 
@@ -147,12 +178,18 @@ const handleSubmit1 = async (e) =>{
   console.log(values.cuisine);
 
   console.log(" Filter in Main : ", filtered);
-
+console.log(radius, "radius")
   let a = [1,2];
   // getFilteredData(filtered);
- 
- const response = await axios.post("http://localhost:5689/filter", {"category": filtered });
-  console.log(response.data);
+  console.log( sessionStorage.getItem('location'), 'activity');
+  sessionStorage.getItem('location')
+ const response = await axios.post("http://localhost:5689/filter",
+  {"category": filtered ,
+   "activity": activity,
+   "locationInfo": [location ? +location[0] : 40.1777 ,location ? +location[1] : 44.5127, radius ? radius : 100  ]
+
+});
+  console.log(response.data, 'response data');
   setCafes(response.data);
 
   
@@ -204,6 +241,27 @@ return (
           </Select>
                             
                             </FormControl>
+          <FormControl sx={{ m: 1, width:'80%', padding:0, marginButtom : '200px' }}>
+                        <InputLabel id="demo-multiple-checkbox-label">Activity</InputLabel>
+                        <Select
+              labelId="demo-multiple-checkbox-label"
+              id="demo-multiple-checkbox"
+              multiple
+              value = {activity}
+              onChange={handleChange2}
+              input={<OutlinedInput label="Tag" />}
+              renderValue={(selected) => selected.join(', ')}
+              MenuProps={MenuProps}
+          >
+            {act.map((name) => (
+                <MenuItem key={name} value={name}>
+                  <Checkbox checked={activity.indexOf(name) > -1} />
+                  <ListItemText primary={name} />
+                </MenuItem>
+            ))}
+          </Select>
+                            
+                            </FormControl>
              
                
          <FormControl sx={{ m: 1, width:'80%', padding:0, marginButtom : '200px' }}>
@@ -222,7 +280,7 @@ return (
                   <MenuItem value={1}>1km Radius</MenuItem>
                   <MenuItem value={2}>2km Radius</MenuItem>
                   <MenuItem value={5}>5km Radius</MenuItem>
-                  <MenuItem value={10}>10km Radius</MenuItem>
+                  <MenuItem value={100}>100km Radius</MenuItem>
                </Select>
         <FormHelperText>{sessionStorage.getItem("location") ? "" : "Add Location"}</FormHelperText>
       </FormControl>
@@ -234,13 +292,13 @@ return (
              </div>
           </Item>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={10}>
           <Item> 
               <div className = {classes.cafeItems}>
 
                  { cafes ? cafes.partnersList.map( cafe => (
-                <Link className={classes.poqr}  to={`/partner/${cafe.uuid}`} >
-                <div className={classes.cardWrapper} id={cafe.uuid} onClick = {() => {
+                <Link className={classes.poqr}  to={`/partner/${cafe.id}`} >
+                <div className={classes.cardWrapper} id={cafe.id} onClick = {() => {
                 //    history.push("partners/" + cafe.id);
 
                 }}> 

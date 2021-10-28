@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import CardContent from "@material-ui/core/CardContent";
 import TextField from "@material-ui/core/TextField";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import { AuthContext } from "../contexts/AuthContext";
 
 import {makeStyles} from "@material-ui/core/styles";
 import axios from "axios";
@@ -28,6 +29,8 @@ function UserRegister() {
 
     const classes = useStyles();
     /// const { updateToken } = useContext(AuthContext);
+    const {updateToken} = useContext(AuthContext);
+
 
     const [values, setValues] = useState({
         email: "",
@@ -52,10 +55,9 @@ function UserRegister() {
             localStorage.setItem("token", response.data.token);
 
             console.log(response.data);
-            window.location.reload();
+            updateToken(response.data.token)
 
-            //  updateToken(response.data.token);
-            //S  history.push("/main");
+          history.push("/main");
         } catch (ex) {
             alert(ex)
             console.log(ex);

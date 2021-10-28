@@ -81,15 +81,17 @@ insert into categories(type) values ('italian');
 insert into categories(type) values ('mexican');
 insert into categories(type) values ('chinese');
 --
--- insert into activity(type) values ('AActivity');
--- insert into activity(type) values ('BActivity');
--- insert into activity(type) values ('CActivity');
+insert into activity(type) values ('with friends');
+insert into activity(type) values ('with family');
+insert into activity(type) values ('for couples');
+insert into activity(type) values ('birthday');
+insert into activity(type) values ('work & study');
 --
--- insert into partners_activities(partner_id, type_id) VALUES (1, 1);
--- insert into partners_activities(partner_id, type_id) VALUES (1, 2);
--- insert into partners_activities(partner_id, type_id) VALUES (1, 3);
--- insert into partners_activities(partner_id, type_id) VALUES (2, 3);
--- insert into partners_activities(partner_id, type_id) VALUES (3, 2);
+insert into partners_activities(partner_id, type_id) VALUES (1, 1);
+insert into partners_activities(partner_id, type_id) VALUES (1, 2);
+insert into partners_activities(partner_id, type_id) VALUES (1, 3);
+insert into partners_activities(partner_id, type_id) VALUES (2, 3);
+insert into partners_activities(partner_id, type_id) VALUES (3, 2);
 --
 insert into partners_categories(partner_id, type_id) VALUES (1, 1);
 insert into partners_categories(partner_id, type_id) VALUES (1, 2);

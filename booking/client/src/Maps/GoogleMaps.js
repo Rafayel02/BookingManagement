@@ -76,7 +76,7 @@ useEffect(() => {
 }, [])
 
 return (
-  <div id='googleMaps' style = {{width:'50%', height:'50%'}}>
+  <div id='googleMaps' style = {{width:'40%', height:'40%'}}>
     <PlacesAutocomplete
       value={address}
       onChange={handleChange}
@@ -126,7 +126,7 @@ return (
         lat: mapCenter.lat,
         lng: mapCenter.lng
       }}
-      style = {{width:'56%', height:'70%'}}
+      style = {{width:'34%', height:'34%'}}
     >
       <Marker 
        draggable={true}
