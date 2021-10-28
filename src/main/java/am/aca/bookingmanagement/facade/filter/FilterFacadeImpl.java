@@ -86,7 +86,6 @@ public class FilterFacadeImpl implements FilterFacade {
     public FilterResponseDetails findByActivitiesAndLocation(final FilterRequestDetails request) {
         final List<Integer> activityIdList = getActivityIdFromType(request);
         final List<Partner> partnersList = filterService.findByActivity(activityIdList);
-        System.out.println(partnersList.size());
         final List<Partner> filteredPartnerList = filterService.filterPartnersByLocation(request, partnersList);
         return filterMapper.mapEntityListToFilterResponse(filteredPartnerList);
     }

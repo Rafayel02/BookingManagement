@@ -24,4 +24,13 @@ public interface PartnerRepository extends JpaRepository<Partner, Long> {
     @Query(value = "SELECT AVG(rating) from reviews where partner_id = ?1", nativeQuery = true)
     Integer calculateAverage(Long id);
 
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "insert into partners_categories (partner_id, type_id) values (?1, ?2)", nativeQuery = true)
+    void savePartnersCategories(Long partnerId, Integer categoryId);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "insert into partners_activities (partner_id, type_id) values (?1, ?2)", nativeQuery = true)
+    void savePartnersActivities(Long partnerId, Integer activityId);
 }
