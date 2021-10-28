@@ -1,5 +1,6 @@
 package am.aca.bookingmanagement.facade.user;
 
+import am.aca.bookingmanagement.dto.filter.FilterUserResponseDetails;
 import am.aca.bookingmanagement.entity.Review;
 import org.springframework.stereotype.Component;
 import am.aca.bookingmanagement.entity.User;
@@ -65,6 +66,17 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public List<Review> getAllReviews(final Long id) {
         return userService.getAllReviews(id);
+    }
+
+    @Override
+    public FilterUserResponseDetails getUser(final Long id) {
+        final Optional<User> user = userService.findById(id);
+
+        if(user.isEmpty()) {
+            throw new UserNotFoundException();
+        }
+
+        return userMapper.mapEntityToFilteredUser(user.get());
     }
 
 }

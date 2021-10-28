@@ -15,6 +15,28 @@
   font-size: 1.5vw;
 }
 
+.filtersContainer{
+  height: calc(100vh - 80px);
+  display: flex;
+  /*justify-content: center;*/
+  align-items: center;
+  flex-direction: column;
+  background: url("https://s3-media0.fl.yelpcdn.com/assets/srv0/yelp_large_assets/6259bbd502d7/assets/img/home/hero_photos/lfNjhsMKDzqKndhTcb_Xfw.jpg");
+  background-size: 100% 120%;
+  background-repeat: no-repeat;
+}
+#tagName{
+  color: white;
+}
+
+.partnerLinks{
+
+  position: absolute;
+  border: 0;
+  right: 0;
+
+}
+
 @media (max-width: 800px) {
   .MainItems {
     text-align: center;
@@ -24,5 +46,4 @@
     color: black;
     background-color: rgba(227,219, 216, 0.8);
   }
-
 }

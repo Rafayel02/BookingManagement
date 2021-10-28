@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
     },
     cardGrid: {
         width: "500px",
+        height: '100%',
         margin: "auto",
         marginTop: 10
     },
@@ -112,7 +113,6 @@ function PartnerRegister() {
                         fullWidth
                     />
 
-                    <GoogleMaps/>
                     <TextField
                         name="imageUrl"
                         label="Image url"
@@ -131,6 +131,8 @@ function PartnerRegister() {
                         required
                         fullWidth
                     />
+
+                    <GoogleMaps/>
 
                     <Box>
                         <Button color="primary" variant="contained" type="submit">

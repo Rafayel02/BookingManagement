@@ -1,16 +1,19 @@
 package am.aca.bookingmanagement.facade.filter;
 
-import org.springframework.stereotype.Component;
-import am.aca.bookingmanagement.entity.Partner;
-import am.aca.bookingmanagement.mapper.filter.FilterMapper;
-import am.aca.bookingmanagement.service.filter.FilterService;
-import am.aca.bookingmanagement.service.activity.ActivityService;
-import am.aca.bookingmanagement.service.category.CategoryService;
 import am.aca.bookingmanagement.dto.filter.FilterRequestDetails;
 import am.aca.bookingmanagement.dto.filter.FilterResponseDetails;
+import am.aca.bookingmanagement.entity.Partner;
+import am.aca.bookingmanagement.exception.PartnerNotFoundException;
 import am.aca.bookingmanagement.exception.SomethingWentWrongException;
+import am.aca.bookingmanagement.mapper.filter.FilterMapper;
+import am.aca.bookingmanagement.service.activity.ActivityService;
+import am.aca.bookingmanagement.service.category.CategoryService;
+import am.aca.bookingmanagement.service.filter.FilterService;
+import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Component
 public class FilterFacadeImpl implements FilterFacade {
@@ -41,20 +44,20 @@ public class FilterFacadeImpl implements FilterFacade {
 
     @Override
     public FilterResponseDetails findByCategory(final FilterRequestDetails request) {
-        final List<Partner> partnerSetByCategory = filterService.findByCategory(getCategoryIdFromType(request));
-        if (partnerSetByCategory.isEmpty()) {
+        final List<Partner> partnersListByCategory = filterService.findByCategory(getCategoryIdFromType(request));
+        if (partnersListByCategory.isEmpty()) {
             throw new SomethingWentWrongException();
         }
-        return filterMapper.mapEntityListToFilterResponse(partnerSetByCategory);
+        return filterMapper.mapEntityListToFilterResponse(partnersListByCategory);
     }
 
     @Override
     public FilterResponseDetails findByActivity(final FilterRequestDetails request) {
-        final List<Partner> partnerSetByCategory = filterService.findByActivity(getActivityIdFromType(request));
-        if (partnerSetByCategory.isEmpty()) {
+        final List<Partner> partnersListByCategory = filterService.findByActivity(getActivityIdFromType(request));
+        if (partnersListByCategory.isEmpty()) {
             throw new SomethingWentWrongException();
         }
-        return filterMapper.mapEntityListToFilterResponse(partnerSetByCategory);
+        return filterMapper.mapEntityListToFilterResponse(partnersListByCategory);
     }
 
     @Override
@@ -74,17 +77,18 @@ public class FilterFacadeImpl implements FilterFacade {
     @Override
     public FilterResponseDetails findByCategoriesAndLocation(final FilterRequestDetails request) {
         final List<Integer> categoryIdList = getCategoryIdFromType(request);
-        final List<Partner> partnersList = filterService.findById(categoryIdList);
-        final List<Partner> filteredPartnerSet = filterService.filterPartnersByLocation(request, partnersList);
-        return filterMapper.mapEntityListToFilterResponse(filteredPartnerSet);
+        final List<Partner> partnersList = filterService.findByCategory(categoryIdList);
+        final List<Partner> filteredPartnersList = filterService.filterPartnersByLocation(request, partnersList);
+        return filterMapper.mapEntityListToFilterResponse(filteredPartnersList);
     }
 
     @Override
     public FilterResponseDetails findByActivitiesAndLocation(final FilterRequestDetails request) {
         final List<Integer> activityIdList = getActivityIdFromType(request);
-        final List<Partner> partnersList = filterService.findById(activityIdList);
-        final List<Partner> filteredPartnerSet = filterService.filterPartnersByLocation(request, partnersList);
-        return filterMapper.mapEntityListToFilterResponse(filteredPartnerSet);
+        final List<Partner> partnersList = filterService.findByActivity(activityIdList);
+        System.out.println(partnersList.size());
+        final List<Partner> filteredPartnerList = filterService.filterPartnersByLocation(request, partnersList);
+        return filterMapper.mapEntityListToFilterResponse(filteredPartnerList);
     }
 
     @Override
@@ -93,13 +97,15 @@ public class FilterFacadeImpl implements FilterFacade {
         final List<Integer> activityIdList = getActivityIdFromType(request);
         final List<Partner> allByCategoriesAndActivities =
                 filterService.findAllByCategoriesAndActivities(categoryIdList, activityIdList);
-        final List<Partner> filteredPartnerSet =
+        final List<Partner> filteredPartnerList =
                 filterService.filterPartnersByLocation(request, allByCategoriesAndActivities);
-        return filterMapper.mapEntityListToFilterResponse(filteredPartnerSet);
+        return filterMapper.mapEntityListToFilterResponse(filteredPartnerList);
     }
 
     @Override
-    public FilterResponseDetails findBy(final FilterRequestDetails request) {
+    public FilterResponseDetails findMatchingPartners(final FilterRequestDetails request) {
+        validateRequest(request);
+
         if (areAllListsPresent(request)) {
             return findByActivityCategoryAndLocation(request);
         }
@@ -134,6 +140,14 @@ public class FilterFacadeImpl implements FilterFacade {
         return !request.getCategory().isEmpty() &&
                 request.getActivity().isEmpty() &&
                 request.getLocationInfo().size() == 3;
+    }
+
+    private void validateRequest(final FilterRequestDetails request) {
+        if (request.getCategory() == null ||
+                request.getActivity() == null ||
+                request.getLocationInfo() == null) {
+            throw new PartnerNotFoundException();
+        }
     }
 
     private boolean areActivityLocationListsPresent(final FilterRequestDetails request) {

@@ -62,7 +62,7 @@ const All = () => {
                 <PartnerContexProvider>
                     <Main/>
                 </PartnerContexProvider>
-                <Footer token={getPayload(token)}/>
+                <Footer/>
             </Route>
 
         </Switch>
