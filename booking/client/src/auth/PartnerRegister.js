@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useContext, useState} from "react";
 import {useHistory} from "react-router-dom";
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
@@ -10,7 +10,27 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import {makeStyles} from "@material-ui/core/styles";
 import axios from "axios";
 import GoogleMaps from "../Maps/GoogleMaps";
-import { PartnerContext } from "../contexts/PartnerContext";
+import {PartnerContext} from "../contexts/PartnerContext";
+import FormControl from '@mui/material/FormControl';
+
+
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemText from '@mui/material/ListItemText';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+    PaperProps: {
+        style: {
+            maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+            width: 210,
+        },
+    },
+};
 
 
 const useStyles = makeStyles(() => ({
@@ -26,6 +46,24 @@ const useStyles = makeStyles(() => ({
 }));
 
 
+const category = [
+    'italian',
+    'mexican',
+    'chinese',
+    'japanese',
+    'russian',
+    'armenian'
+];
+
+const act = [
+    'with friends',
+    'with family',
+    'for couples',
+    'birthday',
+    'work & study'
+]
+
+
 function PartnerRegister() {
 
     let history = useHistory();
@@ -37,14 +75,19 @@ function PartnerRegister() {
     const classes = useStyles();
     /// const { updateToken } = useContext(AuthContext);
 
+    const [filtered, setfiltered] = React.useState([]);
+    const [activity, setActivity] = React.useState([]);
+
     const [values, setValues] = useState({
         name: "",
         email: "",
         password: "",
         longitude: "",
         latitude: "",
-        imageUrl: "",
-        address: ""
+        imageUrl: null,
+        address: "",
+        partnerCategories: [],
+        partnerActivities: []
     });
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -58,6 +101,25 @@ function PartnerRegister() {
         console.log(name)
     };
 
+    const handleChange1 = (event) => {
+
+        const {
+            target: {value},
+        } = event;
+
+        setfiltered(value);
+    }
+
+    const handleChange2 = (event) => {
+
+        const {
+            target: {value},
+        } = event;
+
+        setActivity(value);
+    }
+
+
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -65,9 +127,12 @@ function PartnerRegister() {
             // setValues({...values, "longitude": localStorage.getItem('location').split(",")[1]});
             const response = await createPartner({
                 ...values,
-                "latitude":location.lat,
+                "latitude": location.lat,
                 "longitude": location.lng,
-                "address": address
+                "address": address,
+                "partnerCategories": filtered,
+                "partnerActivities": activity
+
             });
             localStorage.setItem("token", response.data.token);
             console.log(response.data);
@@ -127,16 +192,51 @@ function PartnerRegister() {
                         fullWidth
                     />
 
-                    {/* <TextField
-                        name="address"
-                        label="Address"
-                        value={values.address}
-                        onChange={handleInputValue}
-                        className={classes.formField}
-                        required
-                        fullWidth
-                    /> */}
+                    <FormControl sx={{m: 1, width: '100%', marginLeft: '-2px'}}>
+                        <InputLabel id="demo-multiple-checkbox-label">Cuisine</InputLabel>
+                        <Select
+                            labelId="demo-multiple-checkbox-label"
+                            id="demo-multiple-checkbox"
+                            multiple
+                            value={filtered}
+                            onChange={handleChange1}
+                            input={<OutlinedInput label="Tag"/>}
+                            renderValue={(selected) => selected.join(', ')}
+                            MenuProps={MenuProps}
+                        >
+                            {category.map((name) => (
+                                <MenuItem key={name} value={name}>
+                                    <Checkbox checked={filtered.indexOf(name) > -1}/>
+                                    <ListItemText primary={name}/>
+                                </MenuItem>
+                            ))}
+                        </Select>
 
+                    </FormControl>
+                    <FormControl sx={{m: 1, width: '100%', marginLeft: '-2px'}}>
+                        <InputLabel id="demo-multiple-checkbox-label">Activity</InputLabel>
+                        <Select
+                            labelId="demo-multiple-checkbox-label"
+                            id="demo-multiple-checkbox"
+                            multiple
+                            value={activity}
+                            onChange={handleChange2}
+                            input={<OutlinedInput label="Tag"/>}
+                            renderValue={(selected) => selected.join(', ')}
+                            MenuProps={MenuProps}
+                        >
+                            {act.map((name) => (
+                                <MenuItem key={name} value={name}>
+                                    <Checkbox checked={activity.indexOf(name) > -1}/>
+                                    <ListItemText primary={name}/>
+                                </MenuItem>
+                            ))}
+                        </Select>
+
+                    </FormControl>
+                    <div style={{height: '25px'}}>
+
+                    </div>
                     <GoogleMaps/>
 
                     <Box>

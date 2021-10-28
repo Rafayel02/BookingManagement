@@ -94,21 +94,15 @@ function PartnerProfileFromOutSide() {
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         GetReviews();
-        // try {
-
-            setCon(reviews);
-            const review = axios.post("http://localhost:5689/review", {
-                "userId": userId,
-                "partnerId": partnerId,
-                "comment": reviews,
-                "rating": rating
-            });
-            setReviews("")
-            setRating("")
-        // } catch (e) {
-        //     console.log(e, "error")
-        //     setErrorMessage(e.response?.data?.message || "Something went wrong");
-        // }
+        setCon(reviews);
+        const review = axios.post("http://localhost:5689/review", {
+            "userId": userId,
+            "partnerId": partnerId,
+            "comment": reviews,
+            "rating": rating
+        });
+        setReviews("")
+        setRating("")
     }
 
     return (
