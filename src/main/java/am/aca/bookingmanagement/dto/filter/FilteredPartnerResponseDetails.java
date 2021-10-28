@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FilteredPartnerResponseDetails {
 
+    private Long id;
+
     private String name;
 
     private String email;
