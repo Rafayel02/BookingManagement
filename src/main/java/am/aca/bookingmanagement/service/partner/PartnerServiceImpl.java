@@ -16,7 +16,8 @@ public class PartnerServiceImpl implements PartnerService {
     private final ReviewService reviewService;
     private final PartnerRepository partnerRepository;
 
-    public PartnerServiceImpl( final ReviewService reviewService, final PartnerRepository partnerRepository) {
+    public PartnerServiceImpl( final ReviewService reviewService,
+                               final PartnerRepository partnerRepository) {
         this.partnerRepository = partnerRepository;
         this.reviewService = reviewService;
     }
@@ -45,6 +46,17 @@ public class PartnerServiceImpl implements PartnerService {
         final Integer currentAverage = partnerRepository.calculateAverage(id);
         partnerRepository.updateRating(currentAverage, id);
     }
+
+    @Override
+    public void createPartnersCategories(final Long partnerId, final Integer categoryId) {
+        partnerRepository.savePartnersCategories(partnerId, categoryId);
+    }
+
+    @Override
+    public void createPartnersActivities(final Long partnerId, final Integer activityId) {
+        partnerRepository.savePartnersActivities(partnerId, activityId);
+    }
+
 
     @Override
     public List<Review> getAllReviews(final Long id) {

@@ -8,7 +8,6 @@ public interface CategoryService {
 
     Optional<Integer> findCategoryIdByType(String type);
 
-    Optional<Category> findByType(final String type);
-
+    Optional<Category> findByType(String type);
 
 }

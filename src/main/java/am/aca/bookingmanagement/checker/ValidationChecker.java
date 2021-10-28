@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 @Component
 public class ValidationChecker {
 
-    private static final Pattern ADDRESS_VALIDATOR = Pattern.compile("[A-Za-z0-9./]*");
+    private static final Pattern ADDRESS_VALIDATOR = Pattern.compile("[A-Za-z0-9./,-]*");
     private static final Pattern LAST_NAME_VALIDATOR = Pattern.compile("[A-Z][a-z]{2,20}$");
     private static final Pattern FIRST_NAME_VALIDATOR = Pattern.compile("[A-Z][a-z]{2,20}$");
     private static final Pattern PASSWORD_VALIDATOR =
